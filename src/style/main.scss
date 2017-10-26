@@ -1,0 +1,34 @@
+// dark version
+$main: #21252b;
+$main-background:#343840;
+$border: #464646;
+
+$dark: #181a1f;
+$light: #d7dae0;
+$light-active: #fff;
+
+$highlight: #568af2;
+$highlight-Hover: #72a1fd;
+
+
+
+// light version
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+*{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+html, body, p, h1, ul{
+  margin: 0;
+  padding: 0;
+}
+
+.hide{
+  display: none !important;
+}
+
+@import "sidebar";
+@import "header";
+@import "center";

@@ -1,0 +1,64 @@
+.sidebar {
+  width: 250px;
+  position: fixed;
+  bottom: 0;
+  height: calc(100% - 40px);
+  background-color: $main;
+  color: $light;
+  user-select: none;
+
+  &.left-sidebar{
+    left: 0;
+  }
+
+  &.right-sidebar{
+    right: 0;
+  }
+}
+
+
+.sidebar-navigation{
+  position: relative;
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid $highlight;
+  background-color: $dark;
+  line-height: 30px;
+
+  .sidebar-navigator{
+    float: left;
+    width: 33.333%;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover{
+      background-color: $highlight-Hover;
+      color: $light-active;
+    }
+
+    &.selected{
+      background-color: $highlight;
+      color: $light-active;
+    }
+  }
+}
+
+.sidebar-header{
+  width: 100%;
+  height: 30px;
+  background-color: $dark;
+  >div:first-child{
+    width: 100%;
+    height: 100%;
+    padding: 0 5px;
+    >p{
+      line-height: 30px;
+      float: left;
+    }
+  }
+}
+
+.sidebar-content{
+  width: 100%;
+}

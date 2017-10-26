@@ -1,0 +1,159 @@
+.header {
+  user-select: none;
+  position: fixed;
+  width: 100%;
+  height: 40px;
+  background: $main;
+  z-index: 2;
+}
+
+.header-items {
+  position: relative;
+  float: left;
+  width: 50%;
+  margin-left: 5px;
+  line-height: 45px;
+
+  .header-item {
+    float: left;
+    position: relative;
+    cursor: pointer;
+
+    > p {
+      font-size: 14px;
+      padding: 0 10px;
+      color: $light;
+
+      &:hover {
+        color: $light-active;
+      }
+
+      &:hover.header-item-options {
+        display: block;
+      }
+    }
+  }
+}
+
+.header-item-options {
+  display: none;
+  position: absolute;
+  width: 250px;
+  height: auto;
+  background-color: $dark;
+  top: 40px;
+  border: 1px solid $border;
+
+  > ul {
+    width: 100%;
+    padding: 5px 0;
+
+    .option-delimiter {
+      border-bottom: 1px solid $border;
+      list-style: none;
+      margin: 3px 0;
+    }
+
+    .option-item {
+      list-style: none;
+      height: 20px;
+      padding: 3px 10px;
+      line-height: 20px;
+      font-size: 14px;
+      color: $light;
+
+      &.disabled {
+        color: $border;
+        cursor: initial;
+
+        &:hover {
+          color: $border;
+          background-color: $dark;
+        }
+      }
+
+      &:hover {
+        color: $light-active;
+        background-color: $main;
+      }
+
+      > a {
+        color: $light;
+        text-decoration: none;
+      }
+
+      > i {
+        width: 20px;
+        height: 100%;
+        font-size: 15px;
+        line-height: 20px;
+        float: left;
+
+        &.fa-check {
+          font-size: 11px;
+        }
+      }
+
+      > p {
+        width: 100px;
+        height: 100%;
+        float: left;
+      }
+
+      > .shortcut {
+        float: right;
+        text-align: right;
+        width: 100px;
+        font-size: 12px;
+        font-weight: 500;
+        color: $border;
+
+        > i {
+          line-height: 20px;
+          color: $light;
+        }
+      }
+
+      &:hover {
+        > .option-underitem {
+          display: block;
+        }
+      }
+
+      .option-underitem {
+        border: 1px solid $border;
+        padding: 2px 0;
+        display: none;
+        position: absolute;
+        right: -240px;
+        background-color: #181a1f;
+      }
+    }
+  }
+}
+
+.header-icons {
+  float: right;
+  position: relative;
+  margin-right: 5px;
+  height: 40px;
+  line-height: 45px;
+
+  > i {
+    color: $light;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      color: $light-active;
+    }
+
+    &.selected {
+      color: $highlight;
+      background-color: $dark;
+    }
+  }
+}
