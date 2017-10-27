@@ -1,21 +1,19 @@
 /* global $ */
 const navigation = {
   init () {
-    this.headerItems()
+    this.leftNavBarSelection()
   },
 
-  headerItems () {
-    // show
-    $('.header-item').on('mouseover', (e) => {
-      $('.header-item-options').hide()
-      $(e.currentTarget).children('.header-item-options').show()
-    })
-    // hide
-    $(document).on('mouseover', (e) => {
-      let target = e.target
-      if (!($(target).parents('.header-item').length > 0)) {
-        $('.header-item-options').hide()
-      }
+  leftNavBarSelection () {
+    $('.sidebar-navigator').on('click', (e) => {
+      // change color
+      $('.sidebar-navigator').removeClass('selected')
+      $(e.currentTarget).addClass('selected')
+
+      // open sidebar
+      let open = 'sidebar-' + $(e.currentTarget).data('open')
+      $('.sidebar-content').addClass('hide')
+      $(`.${open}`).removeClass('hide')
     })
   }
 

@@ -7,141 +7,7 @@
 <body>
   <div class="main-application">
     <div class="header">
-      <div class="header-items">
-        <div class="header-item">
-          <p>File</p>
-          <div class="header-item-options">
-            <ul>
-              <li class="option-item"><i></i>
-                <p>New Project</p>
-                <p class="shortcut"></p>
-              </li>
-              <li class="option-item"><i class="fa fa-plus" aria-hidden="true"></i>
-                <p>Add</p>
-                <p class="shortcut"><i class="fa fa-caret-right" aria-hidden="true"></i></p>
-                <ul class="option-underitem">
-                  <li class="option-item"><i class="fa fa-circle" aria-hidden="true"></i>
-                    <p>Element</p>
-                    <p class="shortcut"></p>
-                  </li>
-                  <li class="option-item"><i class="fa fa-bars" aria-hidden="true"></i>
-                    <p>Section</p>
-                    <p class="shortcut"></p>
-                  </li>
-                  <li class="option-item"><i class="fa fa-file" aria-hidden="true"></i>
-                    <p>Page</p>
-                    <p class="shortcut"></p>
-                  </li>
-                </ul>
-              </li>
-              <li class="option-delimiter"></li>
-              <li class="option-item"><i></i>
-                <p>Open Project</p>
-                <p class="shortcut"></p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="header-item">
-          <p>Edit</p>
-          <div class="header-item-options">
-            <ul>
-              <li class="option-item disabled"><i class="fa fa-undo" aria-hidden="true"></i>
-                <p>Undo</p>
-                <p class="shortcut">STRG + Z</p>
-              </li>
-              <li class="option-item"><i class="fa fa-repeat" aria-hidden="true"></i>
-                <p>Redo</p>
-                <p class="shortcut">SHIFT + STRG + Z</p>
-              </li>
-              <li class="option-delimiter"></li>
-              <li class="option-item"><i class="fa fa-scissors" aria-hidden="true"></i>
-                <p>Cut</p>
-                <p class="shortcut">STRG + X</p>
-              </li>
-              <li class="option-item"><i class="fa fa-clone" aria-hidden="true"></i>
-                <p>Copy</p>
-                <p class="shortcut">STRG + C</p>
-              </li>
-              <li class="option-item"><i class="fa fa-clipboard" aria-hidden="true"></i>
-                <p>Paste</p>
-                <p class="shortcut">STRG + V</p>
-              </li>
-              <li class="option-item"><i class="fa fa-trash" aria-hidden="true"></i>
-                <p>Delete</p>
-                <p class="shortcut">DEL</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="header-item">
-          <p>View</p>
-          <div class="header-item-options">
-            <ul>
-              <li class="option-item"><i class="fa fa-check" aria-hidden="true"></i>
-                <p>Show Left Bar</p>
-                <p class="shortcut">STRG + 1</p>
-              </li>
-              <li class="option-item"><i class="fa fa-check" aria-hidden="true"></i>
-                <p>Show Right Bar</p>
-                <p class="shortcut"></p>
-              </li>
-              <li class="option-delimiter"></li>
-              <li class="option-item"><i class="fa fa-expand" aria-hidden="true"></i>
-                <p>Screen Size</p>
-                <p class="shortcut"><i class="fa caret-right" aria-hidden="true"></i></p>
-                <ul class="option-underitem">
-                  <li class="option-item">
-                    <i class="fa fa-television" aria-hidden="true"></i>
-                    <p>Monitor / TV</p>
-                    <p class="shortcut"></p>
-                  </li>
-                  <li class="option-item">
-                    <i class="fa fa-laptop" aria-hidden="true"></i>
-                    <p>Notebook</p>
-                    <p class="shortcut"></p>
-                  </li>
-                  <li class="option-item">
-                    <i class="fa fa-tablet" aria-hidden="true"></i>
-                    <p>Tablet</p>
-                    <p class="shortcut"></p>
-                  </li>
-                  <li class="option-item">
-                    <i class="fa fa-mobile" aria-hidden="true"></i>
-                    <p>Phone</p>
-                    <p class="shortcut"></p>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="header-item">
-          <p>Help</p>
-          <div class="header-item-options">
-            <ul>
-              <li class="option-item"><i class="fa fa-book" aria-hidden="true"></i>
-                <a href="#">
-                  <p>Read Docs</p>
-                  <p class="shortcut"></p>
-                </a>
-              </li>
-              <li class="option-item"><i class="fa fa-github" aria-hidden="true"></i>
-                <a href="#">
-                  <p>Code on Github</p>
-                  <p class="shortcut"></p>
-                </a>
-              </li>
-              <li class="option-item"><i class="fa fa-file-text" aria-hidden="true"></i>
-                <a href="#">
-                  <p>What's New</p>
-                  <p class="shortcut"></p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <div class="header-items"></div>
       <div class="header-icons">
         <i id="screen-Tv" class="fa fa-television selected" aria-hidden="true"></i>
         <i id="screen-Computer" class="fa fa-laptop" aria-hidden="true"></i>
@@ -154,17 +20,17 @@
     </div>
     <div class="left-sidebar sidebar">
       <div class="sidebar-navigation">
-        <div class="sidebar-navigator">
+        <div data-open="current" class="sidebar-navigator">
           Current
         </div>
-        <div class="sidebar-navigator selected">
+        <div data-open="all" class="sidebar-navigator selected">
           All
         </div>
-        <div class="sidebar-navigator">
+        <div data-open="online" class="sidebar-navigator">
           Online
         </div>
       </div>
-      <div class="sidebar-content hide">
+      <div class="sidebar-content sidebar-current hide">
         <div class="element-name">
           <div class="text">
             <p>Type:</p>
@@ -172,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="sidebar-content hide">
+      <div class="sidebar-content sidebar-all">
         <div class="sidebar-header">
           <div>
             <p>Elements</p>
@@ -184,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="sidebar-content hide">
+      <div class="sidebar-content sidebar-online hide">
 
       </div>
     </div>

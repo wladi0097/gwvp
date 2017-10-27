@@ -14,10 +14,26 @@
   margin-left: 5px;
   line-height: 45px;
 
-  .header-item {
+  .header-item, .header-contextmenu {
     float: left;
     position: relative;
     cursor: pointer;
+
+    &.header-contextmenu{
+      position: fixed;
+      >p{
+        display: none;
+      }
+      >.header-item-options{
+        display: block;
+      }
+    }
+
+    &:hover{
+      >.header-item-options{
+        display: block;
+      }
+    }
 
     > p {
       font-size: 14px;
@@ -125,7 +141,7 @@
         padding: 2px 0;
         display: none;
         position: absolute;
-        right: -240px;
+        right: -242px;
         background-color: #181a1f;
       }
     }
