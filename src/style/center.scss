@@ -8,11 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: scroll;
-  overflow-x: scroll;
   >iframe{
-    >*:hover{
-      background-color: red;
-    }
+    height: 110%;
+    border: none;
+    background-color: #fff;
+  }
+  .hover{
+    position: absolute;
+    height: 110%;
+    width: 1200px;
   }
 }
