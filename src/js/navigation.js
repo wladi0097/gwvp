@@ -1,9 +1,11 @@
 /* global $ */
+/* All simple Navigation options. */
 const navigation = {
   init () {
     this.leftNavBarSelection()
   },
 
+  // switch between the three tabs
   leftNavBarSelection () {
     $('.sidebar-navigator').on('click', (e) => {
       // change color

@@ -19,8 +19,9 @@
  * To make things fancy, you an add a delimiter:
  * { delimiter: true }
  */
+const eventList = require('../eventList')()
 
-module.exports = function (eventList) {
+module.exports = function () {
   return [{
     name: 'File',
     components: [{
@@ -98,6 +99,13 @@ module.exports = function (eventList) {
       run: eventList.edit.copy
     },
     {
+      id: 'duplicate',
+      icon: 'clone',
+      text: 'Duplicate',
+      keycode: 'STRG + D',
+      run: eventList.edit.duplicate
+    },
+    {
       id: 'clipboard',
       icon: 'clipboard',
       text: 'Paste',
@@ -138,28 +146,28 @@ module.exports = function (eventList) {
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
-        run: eventList.view.screenSizePhone
+        run: eventList.view.screenSizeComputer
       },
       {
         id: 'resizeToLaptop',
         icon: 'laptop',
         text: 'Notebook',
         keycode: 'ALT + 2',
-        run: eventList.view.screenSizeTablett
+        run: eventList.view.screenSizeLaptop
       },
       {
         id: 'resizeToTablet',
         icon: 'tablet',
         text: 'Tablet',
         keycode: 'ALT + 3',
-        run: eventList.view.screenSizeLaptop
+        run: eventList.view.screenSizeTablet
       },
       {
         id: 'resizeToMobile',
         icon: 'mobile',
         text: 'Phone',
         keycode: 'ALT + 4',
-        run: eventList.view.screenSizeComputer
+        run: eventList.view.screenSizePhone
       }
       ]
     }

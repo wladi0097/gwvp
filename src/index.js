@@ -1,13 +1,21 @@
 const $ = require('jquery')
 window.$ = $
 require('./style/main.scss')
-const documentManipulation = require('./js/documentManipulation.js')
-const navigation = require('./js/navigation.js')
-const eventList = require('./js/EventHandler/eventList.js')
-const menuItems = require('./js/EventHandler/menuItems.js')(eventList)
-const buildMenu = require('./js/EventHandler/buildMenu.js')(menuItems)
+
+const elementEvents = require('./js/elementManipulation/elementEvents.js') // all element events
+const changeScreenSize = require('./js/elementManipulation/changeScreenSize.js') // all element events
+const pageDomTree = require('./js/elementManipulation/pageDomTree.js') // all element events
+const navigation = require('./js/navigation.js') // standalone navigation
+const menu = require('./js/menu/buildMenu')
 
 $(document).ready(function ($) {
-  navigation.init()
-  documentManipulation.init()
+  menu.build()
+  elementEvents.init()
+  changeScreenSize.init()
+
+  $('iframe').ready(() => {
+    navigation.init()
+    elementEvents.bindFrameEvents()
+    pageDomTree.build()
+  })
 })

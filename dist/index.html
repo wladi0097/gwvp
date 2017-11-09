@@ -16,8 +16,24 @@
       </div>
     </div>
     <div class="center">
-      <div class="hover" style="min-width: 1200px; transform: scale(.9)">
-
+      <div class="hover-wrapper" style="min-width: 1200px; transform: scale(.9)">
+        <div class="hover">
+          <div class="hover-element"></div>
+          <div class="hover-padding"></div>
+          <div class="hover-margin"></div>
+        </div>
+      </div>
+      <div class="click-wrapper" style="min-width: 1200px; transform: scale(.9)">
+        <div class="click">
+          <div class="items">
+            <ul>
+              <li id="closeClick"><i class="fa fa-times" aria-hidden="true"></i></li>
+              <li id="moveClick"><i class="fa fa-arrows-alt" aria-hidden="true"></i></li>
+              <li id="duplicateClick"><i class="fa fa-clone" aria-hidden="true"></i></li>
+              <li id="deleteClick"><i class="fa fa-trash" aria-hidden="true"></i></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <iframe src="/public" id="simulated" style="min-width: 1200px; transform: scale(.9)">
 
@@ -85,7 +101,16 @@
         </div>
       </div>
       <div class="sidebar-content sidebar-online hide">
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-header sidebar-border">
+          <div>
+            <p>Dom Tree</p>
+          </div>
+        </div>
+        <div id="simulatedDomTree">
 
+        </div>
       </div>
     </div>
     <div class="right-sidebar sidebar">
