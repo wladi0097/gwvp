@@ -1,6 +1,7 @@
 /* global $ alert */
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
+const changeScreenSize = require('./changeScreenSize')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 
@@ -11,6 +12,12 @@ const elementEvents = {
   init () {
     this.cacheDom()
     this.bindEvents()
+    changeScreenSize.init()
+  },
+
+  initAfterFrame () {
+    this.bindFrameEvents()
+    pageDomTree.build()
   },
 
   cacheDom () {
@@ -54,6 +61,10 @@ const elementEvents = {
     pageDomTree.build()
   },
 
+  changeRes (res) {
+    changeScreenSize.changeResolution(res)
+  },
+
   click (e) { // any element clicked
     this.noHover()
     this.currentElement = e.target
@@ -93,7 +104,7 @@ const elementEvents = {
 
   cut () { // copy the element and delete it afterwards
     if (!this.currentElement) {
-      alert('nothing selected')
+      alert('nothing selected cut')
       return
     }
     this.copy()
@@ -145,4 +156,5 @@ const elementEvents = {
     $(`.${type}`).attr('style', '')
   }
 }
+
 module.exports = elementEvents

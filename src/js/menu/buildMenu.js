@@ -4,17 +4,18 @@
  * and the events can be found in eventList.js
  */
 
-const keydown = require('../interaction/keydown')
-const contextMenu = require('../interaction/contextMenu')
-const menuItems = require('./menuItems')()
+const keydown = require('../interaction/keydown') // add keydown events to menu items
+const contextMenu = require('../interaction/contextMenu') // a menu item is going to be a contextmenu
+const menuItems = require('./menuItems')
 
 // gets the menuItems JSON and translates it into a menu, keydown and contextmenu
 module.exports = {
-  build () {
-    for (var i = 0; i < menuItems.length; i++) {
-      buildMenu.includeMenuItemStart(menuItems[i])
+  build (elementEvents) {
+    this.menuItems = menuItems(elementEvents)
+    for (var i = 0; i < this.menuItems.length; i++) {
+      buildMenu.includeMenuItemStart(this.menuItems[i])
 
-      let components = menuItems[i].components
+      let components = this.menuItems[i].components
       for (var k = 0; k < components.length; k++) {
         buildMenu.includeMenuComponent(components[k])
       }
@@ -24,7 +25,7 @@ module.exports = {
     buildMenu.append()
 
     keydown.init(document) // create keydown events
-    contextMenu.init(document) // create contextmenu
+    contextMenu.init(document, $('.header-contextmenu')) // create contextmenu
   }
 }
 
@@ -33,6 +34,7 @@ module.exports = {
 */
 const buildMenu = {
   html: '',
+
   $headerItems: $('.header-items'),
 
   append () {
@@ -104,7 +106,7 @@ const buildMenu = {
   // registrer click event on the menu item
   includeMenuComponentClick (component) {
     if (!component.run || !component.id) {
-      return false
+      return false // if there is no id or runable function, then break this function
     }
     this.$headerItems.on('click', `.${component.id}`, function () {
       component.run()
@@ -114,7 +116,7 @@ const buildMenu = {
   // register the keycode events
   includeMenuComponentKeycode (component) {
     if (!component.run || !component.keycode) {
-      return false
+      return false // if there is no keycode or runable function, then break this function
     }
 
     keydown.add({

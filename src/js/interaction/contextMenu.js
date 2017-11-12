@@ -3,9 +3,9 @@
 const contextMenu = {
   location: null, // the dom element which can be clicked
 
-  init (location) {
+  init (location = $(document), domItem) {
     this.location = location
-    this.$domItem = $('.header-contextmenu')
+    this.$domItem = domItem || this.$domItem
     this.$domItem.hide()
     this.bindContextMenu()
     this.bindCloseContextMenu()
@@ -24,7 +24,7 @@ const contextMenu = {
   // close menu
   bindCloseContextMenu () {
     $(this.location).on('click', (e) => {
-      if (!$(e.target).closest('.header-contextmenu').length) {
+      if (!$(e.target).closest(this.$domItem).length) {
         this.$domItem.hide()
       }
     })
@@ -32,7 +32,7 @@ const contextMenu = {
 
   // get the best possible position for the copntextmenu
   getBetPosition (x, y) {
-    y = y - 40
+    y = y - 40 // minor adjustments
     let position = {x: x, y: y}
     let width = this.$domItem.children('div').width()
     let height = this.$domItem.children('div').height()

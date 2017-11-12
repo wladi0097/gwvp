@@ -1,0 +1,28 @@
+.domtree {
+  padding: 5px;
+  overflow: scroll;
+  height: 300px;
+  ul {
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+    width: 100%;
+    cursor: pointer;
+
+    &.hidden {
+      ul, li{
+        display: none;
+      }
+    }
+    i {
+      margin-right: 5px;
+    }
+
+    li{
+      width: 100%;
+      margin: 2px 0 2px 20px;
+      cursor: pointer;
+      list-style: circle;
+    }
+  }
+}
