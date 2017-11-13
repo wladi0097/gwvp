@@ -2,27 +2,44 @@
   padding: 5px;
   overflow: scroll;
   height: 300px;
-  ul {
-    position: relative;
-    display: inline-block;
-    margin-left: 15px;
+  ul, li {
     width: 100%;
     cursor: pointer;
+    display: inline-block;
+  }
+  ul {
+    position: relative;
+    margin: 2px 0 2px 15px;
+
+    p{
+      float: left;
+      width: 92%;
+      &:hover{
+        background-color: $frameHover;
+      }
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
 
     &.hidden {
       ul, li{
         display: none;
       }
     }
+
     i {
+      float: left;
       margin-right: 5px;
     }
 
     li{
-      width: 100%;
-      margin: 2px 0 2px 20px;
-      cursor: pointer;
-      list-style: circle;
+      margin: 2px 0 2px 15px;
+      list-style: none;
+      &:hover{
+        background-color: $frameHover;
+      }
     }
   }
 }

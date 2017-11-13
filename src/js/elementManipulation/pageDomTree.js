@@ -2,6 +2,8 @@
 // show full page dom
 const pageDomTree = {
   $simulatedDomTree: $('#simulatedDomTree'),
+  SimulatetAndTreeReleation: [],
+  tree: [],
 
   build () {
     this.$simulated = $('#simulated').contents().find('body')
@@ -9,16 +11,18 @@ const pageDomTree = {
     this.createTree(this.$simulated, tree)
     this.$simulatedDomTree.html('')
     this.createHTML(tree, 0, this.$simulatedDomTree)
+    this.tree = tree
   },
 
   createTree (node, tree) {
     let children = node.children()
     for (var i = 0; i < children.length; i++) {
       let furtherchild = $(children[i]).children()
+
       if (furtherchild.length > 0) {
         tree.push('Start')
         tree.push(children[i])
-        this.createTree(furtherchild, tree)
+        this.createTree($(children[i]), tree)
         tree.push('End')
         continue
       }
@@ -31,7 +35,10 @@ const pageDomTree = {
     if (tree[i]) {
       if (tree[i] === 'Start') {
         i++
-        $htmlDom.append(`<ul class="hidden"><i class="fa fa-caret-right" aria-hidden="true"></i>${tree[i].nodeName}</ul>`)
+        $htmlDom.append(`<ul class="hidden">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+        <p>${tree[i].nodeName}</p>
+        </ul>`)
         this.addOpenCloseEvents($htmlDom.children().last().children('i'))
         this.addEvents($htmlDom.children().last(), tree[i])
         i++
@@ -40,7 +47,10 @@ const pageDomTree = {
         i++
         this.createHTML(tree, i, $htmlDom.parent())
       } else {
-        $htmlDom.append(`<li>${tree[i].nodeName}</li>`)
+        $htmlDom.append(`<li>
+          <i class="fa fa-angle-right" aria-hidden="true"></i>
+          ${tree[i].nodeName}
+          </li>`)
         this.addEvents($htmlDom.children().last(), tree[i])
         i++
         this.createHTML(tree, i, $htmlDom)

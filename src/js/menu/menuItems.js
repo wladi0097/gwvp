@@ -44,7 +44,7 @@ module.exports = function (elementEvents) {
         elementEvents.delete()
       },
       resizeToTv () {
-        elementEvents.changeRes('TV')
+        elementEvents.changeRes('Tv')
       },
       resizeToLaptop () {
         elementEvents.changeRes('Computer')
@@ -174,28 +174,28 @@ module.exports = function (elementEvents) {
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
-        run: runEvents.resizeToTv
+        run: runEvents.elementEvents.resizeToTv
       },
       {
         id: 'resizeToLaptop',
         icon: 'laptop',
         text: 'Notebook',
         keycode: 'ALT + 2',
-        run: runEvents.resizeToLaptop
+        run: runEvents.elementEvents.resizeToLaptop
       },
       {
         id: 'resizeToTablet',
         icon: 'tablet',
         text: 'Tablet',
         keycode: 'ALT + 3',
-        run: runEvents.resizeToTablet
+        run: runEvents.elementEvents.resizeToTablet
       },
       {
         id: 'resizeToMobile',
         icon: 'mobile',
         text: 'Phone',
         keycode: 'ALT + 4',
-        run: runEvents.resizeToMobile
+        run: runEvents.elementEvents.resizeToMobile
       }
       ]
     }
