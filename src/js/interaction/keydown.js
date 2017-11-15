@@ -45,12 +45,37 @@ const keydown = {
     found.run()
   },
 
+  exists (obj) {
+    for (var i = 0; i < this.keycodes.length; i++) {
+      let keyCodeLen = this.keycodes[i].keycode.length
+      let checklen = 0
+      for (var k = 0; k < keyCodeLen; k++) {
+        if (obj.keycode.indexOf(this.keycodes[i].keycode[k]) !== -1) {
+          checklen++
+        }
+      }
+      if (keyCodeLen === checklen &&
+        this.keycodes[i].run === obj.run) {
+        return true
+      }
+    }
+    return false
+  },
+
   // add a keyevent to the keycodes
   // but first split the string and translate the names to a keycode
   add (event) {
     event.keycode = event.keycode.split(' + ')
-    event.keycode = event.keycode.map(this.translate)
-    this.keycodes.push(event)
+    event.keycode = event.keycode
+      .map(this.toUpperCase)
+      .map(this.translate)
+    if (!this.exists(event)) {
+      this.keycodes.push(event)
+    }
+  },
+
+  toUpperCase (item) {
+    return item.toUpperCase()
   },
 
   // non one key values are translated to a keyCode
