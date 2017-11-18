@@ -1,6 +1,6 @@
 .sidebar {
   width: 250px;
-  position: fixed;
+  position: relative;
   bottom: 0;
   height: calc(100% - 40px);
   background-color: $main;
@@ -8,11 +8,11 @@
   user-select: none;
 
   &.left-sidebar{
-    left: 0;
+    float: left;
   }
 
   &.right-sidebar{
-    right: 0;
+    float: right;
   }
 }
 

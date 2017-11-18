@@ -1,0 +1,80 @@
+.texteditor {
+  height: 0;
+  width: 100%;
+  position: relative;
+  float: left;
+  transition: height .5s;
+  background-color: $main;
+  overflow: hidden;
+  &.visible {
+    height: 35px;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+  }
+}
+
+.texteditor-items{
+  height: 100%;
+  padding: 0 3%;
+}
+
+.texteditor-delimiter{
+  height: 100%;
+  width: 0;
+  border-right: 1px solid $border;
+  margin: 0 10px;
+  float: left;
+}
+
+.texteditor-item{
+  float: left;
+  height: 20px;
+  margin-top: 5px;
+  margin-left: 3px;
+  border-radius: 2px;
+  >i,p{
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    color: $light;
+    cursor: pointer;
+    &:hover{
+      color: $light-active;
+      background-color: $main-background;
+    }
+  }
+
+  .dropdown{
+    &:hover{
+      background-color: $main-background;
+      >p, input{
+        background-color: $main-background;
+        border: 1px solid $main-background;
+        >i{
+          margin-left: 1px solid $border;
+        }
+      }
+    }
+
+    >p, input{
+      font-size: 14px;
+      font-weight: 400;
+      padding: 3px 12px;
+      .caret{
+        margin-left: 2px;
+        font-size: 8px;
+      }
+    }
+
+    input {
+      margin-top: 2px;
+      height: 20px;
+    }
+
+    >ul{
+      display: none;
+    }
+  }
+}

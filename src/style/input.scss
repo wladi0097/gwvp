@@ -1,0 +1,12 @@
+input {
+  background-color: $main;
+  border: 1px solid $main;
+  color: $light;
+  outline: 0px;
+  font-size: 14px;
+  padding: 0 3px;
+  &:focus{
+    background-color: $main-background;
+    border: 1px solid $border;
+  }
+}

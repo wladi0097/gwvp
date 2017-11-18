@@ -1,7 +1,6 @@
 .center {
-  position: fixed;
-  top: 40px;
-  left: 250px;
+  position: relative;
+  float: left;
   width: calc(100% - 500px);
   height: calc(100% - 40px);
   background-color: $main-background;

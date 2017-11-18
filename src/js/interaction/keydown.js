@@ -13,12 +13,12 @@ const keydown = {
         this.pressed.push(e.keyCode)
         this.checkPressed()
       }
-      return false
+      // return false
     })
     $(location).on('keyup', (e) => {
       var index = this.pressed.indexOf(e.keyCode)
       this.pressed.splice(index, 1)
-      return false
+      // return false
     })
   },
 

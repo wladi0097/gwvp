@@ -36,12 +36,12 @@ const elementEvents = {
   },
 
   bindFrameEvents () {
-    $('#simulated').contents().off('mouseover').on('mouseover', '*', (e) => { // hover events
+    $('#simulated').contents().off('mouseover.fullHover').on('mouseover.fullHover', '*', (e) => { // hover events
       e.stopImmediatePropagation()
       this.hover(e)
     })
 
-    $('#simulated').contents().off('click').on('click', '*', (e) => { // click events
+    $('#simulated').contents().off('click.fullClick').on('click.fullClick', '*', (e) => { // click events
       e.stopImmediatePropagation()
       this.click(e)
     })
@@ -243,16 +243,17 @@ const elementEvents = {
       customBorder = ''
     }
     // display wanted action in dom
-    rect.width = rect.width - 2 * closeTo
-    rect.height = rect.height - 2 * closeTo
+    rect.width = rect.width
+    rect.height = rect.height
     $('.hover').attr('style', `
       display: block;
+      background-color: transparent;
       width:${rect.width};
-      height:${rect.height};
+      height:${rect.height + 4};
       top:${rect.top};
       left:${rect.left};
       ${rect.border};
-      border: ${closeTo}px solid rgba(53, 130, 255, .60);
+      border: 2px dashed rgb(53, 130, 255);
       ${customBorder}
     `)
   },

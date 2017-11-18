@@ -9,10 +9,116 @@
     <div class="header">
       <div class="header-items"></div>
       <div class="header-icons">
-        <i id="screen-Tv" class="fa fa-television selected" aria-hidden="true"></i>
-        <i id="screen-Computer" class="fa fa-laptop" aria-hidden="true"></i>
-        <i id="screen-Tablet" class="fa fa-tablet" aria-hidden="true"></i>
-        <i id="screen-Mobile" class="fa fa-mobile" aria-hidden="true"></i>
+        <i id="screen-Tv" class="fa fa-television selected" title="Switch to big screen" aria-hidden="true"></i>
+        <i id="screen-Computer" class="fa fa-laptop" title="Switch to laptop screen" aria-hidden="true"></i>
+        <i id="screen-Tablet" class="fa fa-tablet" title="Switch to tablet screen" aria-hidden="true"></i>
+        <i id="screen-Mobile" class="fa fa-mobile" title="Switch to mobile screen" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="texteditor">
+      <!-- text align -->
+      <div class="texteditor-items">
+        <div class="texteditor-item" title="align right">
+          <i class="fa fa-copy" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="align right">
+          <i class="fa fa-cut" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="align right">
+          <i class="fa fa-paste" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <div class="texteditor-item" title="align right">
+          <div class="dropdown">
+            <p>Title</p> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
+            <ul class="dropdown-items">
+              <li>Header</li>
+              <li>normal</li>
+            </ul>
+          </div>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <div class="texteditor-item" title="align right">
+          <div class="dropdown">
+            <input type="text" name="" value="Lato"> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
+            <ul class="dropdown-items">
+              <li>Header</li>
+              <li>normal</li>
+            </ul>
+          </div>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <div class="texteditor-item" title="align right">
+          <div class="dropdown">
+            <input type="text" name="" value="18"> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
+            <ul class="dropdown-items">
+              <li>Header</li>
+              <li>normal</li>
+            </ul>
+          </div>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <div class="texteditor-item" title="align left">
+          <i class="fa fa-align-left" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="align center">
+          <i class="fa fa-align-center" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="align right">
+          <i class="fa fa-align-right" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <!-- format text -->
+        <div class="texteditor-item" title="bold">
+          <i class="fa fa-bold" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="italics">
+          <i class="fa fa-italic" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="underline">
+          <i class="fa fa-underline" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="strikethrough">
+          <i class="fa fa-strikethrough" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item" title="strikethrough">
+          <i class="fa fa-font" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <!-- font spacing and word spacing -->
+        <div class="texteditor-item">
+          <i class="fa fa-text-width" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item">
+          <i class="fa fa-text-height" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-delimiter"></div>
+        <div class="texteditor-item">
+          <i class="fa fa-outdent" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-item">
+          <i class="fa fa-indent" aria-hidden="true"></i>
+        </div>
+        <div class="texteditor-delimiter"></div>
+      </div>
+    </div>
+
+    <div class="left-sidebar sidebar">
+      <div class="sidebar-navigation">
+        <div data-open="current" class="sidebar-navigator"> Basic </div>
+        <div data-open="all" class="sidebar-navigator selected"> Complex </div>
+        <div data-open="online" class="sidebar-navigator"> Online </div>
+      </div>
+      <div class="sidebar-content sidebar-current hide"></div>
+      <div class="sidebar-content sidebar-all"></div>
+      <div class="sidebar-content sidebar-online hide"></div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-header sidebar-border">
+          <div>
+            <p>Dom Tree</p>
+          </div>
+        </div>
+        <div class="domTree" id="simulatedDomTree"></div>
       </div>
     </div>
     <div class="center">
@@ -39,83 +145,9 @@
 
       </iframe>
     </div>
-    <div class="left-sidebar sidebar">
-      <div class="sidebar-navigation">
-        <div data-open="current" class="sidebar-navigator">
-          Basic
-        </div>
-        <div data-open="all" class="sidebar-navigator selected">
-          Complex
-        </div>
-        <div data-open="online" class="sidebar-navigator">
-          Online
-        </div>
-      </div>
-      <div class="sidebar-content sidebar-current hide">
-        <div class="element-name">
-          <div class="text">
-            <p>Type:</p>
-            <p class="right">Element</p>
-          </div>
-        </div>
-      </div>
-      <div class="sidebar-content sidebar-all">
-        <div class="sidebar-header">
-          <div>
-            <p>Basic Elements</p>
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
-          </div>
-          <div class="sidebar-header-content">
-
-          </div>
-        </div>
-        <div class="sidebar-header">
-          <div>
-            <p>Custom Elements</p>
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-          </div>
-          <div class="sidebar-header-content">
-
-          </div>
-        </div>
-        <div class="sidebar-header">
-          <div>
-            <p>Section</p>
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-          </div>
-          <div class="sidebar-header-content">
-
-          </div>
-        </div>
-        <div class="sidebar-header">
-          <div>
-            <p>Pages</p>
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-          </div>
-          <div class="sidebar-header-content">
-
-          </div>
-        </div>
-      </div>
-      <div class="sidebar-content sidebar-online hide">
-      </div>
-      <div class="sidebar-bottom">
-        <div class="sidebar-header sidebar-border">
-          <div>
-            <p>Dom Tree</p>
-          </div>
-        </div>
-        <div class="domTree" id="simulatedDomTree">
-
-        </div>
-      </div>
-    </div>
     <div class="right-sidebar sidebar">
       <div class="sidebar-header">
-        <div>
+        <div class="">
           <p>No Element Selected</p>
         </div>
       </div>
