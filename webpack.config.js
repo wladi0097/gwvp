@@ -1,13 +1,15 @@
-const path = require('path');
+const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PROD = false
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: PROD ? 'bundle.min.js' : 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-     contentBase: './dist'
+    contentBase: './dist'
   },
   module: {
     rules: [
@@ -15,11 +17,11 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [{
-          loader: "style-loader" // creates style nodes from JS strings
+          loader: 'style-loader' // creates style nodes from JS strings
         }, {
-          loader: "css-loader" // translates CSS into CommonJS
+          loader: 'css-loader' // translates CSS into CommonJS
         }, {
-          loader: "sass-loader" // compiles Sass to CSS
+          loader: 'sass-loader' // compiles Sass to CSS
         }]
       },
       // IMAGES
@@ -37,5 +39,18 @@ module.exports = {
         ]
       }
     ]
-  }
-};
+  },
+  plugins: PROD ? [
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        ie8: false,
+        ecma: 8,
+        output: {
+          comments: false,
+          beautify: false
+        },
+        warnings: false
+      }
+    })
+  ] : []
+}
