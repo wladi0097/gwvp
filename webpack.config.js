@@ -1,5 +1,6 @@
 const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const PROD = false
 
 module.exports = {
@@ -51,6 +52,12 @@ module.exports = {
         },
         warnings: false
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/entry.html'
+    })] : [
+    new HtmlWebpackPlugin({
+      template: 'src/html/entry.html'
     })
-  ] : []
+  ]
 }

@@ -1,7 +1,5 @@
-*bundle.js
-
 # Created by https://www.gitignore.io/api/node
-/dist/public/
+/dist
 
 ### Node ###
 # Logs

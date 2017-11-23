@@ -1,24 +1,4 @@
-<html>
-
-<head>
-  <title>GWVP</title>
-</head>
-
-
-
-<body>
-  <div class="main-application">
-    <div class="header">
-  <div class="header-items"></div>
-  <div class="header-icons">
-    <i id="screen-Tv" class="fa fa-television selected" title="Switch to big screen" aria-hidden="true"></i>
-    <i id="screen-Computer" class="fa fa-laptop" title="Switch to laptop screen" aria-hidden="true"></i>
-    <i id="screen-Tablet" class="fa fa-tablet" title="Switch to tablet screen" aria-hidden="true"></i>
-    <i id="screen-Mobile" class="fa fa-mobile" title="Switch to mobile screen" aria-hidden="true"></i>
-  </div>
-</div>
-
-    <div class="texteditor">
+<div class="texteditor">
   <!-- text align -->
   <div class="texteditor-items">
     <div class="texteditor-item" title="align right">
@@ -105,60 +85,3 @@
     <div class="texteditor-delimiter"></div>
   </div>
 </div>
-
-    <div class="left-sidebar sidebar">
-  <div class="sidebar-navigation">
-    <div data-open="current" class="sidebar-navigator"> Basic </div>
-    <div data-open="all" class="sidebar-navigator selected"> Complex </div>
-    <div data-open="online" class="sidebar-navigator"> Online </div>
-  </div>
-  <div class="sidebar-content sidebar-current hide"></div>
-  <div class="sidebar-content sidebar-all"></div>
-  <div class="sidebar-content sidebar-online hide"></div>
-  <div class="sidebar-bottom">
-    <div class="sidebar-header sidebar-border">
-      <div>
-        <p>Dom Tree</p>
-      </div>
-    </div>
-    <div class="domTree" id="simulatedDomTree"></div>
-  </div>
-</div>
-
-    <div class="center">
-  <div class="hover-wrapper" style="min-width: 1200px; transform: scale(.9)">
-    <div class="hover">
-      <div class="hover-element"></div>
-      <div class="hover-padding"></div>
-      <div class="hover-margin"></div>
-    </div>
-  </div>
-  <div class="click-wrapper" style="min-width: 1200px; transform: scale(.9)">
-    <div class="click">
-      <div class="items">
-        <ul>
-          <li id="closeClick"><i class="fa fa-times" aria-hidden="true"></i></li>
-          <li id="moveClick"><i class="fa fa-arrows-alt" aria-hidden="true"></i></li>
-          <li class="itemName" id="itemName"></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <iframe src="/public" id="simulated" style="min-width: 1200px; transform: scale(.9)">
-
-  </iframe>
-</div>
-
-    <div class="right-sidebar sidebar">
-  <div class="sidebar-header">
-    <div class="">
-      <p>No Element Selected</p>
-    </div>
-  </div>
-</div>
-
-  </div>
-  <script src="bundle.js"></script>
-<script type="text/javascript" src="bundle.js"></script></body>
-
-</html>
