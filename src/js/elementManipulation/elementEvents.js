@@ -12,27 +12,28 @@ const elementEvents = {
 
   init () {
     this.cacheDom()
-    this.bindEvents()
+      .bindEvents()
     changeScreenSize.init()
+    return this
   },
 
   initAfterFrame () {
     this.bindFrameEvents()
     pageDomTree.build()
+    return this
   },
 
   cacheDom () {
     this.$close = $('#closeClick')
     this.$drag = $('#moveClick')
-    this.$duplicate = $('#duplicateClick')
-    this.$delete = $('#deleteClick')
+    this.$itemName = $('#itemName')
+    return this
   },
 
   bindEvents () {
     this.$close.on('click', (e) => { this.noClick() })
     this.$drag.on('mousedown', (e) => { this.dragStart() })
-    this.$duplicate.on('click', (e) => { this.duplicate() })
-    this.$delete.on('click', (e) => { this.delete() })
+    return this
   },
 
   bindFrameEvents () {
@@ -56,27 +57,33 @@ const elementEvents = {
     keydown.init($('iframe').contents())
 
     // TODO: scroll
+    return this
   },
 
   change () { // gets fired after something was changed
     pageDomTree.build()
+    return this
   },
 
   changeRes (res) {
     changeScreenSize.changeResolution(res)
+    return this
   },
 
   click (e) { // any element clicked
     this.noHover()
+      .showRectAroundElement(e, 'click')
     this.currentElement = e.target
-    this.showRectAroundElement(e, 'click')
+    this.$itemName.html(e.target.nodeName)
     elementEditor.select(e.target)
+    return this
   },
 
   noClick () { // remove all click states
     this.currentElement = null
-    elementEditor.unselect()
     this.hideRectAroundElement('click')
+    elementEditor.unselect()
+    return this
   },
 
   allowHover: true,
@@ -84,16 +91,18 @@ const elementEvents = {
     if (this.allowHover) {
       this.showRectAroundElement(e, 'hover')
     }
+    return this
   },
 
   noHover () { // remover hover state
     this.hideRectAroundElement('hover')
+    return this
   },
 
   copy () { // copy element in real and virtual clipboard
     if (!this.currentElement) {
       alert('nothing selected')
-      return
+      return this
     }
 
     let x = $(this.currentElement).wrap('<p/>').parent().html()
@@ -104,27 +113,30 @@ const elementEvents = {
     this.clipboard = x
     $temp.remove()
     $(this.currentElement).unwrap()
+    return this
   },
 
   cut () { // copy the element and delete it afterwards
     if (!this.currentElement) {
       alert('nothing selected to cut')
-      return
+      return this
     }
     this.copy()
-    this.delete()
-    this.change()
+      .delete()
+      .change()
+    return this
   },
 
   delete () { // remove element
     if (!this.currentElement) {
       alert('nothing selected to delete')
-      return
+      return this
     }
 
     $(this.currentElement).remove()
     this.noClick()
-    this.change()
+      .change()
+    return this
   },
 
   // how to append - what to append, where to append
@@ -137,7 +149,7 @@ const elementEvents = {
     let insertDom = whereDom || this.currentElement
     if (!insertHTML || !insertDom) {
       alert('no selected element or nothing in clipboard')
-      return
+      return this
     }
     switch (appendStyle) {
       case 'after':
@@ -152,15 +164,17 @@ const elementEvents = {
     }
 
     this.change()
+    return this
   },
 
   duplicate () { // duplicates the selected element under the selected
     if (!this.currentElement) {
       alert('nothing selected to duplicate')
-      return
+      return this
     }
     $(this.currentElement).clone().insertAfter(this.currentElement)
     this.change()
+    return this
   },
 
   showRectAroundElement (e, type) { // display rectangle around choosen element
@@ -172,24 +186,25 @@ const elementEvents = {
       top:${rect.top};
       left:${rect.left};
       `)
+    return this
   },
 
   hideRectAroundElement (type) { // hide rectangle
     $(`.${type}`).attr('style', '')
+    return this
   },
 
   // the following is all bout dragging an element
   draggedElement: null, // dragged element
-  pasteDraggedAs: null,
+  pasteDraggedAs: null, // paste style
   dragStart () {
     if (!this.currentElement) {
       alert('nothing selected to drag')
-      return
+      return this
     }
     let x = $(this.currentElement).wrap('<p/>').parent().html() // clicked element
     this.draggedElement = x // save element
     this.delete() // remove element from dom
-
     this.allowHover = false // remove currenthoverEvent
     this.hoveredElement = null
     this.noHover() // "
@@ -213,6 +228,7 @@ const elementEvents = {
     $(document).on('mouseup.dragEndDocument', (e) => {
       this.dragEnd()
     })
+    return this
   },
 
   dragHover (e) {
@@ -225,7 +241,7 @@ const elementEvents = {
     // set default values
     this.pasteDraggedAs = 'in' // insert in the target
     let closeTo = 8
-    let customBorder = `: ${closeTo}px solid rgb(53, 130, 255);` // display closeTo
+    let customBorder = `: ${closeTo}px solid;` // display closeTo
     // get wanted action
     if (x < closeTo) { // left
       customBorder = 'border-left' + customBorder
@@ -253,9 +269,10 @@ const elementEvents = {
       top:${rect.top};
       left:${rect.left};
       ${rect.border};
-      border: 2px dashed rgb(53, 130, 255);
+      border: 2px dashed;
       ${customBorder}
     `)
+    return this
   },
 
   dragEnd () {
@@ -267,6 +284,7 @@ const elementEvents = {
     $(document).off('mouseup.dragEndDocument')
     // reset to previous
     this.allowHover = true
+    return this
   }
 }
 

@@ -1,7 +1,7 @@
 .center {
   position: relative;
   float: left;
-  width: calc(100% - 500px);
+  width: calc(100% - 550px);
   height: calc(100% - 40px);
   background-color: $main-background;
   display: flex;
@@ -53,6 +53,9 @@
             line-height: 25px;
             pointer-events:all;
             cursor: pointer;
+            &.itemName{
+              cursor: initial;
+            }
             &:first-child{
               margin-left: 0;
             }

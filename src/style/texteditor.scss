@@ -32,7 +32,8 @@
   margin-top: 5px;
   margin-left: 3px;
   border-radius: 2px;
-  >i,p{
+  >i, p{
+    float: left;
     height: 20px;
     line-height: 20px;
     font-size: 15px;
@@ -47,25 +48,55 @@
   }
 
   .dropdown{
-    &:hover{
+    border-radius: 2px;
+    &:hover, &:focus{
       background-color: $main-background;
-      >p, input{
+      p, input{
         background-color: $main-background;
         border: 1px solid $main-background;
-        >i{
-          margin-left: 1px solid $border;
-        }
+      }
+      .caret{
+        border-left: 1px solid $border;
       }
     }
 
-    >p, input{
+    p, input{
       font-size: 14px;
       font-weight: 400;
-      padding: 3px 12px;
-      .caret{
-        margin-left: 2px;
-        font-size: 8px;
+      border: 1px solid $main;
+    }
+
+    p {
+      padding: 1.5px 5px;
+      line-height: 21px;
+      &~.caret{
+        height: 15px;
+        line-height: 18px;
       }
+
+      &.font-type {
+        width: 60px;
+      }
+    }
+
+    input{
+      padding: 0 5px;
+
+      &.font-size{
+        width: 35px;
+      }
+      &.font-style{
+        width: 160px;
+      }
+    }
+
+    .caret{
+      margin-left: 2px;
+      padding: 5px;
+      font-size: 12px;
+      color: $light;
+      border-left: 1px solid $main;
+      cursor: pointer;
     }
 
     input {

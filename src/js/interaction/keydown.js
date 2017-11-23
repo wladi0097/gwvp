@@ -11,14 +11,12 @@ const keydown = {
     $(location).on('keydown', (e) => {
       if (this.pressed.indexOf(e.keyCode) === -1) {
         this.pressed.push(e.keyCode)
-        this.checkPressed()
+        return this.checkPressed()
       }
-      // return false
     })
     $(location).on('keyup', (e) => {
       var index = this.pressed.indexOf(e.keyCode)
       this.pressed.splice(index, 1)
-      // return false
     })
   },
 
@@ -35,6 +33,7 @@ const keydown = {
         }
         if (found) {
           this.runPressed(this.keycodes[i])
+          return false // overwrite default keydown action
         }
       }
     }

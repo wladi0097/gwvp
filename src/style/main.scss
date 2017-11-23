@@ -32,6 +32,12 @@ body {
   background-color: $main;
 }
 
+.main-application{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .hide{
   display: none !important;
 }

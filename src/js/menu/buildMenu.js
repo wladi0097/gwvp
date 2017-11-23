@@ -66,7 +66,8 @@ const buildMenu = {
     this.includeMenuComponentKeycode(component) // include keydown event
   },
 
-  // builds HTML
+  // builds HTML the fastest way
+  // pushing all into a html and appending the result
   includeMenuComponentHTML (component) {
     component.icon = (component.icon) ? component.icon : '' // is there a icon ?
     component.keycode = (component.keycode) ? component.keycode : '' // is there a keycode ?
