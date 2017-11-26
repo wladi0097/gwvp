@@ -1,5 +1,6 @@
 /* global $ */
 const selectedElement = {
+  // TODO EVERYTHING
   selectedItem: null,
 
   init () {

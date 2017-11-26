@@ -1,18 +1,18 @@
 <div class="left-sidebar sidebar">
   <div class="sidebar-navigation">
-    <div data-open="current" class="sidebar-navigator"> Basic </div>
-    <div data-open="all" class="sidebar-navigator selected"> Complex </div>
-    <div data-open="online" class="sidebar-navigator"> Online </div>
+    <div data-open="basic" class="sidebar-navigator selected"> Basic </div>
+    <div data-open="complex" class="sidebar-navigator"> Complex </div>
+    <div data-open="" class="sidebar-navigator"> ? </div>
   </div>
-  <div class="sidebar-content sidebar-current hide"></div>
-  <div class="sidebar-content sidebar-all"></div>
-  <div class="sidebar-content sidebar-online hide"></div>
+  <div class="sidebar-content sidebar-basic overflow"></div>
+  <div class="sidebar-content sidebar-complex hide overflow"></div>
+  <div class="sidebar-content hide overflow"></div>
   <div class="sidebar-bottom">
     <div class="sidebar-header sidebar-border">
       <div>
         <p>Dom Tree</p>
       </div>
     </div>
-    <div class="domTree" id="simulatedDomTree"></div>
+    <div class="domTree overflow" id="simulatedDomTree"></div>
   </div>
 </div>

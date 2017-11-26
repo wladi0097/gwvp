@@ -1,7 +1,9 @@
-.domtree {
+.domTree {
   padding: 5px;
-  overflow: scroll;
   height: 300px;
+  >ul:first-child{
+    width: calc( 100% - 30px);
+  }
   ul, li {
     width: 100%;
     cursor: pointer;
@@ -17,7 +19,7 @@
   }
   ul {
     position: relative;
-    margin: 2px 0 2px 15px;
+    margin: 0 0 0 15px;
 
     p{
       float: left;

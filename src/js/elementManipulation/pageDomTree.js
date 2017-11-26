@@ -106,6 +106,3 @@ const pageDomTree = {
   }
 }
 module.exports = pageDomTree
-
-// TODO: remove test
-window.a = pageDomTree

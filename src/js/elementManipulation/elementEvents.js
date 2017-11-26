@@ -67,6 +67,7 @@ const elementEvents = {
 
   changeRes (res) {
     changeScreenSize.changeResolution(res)
+    this.redrawRect()
     return this
   },
 
@@ -177,14 +178,23 @@ const elementEvents = {
     return this
   },
 
+  redrawRect () {
+    if (this.currentElement) {
+      $(this.currentElement).trigger('click')
+    }
+    if (this.hoveredElement) {
+      $(this.hoveredElement).trigger('mouseover')
+    }
+  },
+
   showRectAroundElement (e, type) { // display rectangle around choosen element
     let rect = e.target.getBoundingClientRect()
     $(`.${type}`).attr('style', `
       display: block;
-      width:${rect.width};
-      height:${rect.height};
-      top:${rect.top};
-      left:${rect.left};
+      width:${rect.width}px;
+      height:${rect.height}px;
+      top:${rect.top}px;
+      left:${rect.left}px;
       `)
     return this
   },
@@ -197,14 +207,21 @@ const elementEvents = {
   // the following is all bout dragging an element
   draggedElement: null, // dragged element
   pasteDraggedAs: null, // paste style
-  dragStart () {
-    if (!this.currentElement) {
+  dragStart (html) {
+    if (!this.currentElement && !html) {
       alert('nothing selected to drag')
       return this
     }
-    let x = $(this.currentElement).wrap('<p/>').parent().html() // clicked element
-    this.draggedElement = x // save element
-    this.delete() // remove element from dom
+
+    if (html) {
+      this.draggedElement = html
+    } else {
+      let x = $(this.currentElement).wrap('<p/>').parent().html() // clicked element
+      this.draggedElement = x // save element
+      $(x).remove()
+      this.delete() // remove element from dom
+    }
+
     this.allowHover = false // remove currenthoverEvent
     this.hoveredElement = null
     this.noHover() // "
@@ -264,10 +281,10 @@ const elementEvents = {
     $('.hover').attr('style', `
       display: block;
       background-color: transparent;
-      width:${rect.width};
-      height:${rect.height + 4};
-      top:${rect.top};
-      left:${rect.left};
+      width:${rect.width}px;
+      height:${rect.height + 4}px;
+      top:${rect.top}px;
+      left:${rect.left}px;
       ${rect.border};
       border: 2px dashed;
       ${customBorder}

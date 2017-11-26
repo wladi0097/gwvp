@@ -16,7 +16,7 @@ const contextMenu = {
     $(this.location).contextmenu((e) => {
       this.$domItem.show()
       let position = this.getBetPosition(e.clientX, e.clientY)
-      this.$domItem.attr('style', `top:${position.y}; left:${position.x}`)
+      this.$domItem.attr('style', `top:${position.y}px; left:${position.x}px`)
       return false
     })
   },
