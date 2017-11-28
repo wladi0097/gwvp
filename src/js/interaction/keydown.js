@@ -1,26 +1,49 @@
-/* global $ */
-/* Single to multiple keydown checks */
+/**
+ * Catch single or multiple keydowns from a user and run a given function.
+ * The keydown object can be used at multiple locations with the same keycodes (if you pass it by reference, which is default).
+ * It is standalone and can be used in other projects.
+ * @version 0.0.3
+ * @since 0.0.3 no Jquery needed
+ */
 const keydown = {
-  keycodes: [], // all possible keydown combinations
-  pressed: [], // currently pressed
+  /**
+   * All keydowns are saved as a keycode in a array.
+   * @example [{
+   *  keycode: [1, 2, 3],
+   *  run: f doStuff()
+   * }...]
+  */
+  keycodes: [],
+  /**
+   * All keydowns are saved as a keycode in a array.
+   * @example [[0, 1]...]
+  */
+  pressed: [],
 
-  // bind keydown and keyup events to the window
-  // on keydown add the key to pressed
-  // on keyup remove it from the pressed
+  /** Bind keydown and keyup events to the window.
+   * On keydown add the key to pressed-array.
+   * On keyup remove it from the pressed-array.
+   * @param {HTMLElement} location - bind all events to the given dom element
+  */
   init (location) {
-    $(location).on('keydown', (e) => {
+    location.addEventListener('keydown', (e) => {
       if (this.pressed.indexOf(e.keyCode) === -1) {
         this.pressed.push(e.keyCode)
-        return this.checkPressed()
+        if (!this.checkPressed()) {
+          e.preventDefault()
+        }
       }
     })
-    $(location).on('keyup', (e) => {
+    location.addEventListener('keyup', (e) => {
       var index = this.pressed.indexOf(e.keyCode)
       this.pressed.splice(index, 1)
     })
   },
 
-  // check if the pressed keys are aviable in the keycodes
+  /** Compares the keycodes[] and the pressed[] arrays.
+   * If a match was found, run the code from the matching keycode.
+   * @return {Boolean} false if found, because it is going to overwrite the default action
+  */
   checkPressed () {
     for (var i = 0; i < this.keycodes.length; i++) {
       let len = this.keycodes[i].keycode.length
@@ -39,11 +62,19 @@ const keydown = {
     }
   },
 
-  // run the function of the keycode combination
+  /** Run the .run() method from the found param.
+   * @param {Object} found - a object with a run method
+   * @param {Function} found.run - fuction which should be runned
+  */
   runPressed (found) {
     found.run()
   },
 
+  /** Check if the keycodes already exists in the this.keycodes.
+   * @param {Object} obj - a object with informations about a keycode and a run method
+   * @param {Number[]} obj.keycode - the converted keycode of the object
+   * @param {Function} obj.run - function which should be runned
+  */
   exists (obj) {
     for (var i = 0; i < this.keycodes.length; i++) {
       let keyCodeLen = this.keycodes[i].keycode.length
@@ -61,8 +92,12 @@ const keydown = {
     return false
   },
 
-  // add a keyevent to the keycodes
-  // but first split the string and translate the names to a keycode
+  /** Add a keyevent to the keycodes array.
+   * But first split the string and translate the names to a keycode.
+   * @param {Object} obj - a object with informations about a keycode and a run method
+   * @param {Number[]} obj.keycode - the unconverted keycode of the object
+   * @param {Function} obj.run - function which should be runned
+  */
   add (event) {
     event.keycode = event.keycode.split(' + ')
     event.keycode = event.keycode
@@ -77,7 +112,11 @@ const keydown = {
     return item.toUpperCase()
   },
 
-  // non one key values are translated to a keyCode
+  /** Convert a key to a ascii keycode.
+   * @see http://www.asciitable.com/
+   * @param {?(Number|String)} item - unconverted keycode
+   * @return {Number} converted keycode
+  */
   translate (item) {
     switch (item) {
       case 'STRG':

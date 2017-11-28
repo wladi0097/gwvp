@@ -25,7 +25,7 @@ module.exports = {
     buildMenu.append()
 
     keydown.init(document) // create keydown events
-    contextMenu.init(document, $('.header-contextmenu')) // create contextmenu
+    contextMenu.init(document, $('.header-contextmenu')[0]) // create contextmenu
   }
 }
 

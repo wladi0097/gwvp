@@ -1,4 +1,4 @@
-/* global describe expect it */
+/* global describe expect it Event */
 const $ = require('jquery')
 window.$ = $
 const keydown = require('../keydown.js')
@@ -67,15 +67,15 @@ describe('translate keys to charCode', () => {
 describe('fire new events', () => {
   keydown.init(document)
   it('should register a keydown and save it', () => {
-    let e = $.Event('keydown')
+    let e = new Event('keydown')
     e.keyCode = 65
-    $(document).trigger(e)
+    document.dispatchEvent(e)
     expect(keydown.pressed[0]).toBe(65) // key a is pressed
   })
   it('should register a keyup and save it', () => {
-    let e = $.Event('keyup')
+    let e = new Event('keyup')
     e.keyCode = 65
-    $(document).trigger(e)
+    document.dispatchEvent(e)
     expect(keydown.pressed[0]).toBe(undefined) // no key is pressed
   })
   it('should run provided function', () => {
@@ -84,25 +84,26 @@ describe('fire new events', () => {
   })
   it('should ignore not registered keydowns', () => {
     // keydown
-    let e = $.Event('keydown')
+    let e = new Event('keydown')
     e.keyCode = 0
-    $(document).trigger(e)
+    document.dispatchEvent(e)
     // keyup
-    e = $.Event('keyup')
+    e = new Event('keyup')
     e.keyCode = 0
-    $(document).trigger(e)
+    document.dispatchEvent(e)
     // test
     expect(toRunRunned).toBe(1) // run event wasn't fired
   })
   it('should register and run multiple keydowns', () => {
     // keydown ALT
-    let e1 = $.Event('keydown')
-    e1.keyCode = 18
-    $(document).trigger(e1)
+    let e = new Event('keydown')
+    e.keyCode = 18
+    document.dispatchEvent(e)
+    // $(document).trigger(e1)
     // keydown #
-    let e2 = $.Event('keydown')
-    e2.keyCode = 35
-    $(document).trigger(e2)
+    e = new Event('keydown')
+    e.keyCode = 35
+    document.dispatchEvent(e)
 
     expect(keydown.pressed[0]).toBe(18) // key ALT got pressed
     expect(keydown.pressed[1]).toBe(35) // key # got pressed

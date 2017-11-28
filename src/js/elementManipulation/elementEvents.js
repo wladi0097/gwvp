@@ -53,8 +53,8 @@ const elementEvents = {
     })
 
     // bind events to iframe
-    contextMenu.init($('iframe').contents())
-    keydown.init($('iframe').contents())
+    contextMenu.init($('iframe').contents()[0])
+    keydown.init($('iframe').contents()[0])
 
     // TODO: scroll
     return this
