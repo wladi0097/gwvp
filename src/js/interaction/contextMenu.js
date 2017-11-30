@@ -2,8 +2,6 @@
  * The contextmenu (right click) displays a domItem at the location of the mouse.
  * The domItem hides after clicking something else.
  * It is standalone and can be used in other projects.
- * @version 0.0.2
- * @since 0.0.2 no Jquery needed
  */
 const contextMenu = {
   /** Initialize the contextMenu to a domItem with a domItem

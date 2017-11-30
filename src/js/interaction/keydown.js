@@ -2,8 +2,6 @@
  * Catch single or multiple keydowns from a user and run a given function.
  * The keydown object can be used at multiple locations with the same keycodes (if you pass it by reference, which is default).
  * It is standalone and can be used in other projects.
- * @version 0.0.3
- * @since 0.0.3 no Jquery needed
  */
 const keydown = {
   /**
