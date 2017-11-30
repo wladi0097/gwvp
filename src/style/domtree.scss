@@ -1,8 +1,9 @@
 .domTree {
   padding: 5px;
   height: 300px;
-  >ul:first-child{
+  >ul{
     width: calc( 100% - 30px);
+    margin-left: 0 !important;
   }
   ul, li {
     width: 100%;
@@ -28,10 +29,6 @@
       &:hover{
         background-color: $frameHover;
       }
-    }
-
-    &:first-child {
-      margin-left: 0;
     }
 
     &.hidden {
