@@ -10,10 +10,10 @@
     "build": "webpack --display-error-details",
     "watch": "webpack --progress --watch",
     "start": "webpack-dev-server --open --hot",
-    "docs": "./node_modules/.bin/esdoc"
+    "docs": "documentation build src/js/** -f html -o docs"
   },
   "author": "wladislaw koschemako",
-  "license": "MIT",
+  "license": "GPL",
   "devDependencies": {
     "css-loader": "^0.28.7",
     "esdoc": "^1.0.4",
