@@ -1,15 +1,35 @@
-/* global $ alert */
+/* global alert MouseEvent */
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
 const changeScreenSize = require('./changeScreenSize')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 
+/** All Dom manipulations of the Iframe are happening here.
+ * Here are also all events (which are affecting the dom).
+*/
 const elementEvents = {
-  currentElement: null, // selected Element
-  hoveredElement: null, // current hovered element
-  clipboard: null, // virtual clipboard
+  /**
+  * After a click the element gets selected and saved here.
+  * currentElement - The currently selected Element.
+  */
+  currentElement: null,
+  /**
+  * After a hover the element gets selected and saved here.
+  * hoveredElement - The currently hovered Element.
+  */
+  hoveredElement: null,
+  /**
+  * The Virtual Clipboard.
+  * Clipboard - HTML as Text.
+  */
+  clipboard: null,
+  /** iframe - The main iframe */
+  iframe: null,
 
+  /** Initialize
+  * @return this
+  */
   init () {
     this.cacheDom()
       .bindEvents()
@@ -17,135 +37,183 @@ const elementEvents = {
     return this
   },
 
+  /** Initialize after the content was appended to the iframe.
+  * @return this
+  */
   initAfterFrame () {
+    this.iframe = document.getElementById('simulated').contentDocument
     this.bindFrameEvents()
     pageDomTree.build()
     return this
   },
 
+  /** Cache dom elements
+  * @return this
+  */
   cacheDom () {
-    this.$close = $('#closeClick')
-    this.$drag = $('#moveClick')
-    this.$itemName = $('#itemName')
+    this.$close = document.getElementById('closeClick')
+    this.$drag = document.getElementById('moveClick')
+    this.$itemName = document.getElementById('itemName')
     return this
   },
 
+  /** apply events to static content
+  * @return this
+  */
   bindEvents () {
-    this.$close.on('click', (e) => { this.noClick() })
-    this.$drag.on('mousedown', (e) => { this.dragStart() })
+    this.$close.addEventListener('click', (e) => { this.noClick() })
+    this.$drag.addEventListener('mousedown', (e) => { this.dragStart() })
     return this
   },
 
+  /** apply events to the iframe content and run iframe specific methods
+  * @return this
+  */
   bindFrameEvents () {
-    $('#simulated').contents().off('mouseover.fullHover').on('mouseover.fullHover', '*', (e) => { // hover events
-      e.stopImmediatePropagation()
-      this.hover(e)
-    })
-
-    $('#simulated').contents().off('click.fullClick').on('click.fullClick', '*', (e) => { // click events
-      e.stopImmediatePropagation()
-      this.click(e)
-    })
-
-    $('body').off('mouseover').on('mouseover', (e) => { // if iframe is not hovered anymore
-      e.stopImmediatePropagation()
-      this.noHover(e)
-    })
-
-    // bind events to iframe
-    contextMenu.init($('iframe').contents()[0])
-    keydown.init($('iframe').contents()[0])
-
-    // TODO: scroll
+    this.iframe.addEventListener('mouseover', this.hover.bind(this), false)
+    this.iframe.addEventListener('mousedown', this.click.bind(this), false)
+    document.body.addEventListener('mouseover', this.noHover.bind(this), false)
+    contextMenu.init(this.iframe)
+    keydown.init(this.iframe)
     return this
   },
 
-  change () { // gets fired after something was changed
+  /** this gets fired after something in the dom was changed
+  * @return this
+  */
+  change () {
     pageDomTree.build()
     return this
   },
 
+  /** change resolution with the changeScreenSize object
+  * @param {String} res - either TV, Computer, Tablet or Mobile
+  * @return this
+  */
   changeRes (res) {
     changeScreenSize.changeResolution(res)
     this.redrawRect()
     return this
   },
 
-  click (e) { // any element clicked
+  /** This is a Event and a method.
+  * This gets fired after anything gets clicked in the iframe
+  * @param {Event} e
+  * @return this
+  */
+  click (e) {
+    if (e) {
+      e.stopImmediatePropagation()
+    }
     this.noHover()
       .showRectAroundElement(e, 'click')
     this.currentElement = e.target
-    this.$itemName.html(e.target.nodeName)
+    this.$itemName.innerHTML = e.target.nodeName
     elementEditor.select(e.target)
     return this
   },
 
-  noClick () { // remove all click states
+  /** remove any effects from the click event
+  * @return this
+  */
+  noClick () {
     this.currentElement = null
     this.hideRectAroundElement('click')
     elementEditor.unselect()
     return this
   },
 
+  /** Is the hover event allowed ? */
   allowHover: true,
-  hover (e) { // any element hover
+  /** This is a Event and a method.
+  * This gets fired after anything gets hovered in the iframe
+  * @param {Event} e
+  * @return this
+  */
+  hover (e) {
+    if (e) {
+      e.stopImmediatePropagation()
+    }
     if (this.allowHover) {
       this.showRectAroundElement(e, 'hover')
     }
     return this
   },
 
-  noHover () { // remover hover state
+  /** remove any effects from the hover event
+  * @return this
+  */
+  noHover (e) {
+    if (e) {
+      e.stopImmediatePropagation()
+    }
+    let ignoreDomTree = document.getElementById('simulatedDomTree')
+    if (e && ignoreDomTree.contains(e.target)) {
+      return this
+    }
     this.hideRectAroundElement('hover')
     return this
   },
 
-  copy () { // copy element in real and virtual clipboard
+  /** copy a selected element to the virtual and the real clipboard
+  * as a HTML string
+  * @return this
+  */
+  copy () {
     if (!this.currentElement) {
       alert('nothing selected')
       return this
     }
 
-    let x = $(this.currentElement).wrap('<p/>').parent().html()
-    let $temp = $('<input>')
-    $('body').append($temp)
-    $temp.val(x).select()
+    let value = this.currentElement.outerHTML
+    this.clipboard = value
+
+    let $temp = document.createElement('input')
+    document.body.appendChild($temp)
+    $temp.setAttribute('value', value)
+    $temp.setAttribute('style', 'display:none')
+    $temp.focus()
+    $temp.select()
     document.execCommand('copy')
-    this.clipboard = x
     $temp.remove()
-    $(this.currentElement).unwrap()
     return this
   },
 
-  cut () { // copy the element and delete it afterwards
+  /** copy a selected element and delete it afterwards
+  * @return this
+  */
+  cut () {
     if (!this.currentElement) {
       alert('nothing selected to cut')
       return this
     }
     this.copy()
       .delete()
-      .change()
     return this
   },
 
+  /** delete a selected element from the iframe and run the change method afterwards
+  * @return this
+  */
   delete () { // remove element
     if (!this.currentElement) {
       alert('nothing selected to delete')
       return this
     }
 
-    $(this.currentElement).remove()
+    this.currentElement.parentNode.removeChild(this.currentElement)
     this.noClick()
       .change()
     return this
   },
 
-  // how to append - what to append, where to append
-  /*
-    @input appendStyle = how to append the items
-    @input data = what to appendStyle
-    @input whereDom = where to append in the dom */
-  paste (appendStyle = 'in', data, whereDom) { // places the virtual copied element under the selected
+  /** appends the virtual clipboard to a specific location
+  *  @param {String} appendStyle - how to append the items
+  *  @param {String} data - what to appendStyle
+  *  @param {String} whereDom - where to append in the dom
+  *  @return this
+  */
+  paste (appendStyle = 'in', data, whereDom) {
     let insertHTML = data || this.clipboard
     let insertDom = whereDom || this.currentElement
     if (!insertHTML || !insertDom) {
@@ -154,13 +222,15 @@ const elementEvents = {
     }
     switch (appendStyle) {
       case 'after':
-        $(insertHTML).insertAfter(insertDom)
+        insertDom.insertAdjacentHTML('afterend',
+          insertHTML)
         break
       case 'before':
-        $(insertHTML).insertBefore(insertDom)
+        insertDom.insertAdjacentHTML('beforebegin',
+          insertHTML)
         break
       case 'in':
-        $(insertDom).append(insertHTML)
+        insertDom.innerHTML += insertHTML
         break
     }
 
@@ -168,28 +238,52 @@ const elementEvents = {
     return this
   },
 
+  /** copies the selected element and appends it as a sibling below the selected one
+  * @return this
+  */
   duplicate () { // duplicates the selected element under the selected
     if (!this.currentElement) {
       alert('nothing selected to duplicate')
       return this
     }
-    $(this.currentElement).clone().insertAfter(this.currentElement)
+    let clone = this.currentElement.cloneNode(true)
+    this.currentElement.parentNode.insertBefore(clone, this.currentElement.nextSibling)
     this.change()
     return this
   },
 
+  /** If the visible dom changes, redraw the hover and click rectangles
+  * @return this
+  */
   redrawRect () {
     if (this.currentElement) {
-      $(this.currentElement).trigger('click')
+      let event = new MouseEvent('mousedown', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      })
+      this.currentElement.dispatchEvent(event)
     }
     if (this.hoveredElement) {
-      $(this.hoveredElement).trigger('mouseover')
+      let event = new MouseEvent('mouseover', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      })
+      this.hoveredElementt.dispatchEvent(event)
     }
+    return this
   },
 
-  showRectAroundElement (e, type) { // display rectangle around choosen element
+  /** display rectangle around choosen element
+  * @param {Event} e - the event with taget
+  * @param {String} type - click or hover
+  * @return this
+  */
+  showRectAroundElement (e, type) {
     let rect = e.target.getBoundingClientRect()
-    $(`.${type}`).attr('style', `
+    let elem = document.getElementsByClassName(type)[0]
+    elem.setAttribute('style', `
       display: block;
       width:${rect.width}px;
       height:${rect.height}px;
@@ -199,14 +293,24 @@ const elementEvents = {
     return this
   },
 
-  hideRectAroundElement (type) { // hide rectangle
-    $(`.${type}`).attr('style', '')
+  /** hide the click/hover rectangle
+  * @param {String} type - click or hover
+  * @return this
+  */
+  hideRectAroundElement (type) {
+    let elem = document.getElementsByClassName(type)[0]
+    elem.setAttribute('style', '')
     return this
   },
 
-  // the following is all bout dragging an element
-  draggedElement: null, // dragged element
-  pasteDraggedAs: null, // paste style
+  /** The dragged element */
+  draggedElement: null,
+  /** How should the dragged element be appended */
+  pasteDraggedAs: null,
+  /** Initialize the dragging.
+  * add custom events and set everithing up
+  * @param {String} html - html as string (not required)
+  */
   dragStart (html) {
     if (!this.currentElement && !html) {
       alert('nothing selected to drag')
@@ -216,9 +320,8 @@ const elementEvents = {
     if (html) {
       this.draggedElement = html
     } else {
-      let x = $(this.currentElement).wrap('<p/>').parent().html() // clicked element
+      let x = this.currentElement.outerHTML // clicked element
       this.draggedElement = x // save element
-      $(x).remove()
       this.delete() // remove element from dom
     }
 
@@ -226,32 +329,24 @@ const elementEvents = {
     this.hoveredElement = null
     this.noHover() // "
 
-    $('#simulated')
-      .contents()
-      .off('mousemove')
-      .on('mousemove.dragHover', '*', (e) => { // hover events
-        e.stopImmediatePropagation()
-        this.dragHover(e)
-      })
+    this.dragHoverEvent = this.dragHover.bind(this)
+    this.iframe.addEventListener('mousemove', this.dragHoverEvent)
 
-    $('#simulated')
-      .contents()
-      .off('mouseup')
-      .on('mouseup.dragEnd', 'body', (e) => { // hover events
-        e.stopImmediatePropagation()
-        this.dragEnd()
-      })
+    this.dragEndEvent = this.dragEnd.bind(this)
+    this.iframe.addEventListener('mouseup', this.dragEndEvent)
+    document.addEventListener('mouseup', this.dragEndEvent)
 
-    $(document).on('mouseup.dragEndDocument', (e) => {
-      this.dragEnd()
-    })
     return this
   },
 
+  /** display the appending possibilities
+  * @param {Event} e - event
+  */
   dragHover (e) {
+    e.stopImmediatePropagation()
     this.hoveredElement = e.target // hovered item is now in this.hoveredElement
     // get position of mouse in item
-    let parentOffset = e.currentTarget.parentElement.getBoundingClientRect()
+    let parentOffset = e.target.parentElement.getBoundingClientRect()
     let rect = e.target.getBoundingClientRect()
     let x = (e.pageX - parentOffset.left)
     let y = (e.pageY - parentOffset.top)
@@ -278,7 +373,8 @@ const elementEvents = {
     // display wanted action in dom
     rect.width = rect.width
     rect.height = rect.height
-    $('.hover').attr('style', `
+    let elem = document.getElementsByClassName('hover')[0]
+    elem.setAttribute('style', `
       display: block;
       background-color: transparent;
       width:${rect.width}px;
@@ -292,17 +388,20 @@ const elementEvents = {
     return this
   },
 
-  dragEnd () {
+  /** End the dragging process and remove all events
+  * @param {Event} e - event
+  */
+  dragEnd (e) {
     // paste  how to append - what to append, where to append
     this.paste(this.pasteDraggedAs, this.draggedElement, this.hoveredElement)
     // remove all not needed events
-    $('#simulated').contents().off('mousemove.dragHover')
-    $('#simulated').contents().off('mouseup.dragEnd')
-    $(document).off('mouseup.dragEndDocument')
+    this.iframe.removeEventListener('mousemove', this.dragHoverEvent)
+    this.iframe.removeEventListener('mouseup', this.dragEndEvent)
+    document.removeEventListener('mouseup', this.dragEndEvent)
     // reset to previous
     this.allowHover = true
     return this
   }
 }
-
+window.e = elementEvents
 module.exports = elementEvents
