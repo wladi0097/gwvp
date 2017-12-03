@@ -57,7 +57,7 @@ const contextMenu = {
    * @todo replace hardcoded width and height
   */
   getBestPosition (x, y) {
-    /** block has to be visible to get width and height  */
+    // block has to be visible to get width and height
     this.$domItem.setAttribute('style', `display: block;`)
     let position = {x: x, y: y}
     let tolerance = 25

@@ -58,7 +58,6 @@ describe('event bindings', () => {
   let ownContextMenu = {...contextMenu}
   ownContextMenu.init(document, $contextMenu[0])
 
-  /** @todo fix */
   it('should fire context menu', () => {
     let event = new Event('contextmenu')
     document.dispatchEvent(event)
@@ -73,5 +72,5 @@ describe('event bindings', () => {
 })
 
 describe('best position', () => {
-  /** @todo end */
+
 })

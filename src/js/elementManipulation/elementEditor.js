@@ -1,4 +1,3 @@
-/* global $ */
 const selectedElement = {
   // TODO EVERYTHING
   selectedItem: null,
@@ -20,7 +19,6 @@ const selectedElement = {
     if (!this.selectedItem) {
       return
     }
-    $(this.selectedItem).css(property, value)
   },
 
   select (target) {
