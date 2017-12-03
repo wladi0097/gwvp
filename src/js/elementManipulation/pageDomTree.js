@@ -1,7 +1,8 @@
-/* global Event */
+/* global MouseEvent */
 /** show full page dom
   * building the tree almost takes no time,
   * because of that it gets rebuild after every action
+  * It is standalone and can be used in other projects.
 */
 const pageDomTree = {
   /**
@@ -10,14 +11,20 @@ const pageDomTree = {
   *   ids: [],
   *   counter: 0
   *}
-  * @param {String} treeData.html - html to append
-  * @param {HTMLElement[]} treeData.ids - all iframe dom Elements
-  * @param {Number} treeData.counter - id counter
+  * {String} treeData.html - html to append
+  * {HTMLElement[]} treeData.ids - all iframe dom Elements
+  * {Number} treeData.counter - id counter
   */
   treeData: null,
+  /**
+   * true if events are attached
+  */
   hasEvents: false,
 
-  // build whole tree with reset
+  /** build whole tree with reset
+  @param {HTMLElement} iframe - build domtree of that
+  @param {HTMLElement} domTree - place domTree there
+  */
   build (iframe, domTree) {
     this.$iframe = iframe || document.getElementById('simulated').contentDocument.body
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
@@ -33,12 +40,14 @@ const pageDomTree = {
 
     if (!this.hasEvents) { // add events if not exist
       this.addOpenCloseEvents()
-        .addRelationEvents(this.treeData.ids)
+        .addRelationEvents()
       this.hasEvents = true
     }
   },
 
-  // reset to default state
+  /** reset to default state
+  * @return this
+  */
   reset () {
     this.$domTree.innerHTML = ''
     return this
@@ -47,8 +56,10 @@ const pageDomTree = {
   /** Create a dom tree with a recursive function.
   * Append html after done = ~ 5ms.
   * Append each element itself = ~ 300ms.
-  * this is using the whole this.treeData object, please check it out before
+  * This is using the whole treeData object, please check it out before
   * reading the following.
+  * @param {HTMLElement} node - html node
+  * @return this
   */
   createTree (node) {
     let children = node.children
@@ -76,40 +87,64 @@ const pageDomTree = {
     return this
   },
 
-  // add click and mouseover events to appended dom items
-  addRelationEvents (tree) {
-    window.domTree = tree
+  /**
+  * add click and mouseover events to appended dom items
+  * @return this
+  */
+  addRelationEvents () {
     this.$domTree.removeEventListener('mousedown', this.addRelationClickEvents)
-    this.$domTree.addEventListener('mousedown', this.addRelationClickEvents)
+    this.$domTree.addEventListener('mousedown', this.addRelationClickEvents.bind(this), false)
+    // --
     this.$domTree.removeEventListener('mouseover', this.addRelationHoverEvents)
-    this.$domTree.addEventListener('mouseover', this.addRelationHoverEvents)
+    this.$domTree.addEventListener('mouseover', this.addRelationHoverEvents.bind(this), false)
     return this
   },
 
+  /** This is an Event.
+  * If an element in the domTree gets hovered, hover over the same element in the iframe
+  */
   addRelationHoverEvents (e) {
     let el = e.target.closest('li, ul')
     if (el) {
-      let event = new Event('mouseover')
-      window.domTree[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+      let event = new MouseEvent('mouseover', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      })
+      // console.log(this.treeData.ids[el.getAttribute('id').split('-')[1]].getBoundingClientRect())
+      this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
     }
   },
 
+  /** This is an Event.
+  * If an element in the domTree gets clicked, click over the same element in the iframe
+  */
   addRelationClickEvents (e) {
     let el = e.target.closest('li, ul')
     if (el) {
-      let event = new Event('mousedown')
-      window.domTree[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+      let event = new MouseEvent('mousedown', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      })
+      this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
     }
   },
 
-  // add caret icons for better navigation
-  // all ul items can be expanded with a click
+  /** add caret icons for better navigation
+  * all ul items can be expanded with a click
+  * @return this
+  */
   addOpenCloseEvents () {
     this.$domTree.removeEventListener('mousedown', this.addOpenCloseEvent)
     this.$domTree.addEventListener('mousedown', this.addOpenCloseEvent)
     return this
   },
 
+  /** This is a Event.
+  * Show or hide elements with the class 'hidden', it also hides all children elements.
+  * The 'fa' is for the fontawesome icons, which display the current state of the element
+  */
   addOpenCloseEvent (e) {
     if (e.target.tagName === 'I') {
       let ul = e.target.parentNode
