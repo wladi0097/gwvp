@@ -1,61 +1,80 @@
-/* global $ */
+/** Scale the iframe and all overlays
+*/
 const changeScreenSize = {
+  /** Simulate device width */
+  width: 1200,
+  /** Scale for easy use */
+  scale: 0.9,
+  /** Initialize */
   init () {
     this.cacheDom()
     this.bindEvents()
   },
 
+  /** Cache dom elements */
   cacheDom () {
     // dom to resize
-    this.$hover = $('.hover-wrapper')
-    this.$click = $('.click-wrapper')
-    this.$simulated = $('#simulated')
-    this.$buttons = $('.header-icons')
+    this.$hover = document.getElementsByClassName('hover-wrapper')[0]
+    this.$click = document.getElementsByClassName('click-wrapper')[0]
+    this.$simulated = document.getElementById('simulated')
+    this.$buttons = document.getElementsByClassName('header-icons')[0]
 
     // custom buttons
-    this.$tv = $('#screen-Tv')
-    this.$computer = $('#screen-Computer')
-    this.$tablet = $('#screen-Tablet')
-    this.$mobile = $('#screen-Mobile')
+    this.$tv = document.getElementById('screen-Tv')
+    this.$computer = document.getElementById('screen-Computer')
+    this.$tablet = document.getElementById('screen-Tablet')
+    this.$mobile = document.getElementById('screen-Mobile')
   },
 
+  /** apply events to static content */
   bindEvents () {
-    // add events to the cutstom buttons
-    this.$tv.on('click', () => { this.changeResolution('Tv') })
-    this.$computer.on('click', () => { this.changeResolution('Computer') })
-    this.$tablet.on('click', () => { this.changeResolution('Tablet') })
-    this.$mobile.on('click', () => { this.changeResolution('Mobile') })
+    this.$tv.addEventListener('mousedown', () => { this.changeResolution('Tv') })
+    this.$computer.addEventListener('mousedown', () => { this.changeResolution('Computer') })
+    this.$tablet.addEventListener('mousedown', () => { this.changeResolution('Tablet') })
+    this.$mobile.addEventListener('mousedown', () => { this.changeResolution('Mobile') })
   },
 
+  /** Apply styling to the iframe and the overlays */
+  applyStyle () {
+    this.$hover.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
+    this.$click.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
+    this.$simulated.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
+  },
+
+  /** Change the resolution to a device width.
+   * @param {String} type - possible TV, Compuer, Tablet and Mobile
+   */
   changeResolution (type) {
-    this.$buttons.children('.selected').removeClass('selected') // remove custom style
+    this.$buttons.querySelectorAll('.selected')[0].classList.remove('selected')
     let width = 1200
-    switch (type) { // type = name of device
+    switch (type) {
       case 'Tv':
         width = 1200
-        this.$tv.addClass('selected') // add custom style to button
+        this.$tv.classList.add('selected')
         break
       case 'Computer':
         width = 979
-        this.$computer.addClass('selected') // add custom style to button
+        this.$computer.classList.add('selected')
         break
       case 'Tablet':
         width = 767
-        this.$tablet.addClass('selected') // add custom style to button
+        this.$tablet.classList.add('selected')
         break
       case 'Mobile':
         width = 480
-        this.$mobile.addClass('selected') // add custom style to button
+        this.$mobile.classList.add('selected')
         break
     }
-    // resize dom elements
-    this.$hover.css('width', width).css('min-width', width)
-    this.$click.css('width', width).css('min-width', width)
-    this.$simulated.css('width', width).css('min-width', width)
+    this.width = width
+    this.applyStyle()
   },
 
+  /** Change the Zoom
+   * @param {Number} percent - default 0.9
+   */
   changeZoom (percent) {
-    // TODO:
+    this.scale = percent
+    this.applyStyle()
   }
 }
 module.exports = changeScreenSize
