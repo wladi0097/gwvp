@@ -9,6 +9,8 @@ const contextMenu = require('../interaction/contextMenu.js')
  * Here are also all events (which are affecting the dom).
 */
 const elementEvents = {
+  /** are you allowed to use this functions */
+  allowInteraction: false,
   /**
   * After a click the element gets selected and saved here.
   * currentElement - The currently selected Element.
@@ -107,6 +109,7 @@ const elementEvents = {
     }
     this.noHover()
       .showRectAroundElement(e, 'click')
+    this.allowInteraction = true
     this.currentElement = e.target
     this.$itemName.innerHTML = e.target.nodeName
     elementEditor.select(e.target)
@@ -118,6 +121,7 @@ const elementEvents = {
   */
   noClick () {
     this.currentElement = null
+    this.allowInteraction = false
     this.hideRectAroundElement('click')
     elementEditor.unselect()
     return this
@@ -160,7 +164,7 @@ const elementEvents = {
   * @return this
   */
   copy () {
-    if (!this.currentElement) {
+    if (!this.allowInteraction) {
       alert('nothing selected')
       return this
     }
@@ -183,7 +187,7 @@ const elementEvents = {
   * @return this
   */
   cut () {
-    if (!this.currentElement) {
+    if (!this.allowInteraction) {
       alert('nothing selected to cut')
       return this
     }
@@ -196,7 +200,7 @@ const elementEvents = {
   * @return this
   */
   delete () { // remove element
-    if (!this.currentElement) {
+    if (!this.allowInteraction) {
       alert('nothing selected to delete')
       return this
     }
@@ -242,7 +246,7 @@ const elementEvents = {
   * @return this
   */
   duplicate () { // duplicates the selected element under the selected
-    if (!this.currentElement) {
+    if (!this.allowInteraction) {
       alert('nothing selected to duplicate')
       return this
     }
@@ -336,6 +340,7 @@ const elementEvents = {
     this.iframe.addEventListener('mouseup', this.dragEndEvent)
     document.addEventListener('mouseup', this.dragEndEvent)
 
+    this.allowInteraction = false
     return this
   },
 
@@ -403,5 +408,4 @@ const elementEvents = {
     return this
   }
 }
-window.e = elementEvents
 module.exports = elementEvents

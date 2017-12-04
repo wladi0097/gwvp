@@ -111,7 +111,6 @@ const pageDomTree = {
         bubbles: true,
         cancelable: true
       })
-      // console.log(this.treeData.ids[el.getAttribute('id').split('-')[1]].getBoundingClientRect())
       this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
     }
   },
