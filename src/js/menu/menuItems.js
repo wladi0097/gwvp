@@ -1,13 +1,15 @@
-/* The menu and keycodes are creted by this object.
- * Every keycode must have a menu item. (User friendly)
+/** The menu and keycodes are creted by this object.
+ * Every keycode must have a menu item. (user friendly)
  * To add a menu item, you have to add it to the exports array like:
+ * @example
  *  {
  *    name: '', // name of the menu item         !required
- *    components: [], // all components          !required
+ *    items: [], // all items          !required
  *  }
  *
+ * @example
  * A menu item component looks like this:
- *  {
+ * {
  *    id: '' // to run must be unique            !optional
  *    icon: '', // a fontawesome icon            !optional
  *    text: '', // displayed text                !required
@@ -16,50 +18,14 @@
  *    underItems: [] // same as normal items     !optional
  *  }
  *
+ * @example
  * To make things fancy, you an add a delimiter:
  * { delimiter: true }
  */
 module.exports = function (elementEvents) {
-  const runEvents = {
-    elementEvents: {
-      undo () {
-        elementEvents.undo()
-      },
-      redo () {
-        elementEvents.redo()
-      },
-      cut () {
-        elementEvents.cut()
-      },
-      copy () {
-        elementEvents.copy()
-      },
-      duplicate () {
-        elementEvents.duplicate()
-      },
-      paste () {
-        elementEvents.paste()
-      },
-      delete () {
-        elementEvents.delete()
-      },
-      resizeToTv () {
-        elementEvents.changeRes('Tv')
-      },
-      resizeToLaptop () {
-        elementEvents.changeRes('Computer')
-      },
-      resizeToTablet () {
-        elementEvents.changeRes('Tablet')
-      },
-      resizeToMobile () {
-        elementEvents.changeRes('Mobile')
-      }
-    }
-  }
   return [{
     name: 'File',
-    components: [{
+    items: [{
       id: 'newProject',
       icon: '',
       text: 'New Project',
@@ -97,19 +63,19 @@ module.exports = function (elementEvents) {
   },
   {
     name: 'Edit',
-    components: [{
+    items: [{
       id: 'undo',
       icon: 'undo',
       text: 'Undo',
       keycode: 'STRG + Z',
-      run: runEvents.elementEvents.undo
+      run () { elementEvents.undo() }
     },
     {
       id: 'redo',
       icon: 'repeat',
       text: 'Redo',
       keycode: 'SHIFT + STRG + Z',
-      run: runEvents.elementEvents.redo
+      run () { elementEvents.redo() }
     },
     {
       delimiter: true
@@ -119,41 +85,41 @@ module.exports = function (elementEvents) {
       icon: 'scissors',
       text: 'Cut',
       keycode: 'STRG + X',
-      run: runEvents.elementEvents.cut
+      run () { elementEvents.cut() }
     },
     {
       id: 'clone',
       icon: 'clone',
       text: 'Copy',
       keycode: 'STRG + C',
-      run: runEvents.elementEvents.copy
+      run () { elementEvents.copy() }
     },
     {
       id: 'duplicate',
       icon: 'clone',
       text: 'Duplicate',
       keycode: 'STRG + D',
-      run: runEvents.elementEvents.duplicate
+      run () { elementEvents.duplicate() }
     },
     {
       id: 'clipboard',
       icon: 'clipboard',
       text: 'Paste',
       keycode: 'STRG + V',
-      run: runEvents.elementEvents.paste
+      run () { elementEvents.paste() }
     },
     {
       id: 'trash',
       icon: 'trash',
       text: 'Delete',
       keycode: 'DEL',
-      run: runEvents.elementEvents.delete
+      run () { elementEvents.delete() }
     }
     ]
   },
   {
     name: 'View',
-    components: [{
+    items: [{
       id: 'showLeftNav',
       icon: 'check',
       text: 'Show left Nav'
@@ -174,28 +140,28 @@ module.exports = function (elementEvents) {
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
-        run: runEvents.elementEvents.resizeToTv
+        run () { elementEvents.changeRes('Tv') }
       },
       {
         id: 'resizeToLaptop',
         icon: 'laptop',
         text: 'Notebook',
         keycode: 'ALT + 2',
-        run: runEvents.elementEvents.resizeToLaptop
+        run () { elementEvents.changeRes('Computer') }
       },
       {
         id: 'resizeToTablet',
         icon: 'tablet',
         text: 'Tablet',
         keycode: 'ALT + 3',
-        run: runEvents.elementEvents.resizeToTablet
+        run () { elementEvents.changeRes('Tablet') }
       },
       {
         id: 'resizeToMobile',
         icon: 'mobile',
         text: 'Phone',
         keycode: 'ALT + 4',
-        run: runEvents.elementEvents.resizeToMobile
+        run () { elementEvents.changeRes('Mobile') }
       }
       ]
     }
@@ -204,7 +170,7 @@ module.exports = function (elementEvents) {
 
   {
     name: 'Help',
-    components: [
+    items: [
       {
         icon: 'book',
         text: 'Read Docs',
@@ -225,7 +191,7 @@ module.exports = function (elementEvents) {
   {
     // this one wont be seen in the menu because its a contextmenu
     id: 'contextmenu',
-    components: [{
+    items: [{
       id: 'CnewProject',
       icon: '',
       text: 'New Project'
