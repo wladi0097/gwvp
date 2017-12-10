@@ -1,22 +1,32 @@
-/* global $ */
-/* All simple Navigation options. */
+/** All simple Navigation options. */
 const navigation = {
   init () {
     this.leftNavBarSelection()
   },
 
-  // switch between the three tabs
+  /** switch between the three tabs */
   leftNavBarSelection () {
-    $('.sidebar-navigator').on('click', (e) => {
-      // change color
-      $('.sidebar-navigator').removeClass('selected')
-      $(e.currentTarget).addClass('selected')
-
-      // open sidebar
-      let open = 'sidebar-' + $(e.currentTarget).data('open')
-      $('.sidebar-content').addClass('hide')
-      $(`.${open}`).removeClass('hide')
+    let elements = document.getElementsByClassName('sidebar-navigator')
+    Array.from(elements).forEach((element) => {
+      element.addEventListener('click', this.leftNavBarSelectionEvent.bind(this))
     })
+  },
+
+  /** Its the event for leftNavBarSelection */
+  leftNavBarSelectionEvent (e) {
+    Array.from(document.getElementsByClassName('sidebar-navigator'))
+      .forEach((element) => {
+        element.classList.remove('selected')
+      })
+    e.currentTarget.classList.add('selected')
+
+    Array.from(document.getElementsByClassName('sidebar-content'))
+      .forEach((element) => {
+        element.classList.add('hide')
+      })
+
+    let data = 'sidebar-' + e.currentTarget.getAttribute('data-open')
+    document.getElementsByClassName(data)[0].classList.remove('hide')
   }
 
 }
