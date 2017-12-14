@@ -79,11 +79,12 @@
   width: 100%;
   height: 37%;
 }
+
 .overflow {
   width: calc( 100% + 30px) !important;
   overflow-x: hidden;
   overflow-y: scroll;
-  .sidebar-header{
+  >div{
     width: calc( 100% - 30px);
   }
 }
@@ -93,57 +94,150 @@
   height: 60%;
 }
 
+
+
 .sidebar-elements{
-  cursor: pointer;
-  position: relative;
-  float: left;
-  display: table;
-  >.items{
-    background-color: $main;
-    min-height: 100px;
-    display: inline-block;
-    position: relative;
-    display: table-row;
-    &.hidden{
-      display: none;
+  .sidebar-category {
+    margin-top: 5px;
+    color: $border;
+    text-align: center;
+    >p {
+      padding: 2px;
+      border-bottom: 1px solid $main-background;
+      width: 80%;
+      margin-left: 10%
     }
+  }
+
+  .newElements-items{
+    margin: 20px 0;
     width: 100%;
-    >.item{
-      position: relative;
-      height: 90px;
-      width: calc(33.333% - 2px);
+    &::after{
+    clear: both;
+    content: "";
+    display: block;
+    }
+    .newElements-item{
+      width: 25%;
+      margin-left: 6.25%;
       float: left;
-      border: 1px solid $border;
-      border-collapse: collapse;
-      transition: all .5s;
-      &:hover{
-        background-color: $main-background;
-      }
-      >.img{
-        width: 100%;
-        height: 80px;
-        >img{
-          padding: 0 5%;
-          width: 90%;
-          height: 100%;
-          user-select: none;
-          pointer-events: none;
+      cursor: pointer;
+      &.active{
+        >.img{
+          border: 2px solid $highlight;
+          transform: rotate(10deg);
+        }
+        &:hover{
+          >.img{
+          background-color: initial;
+          }
+          >p {
+            letter-spacing: initial;
+          }
         }
       }
-      >.name{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 20px;
-        font-size: 13px;
+      &:hover{
+        >.img{
+        background-color: $main-background;
+        }
+        >p {
+          letter-spacing: 1px;
+        }
+      }
+      >.img{
+        border: 1px solid $light;
         width: 100%;
-        text-align: center;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: all .3s;
+        >img{
+          transition: all 1s;
+          transform: scale(0.8);
+          width: 100%;
+          height: 100%;
+        }
       }
-      >.helpIcon{
+      >p{
+        transition: all .5s;
+        color: $light-active;
+      }
+    }
+  }
+}
+
+.newElements-content{
+  position: static;
+  margin-left: -5px; // remove later
+  left: 10px;
+  margin-top: 10px;
+  width: calc( 250px - 22px);
+  display: inline-block;
+  border: 1px solid $border;
+  &.hidden {
+    display: none;
+  }
+  .sidebar-element{
+    cursor: pointer;
+    position: relative;
+    float: left;
+    display: table;
+    .sidebar-visible-header{
+      transition: all .5s;
+      &:hover{
+        color: $light-active;
+        >i{
+          color: $light-active;
+        }
+      }
+    }
+    .items{
+      background-color: $main;
+      min-height: 100px;
+      display: inline-block;
+      position: relative;
+      display: table-row;
+      &.hidden{
         display: none;
       }
-      >.helpText{
-        display: none;
+      width: 100%;
+      .item{
+        position: relative;
+        height: 90px;
+        width: calc(33.333% - 2px);
+        float: left;
+        border: 1px solid $border;
+        border-collapse: collapse;
+        transition: all .5s;
+        &:hover{
+          background-color: $main-background;
+        }
+        >.img{
+          width: 100%;
+          height: 80px;
+          >img{
+            padding: 0 5%;
+            width: 90%;
+            height: 100%;
+            user-select: none;
+            pointer-events: none;
+          }
+        }
+        >.name{
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 20px;
+          font-size: 13px;
+          width: 100%;
+          text-align: center;
+        }
+        >.helpIcon{
+          display: none;
+        }
+        >.helpText{
+          display: none;
+        }
       }
     }
   }
