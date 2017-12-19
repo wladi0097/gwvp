@@ -13,11 +13,15 @@ $highlight-Hover: #72a1fd;
 $frameHover: rgba(255, 0, 0, 0.50);
 $frameClick: #0046d2;
 
+$red: #c0392b;
+$green: #27ae60;
+
 
 
 // light version
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+// TODO: change later
+// @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import "./css/font-awesome.min.css";
 *{
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -51,3 +55,6 @@ html, body {
 @import "scrollbar";
 @import "domtree";
 @import "textEditor";
+@import "window";
+@import "window-onlineElementPackages";
+@import "window-addToUsingElementPackages";

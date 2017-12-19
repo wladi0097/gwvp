@@ -1,0 +1,142 @@
+.window-addToUsingElementPackages{
+  .window-content{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: calc( 60% - 30px );
+    max-height: 80%;
+    padding: 20px;
+
+    >h2{
+      text-align: center;
+      color: $light;
+      margin: 5px 0;
+    }
+
+    h3{
+      font-size: 20px;
+      color: $border;
+      margin: 10px 0;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: all .3s;
+      >i {
+        margin-left: 5px;
+        transform: rotate(-90deg);
+      }
+      & + * {
+        display: none;
+      }
+      &:hover{
+        color: $light;
+        >i{
+          color: $light;
+        }
+      }
+      &.active{
+        color: $light;
+        & + * {
+          display: block;
+        }
+        >i{
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+}
+
+
+.window-addToUsingElementPackages .default-info {
+  width: 100%;
+  >div{
+    &::after {
+      content: ".";
+      clear: both;
+      display: block;
+      visibility: hidden;
+      height: 0px;
+    }
+    >.img{
+    float: left;
+    width: 100px;
+    height: 100px;
+    >img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  >.description{
+    float: left;
+    width: calc(100% - 140px);
+    height: 100px;
+    padding: 0 20px;
+    >p{
+      color: $light-active;
+    }
+  }
+  }
+
+}
+
+.window-addToUsingElementPackages .dependency-info {
+  table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+  table, th, td{
+    border: 1px solid $border;
+  }
+  tr td:first-child{
+    width: 30%;
+  }
+  td, th{
+    padding: 10px;
+  }
+  th {
+    color: $light;
+    font-size: 18px;
+  }
+  td {
+    color: $light;
+    >a {
+      color: $light;
+    }
+  }
+  .inlcudeAs{
+    width: 10%;
+    text-align: center;
+  }
+}
+
+.window-addToUsingElementPackages .code-info {
+  >div{
+    >p{
+      color: $light;
+      >i{
+        margin-left: 5px;
+      }
+    }
+    >code{
+      color: $light;
+      background-color: $main-background;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+}
+
+.window-addToUsingElementPackages .items-info .newElements-content{
+  color: $border;
+  width: 100%;
+  .items .item{
+    width: 100px;
+  }
+  .hidden {
+    display: table-row;
+  }
+}
+
+.window-addToUsingElementPackages .accept{
+  margin-top: 30px;
+  margin-bottom: 0;
+}

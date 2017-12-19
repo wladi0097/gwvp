@@ -1,0 +1,31 @@
+<div class="window window-onlineElementPackages hide" id="onlineElementPackages">
+  <h2 class="window-info">Add element package</h2>
+  <div class="window-content">
+    <div class="input">
+      <input id="onlineElementPackagesInput" type="text" value="http://localhost:8080/h/hi.json" placeholder="URL to a element package">
+    </div>
+    <div class="button" id="onlineElementPackagesButton">
+      <i class="fa fa-fighter-jet" aria-hidden="true"></i>
+    </div>
+    <div class="window-response" id="onlineElementPackagesResponse">
+      <!-- found -->
+      <div class="found hide" id="onlineElementPackages-found">
+        <div class="img">
+          <img id="onlineElementPackages-foundImg" src="#" alt="#">
+        </div>
+        <div class="info">
+          <h2 id="onlineElementPackages-foundHeader"></h2>
+          <p id="onlineElementPackages-foundText"></p>
+          <p class="disclaimer">We are not checking the trustworthiness of the package, its up to you</p>
+        </div>
+        <div class="accept">
+          <p class="accept-button" id="onlineElementPackagesAccept">I trust the source and want to add it to the packages</p>
+        </div>
+      </div>
+      <!-- load -->
+      <i class="fa fa-spinner fa-spin fa-3x fa-fw hide" id="onlineElementPackages-load"></i>
+      <!-- Error -->
+      <p class="hide error" id="onlineElementPackages-error"></p>
+    </div>
+  </div>
+</div>

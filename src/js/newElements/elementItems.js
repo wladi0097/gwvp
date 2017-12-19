@@ -1,92 +1,235 @@
-const basicElementItems = require('./basicItems')
-const elementItems = {
-  /** requires elementEvents to drag elements */
-  elementEvents: null,
-  currentOpenTarget: null,
+const basicElementItems = require('./packages/basicItems')
+const idGen = require('../interaction/idGen')
+const onlineElementPackages = require('./onlineElementPackages')
+const addToUsingElementPackages = require('./addToUsingElementPackages')
 
+// TODO: add dependency by reference or by text
+// TODO: clean the online inputs from injection
+// TODO: fix css bug where the using categories are not on the left
+// TODO: make addToUsingElementPackages window more fancy
+
+/** A JSON can be used to add new dom elements to the current project.
+ * Examples can be found in the packages folder.
+ * Its called a package and looks like this:
+ * @typedef  {Object} packages
+ * @property {String} name - the shown name of the package
+ * @property {String} description -  a simple description about the content
+ * @property {String} icon - URL to a image which represents the package
+ * @property {dependencyObject[]} cssDependency - css Dependency Object
+ * @property {dependencyObject[]} jsDependency - js Dependency Object
+ * @property {String} css - custom used CSS
+ * @property {String} js - custom used js
+ * @property {packageItems[]} content - all html items
+ *
+ * @example {
+ * "name": "example",
+ * "description": "simple description",
+ * "icon": "http://example.com/image.jpg",
+ * "cssDependency": [{"name":"google", "url": "www.google.com"}],
+ * "jsDependency": [{"name":"bootstrap", "url": "www.google.com"}],
+ * "content": [{
+ *   "name": "Layout",
+ *   "items": [
+ *     {
+ *       "name": "Container",
+ *       "icon": "",
+ *       "description": "",
+ *       "html": "<div></div>"
+ *     },
+ *     {
+ *       "name": "Colum",
+ *       "icon": ""
+ *     }
+ *   ]}],
+ * "css": "*{display:none}",
+ * "js": "console.log('OH BOI')"
+ *}
+ */
+
+/**
+  * @typedef  {Object} dependencyObject
+  * @property {String} name - short name of the dependency
+  * @property {String} url - full url to the dependency
+  */
+
+/** @typedef {Object} packageCategory
+  * @property {String} name - name of the category
+  * @property {packageItems[]} items - the html items
+  */
+
+/** @typedef {Object} packageItems
+  * @property {String} name - name of the html item
+  * @property {String} icon - url image of the item
+  * @property {String} description - short description for the item
+  * @property {String} html - html code
+  */
+
+/** Add CSS, JS and HTML to the iframe via element packages
+ * and manage html dom items.
+ */
+const elementItems = {
+  /** requires elementEvents to drag elements from elementEvents.js  */
+  elementEvents: null,
+
+  /** Initialize onlineElementPackages and addToUsingElementPackages also
+   * bind events.
+   * @param {Object} elementEvents - the elementEvents to drag elements
+   */
   init (elementEvents) {
     this.elementEvents = elementEvents
-    elementItemsHTML.addUsingCategory(basicElementItems)
     this.bindUsingEvents()
+    this.bindAddToEvents()
+    this.addBasicPackage()
+    onlineElementPackages.init(this)
+    addToUsingElementPackages.init(this)
   },
 
+  /** Add the basic HTML package  */
+  addBasicPackage () {
+    basicElementItems.id = idGen.new()
+    elementItemsHTML.addUsingPackage(basicElementItems)
+  },
+
+  /** Create a big addEventListener and watch the clicked items,
+   * because of that there is no need to bind multiple events after changes.
+   * The sequence is very important, it goes from the smallest to the biggest
+   * element and breks the chain if anything got found
+   */
   bindUsingEvents () {
-    let all = document.getElementById('sidebar-basic')
+    let all = document.getElementById('newElementsUsing')
     all.addEventListener('mousedown', (e) => {
+      // is a single item clicked
       let item = e.target.closest('.html-element')
       if (item) {
         this.dragStart(item)
+        return
       }
 
+      // is a category item clicked
       let itemCategory = e.target.closest('.sidebar-visible-header')
       if (itemCategory) {
-        this.toggleClass(itemCategory)
+        this.toggleCategoryVisibility(itemCategory)
         return
       }
 
+      // is anything inside the packae clicked
       let contentContainer = e.target.closest('.newElements-content')
-      if (contentContainer) {
-        return
-      }
+      if (contentContainer) { return }
 
-      let bigCategory = e.target.closest('.newElements-item')
-      if (bigCategory) {
-        this.showBigCategory(bigCategory)
+      // is package clicked
+      let elementPackage = e.target.closest('.newElements-item')
+      if (elementPackage) {
+        this.togglePackageDomVisibility(elementPackage)
       }
     })
   },
 
-  showBigCategory (category) {
-    this.hideBigCategories()
-    if (this.currentOpenTarget === category) {
-      this.currentOpenTarget = null
-      return
-    }
-    let content = document.getElementById('content-' +
-      category.getAttribute('id'))
-    category.classList.add('active')
-    content.classList.remove('hidden')
-
-    this.currentOpenTarget = category
-  },
-
-  hideBigCategories () {
-    Array.from(document.getElementsByClassName('newElements-item'))
-      .forEach((element) => {
-        if (element.classList.contains('active')) {
-          element.classList.remove('active')
-        }
-      })
-    Array.from(document.getElementsByClassName('newElements-content'))
-      .forEach((element) => {
-        if (!element.classList.contains('hidden')) {
-          element.classList.add('hidden')
-        }
-      })
-  },
-
-  toggleClass (target) {
-    let item = target.nextElementSibling
-    if (item.classList.contains('hidden')) {
-      item.classList.remove('hidden')
+  /** A Index Table for Packages for faster search  */
+  packagedIndexTable: [],
+  /** all unused packages are stored here */
+  packages: [],
+  /** add a package to the packagedIndexTable and the packages arrays or inserts
+   * it directly to the "using" dom element
+   * @param {String} position - either using, official or online
+   * @param {packages} elementPackage - a packages object with all data
+   */
+  addPackage (position, elementPackage) {
+    elementPackage.id = idGen.new()
+    if (position === 'using') {
+      elementItemsHTML.addUsingPackage(elementPackage)
     } else {
-      item.classList.add('hidden')
+      this.packages.push(elementPackage)
+      this.packagedIndexTable.push(elementPackage.id)
+      elementItemsHTML.addEmptyPackage(position, elementPackage)
     }
   },
 
+  /** Hide or show the content of a package
+  * @param {HTMLElement} $domPackage - the element to toggle
+  */
+  togglePackageDomVisibility ($domPackage) {
+    if ($domPackage.classList.contains('active')) {
+      $domPackage.classList.remove('active')
+    } else {
+      $domPackage.classList.add('active')
+    }
+  },
+
+  /** Hide or show the categories of a package
+  * @param {HTMLElement} $category - the element to toggle
+  */
+  toggleCategoryVisibility ($category) {
+    if ($category.classList.contains('active')) {
+      $category.classList.remove('active')
+    } else {
+      $category.classList.add('active')
+    }
+  },
+
+  /** run the drag function from elementEvents with the HTML of the clicked element  */
   dragStart (target) {
     let html = unescape(target.getAttribute('html'))
     this.elementEvents.dragStart(html)
+  },
+
+  /** Fire if a package from official or online gets clicked   */
+  bindAddToEvents () {
+    [document.getElementById('newElementsOfficial'),
+      document.getElementById('newElementsOnline')].forEach((element) => {
+      element.addEventListener('mousedown', (e) => {
+        let elementPackage = e.target.closest('.newElements-item')
+        if (elementPackage) {
+          this.showAddToUsingWindow(elementPackage)
+        }
+      })
+    })
+  },
+
+  /** cache of the currently clicked package  */
+  currentlyWatchedPackageIndex: null,
+  /** Show a custom window where the user can see all details about the package
+   * @param {packages} elementPackage - a package
+   */
+  showAddToUsingWindow (elementPackage) {
+    // get the already added package from the packages array
+    let index = this.packagedIndexTable.indexOf(elementPackage.getAttribute('id'))
+    if (index >= 0) {
+      let fullPackage = this.packages[index]
+      this.currentlyWatchedPackageIndex = index
+      addToUsingElementPackages.show(fullPackage)
+    }
+  },
+
+  /** get the ItemCategories HTML for a package
+   * @param {packages} elementPackage - a package
+   * @return {String} HTMl
+   */
+  getItemCategories (elementPackage) {
+    return elementItemsHTML.templateItemCategories(elementPackage.id, elementPackage.content, false)
+  },
+
+  /** accept tha package and move it to using   */
+  movePackageToUsing () {
+    let data = this.packages[this.currentlyWatchedPackageIndex]
+    let element = document.getElementById(data.id)
+    elementItemsHTML.addUsingPackage(data, element)
   }
 }
 module.exports = elementItems
 
+/** shift HTML creation from logic */
 const elementItemsHTML = {
   $using: document.getElementById('newElementsUsing'),
   $official: document.getElementById('newElementsOfficial'),
   $online: document.getElementById('newElementsOnline'),
 
-  templateBigCategory (id, name, img) {
+  /** Create an HTML Block with a single Package,
+   * @param {String} id - a unique string sequence
+   * @param {String} name - name of the package
+   * @param {String} img - URL to a image of the package
+   * @return {String} completed html
+   */
+  templatePackage (id, name, img) {
     return `
     <div class="newElements-item" id=${id}>
       <div class="img">
@@ -97,8 +240,15 @@ const elementItemsHTML = {
     `
   },
 
-  templateItemCategories (id, data) {
-    let html = `<div class="newElements-content hidden" id="content-${id}">`
+  /** Create an HTML Block with all Categories and their items,
+   * which can be used to add dom element to the current page
+   * @param {String} id - a unique string sequence
+   * @param {packages} data - a package
+   * @param {Boolean} hidden - should it be hidden by default
+   * @return {String} completed html
+   */
+  templateItemCategories (id, data, hidden = true) {
+    let html = `<div class="newElements-content ${(hidden) ? 'hidden' : ''}" id="content-${id}">`
     for (var i = 0; i < data.length; i++) {
       html += `
       <div class="sidebar-header sidebar-element">
@@ -117,7 +267,7 @@ const elementItemsHTML = {
           </div>
           <p class="name">${items[k].name}</p>
           <div class="helpText">
-            <p>${items[k].info}</p>
+            <p>${items[k].description}</p>
             <button>Close</button>
           </div>
         </div>`
@@ -128,20 +278,30 @@ const elementItemsHTML = {
     return html
   },
 
-  addUsingCategory (data, existing) {
+  /** Add or move a using package to the dom.
+   * @param {packages} data - a package
+   * @param {HTMLElement} existing - html which should be replaced
+   */
+  addUsingPackage (data, existing) {
     if (existing) {
-      let old = existing.outerhtml
+      let old = existing.outerHTML
       this.$using.innerHTML += old
-      old = ''
+      existing.parentNode.removeChild(existing)
     } else {
       this.$using.innerHTML +=
-        this.templateBigCategory(data.id, data.name, data.icon)
+        this.templatePackage(data.id, data.name, data.icon)
     }
     document.getElementById(data.id).innerHTML +=
       this.templateItemCategories(data.id, data.content)
   },
 
-  addOnlineCategory (data) {
-
+  /** add a official or online package without implementation to the DOM
+   * @param {String} position - either official or online
+   * @param {packages} data - a package
+   */
+  addEmptyPackage (position, data) {
+    let destination = (data === 'official') ? this.$official : this.$online
+    destination.innerHTML +=
+      this.templatePackage(data.id, data.name, data.icon)
   }
 }

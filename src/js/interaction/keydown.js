@@ -58,6 +58,7 @@ const keydown = {
         }
       }
     }
+    return true
   },
 
   /** Run the .run() method from the found param.

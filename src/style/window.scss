@@ -1,0 +1,47 @@
+.window {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+
+  .window-info {
+    color: $light-active;
+    text-align: center;
+    margin: 50px 0 0;
+  }
+
+  .window-content {
+    position: relative;
+    background-color: $main;
+    border-radius: 5px;
+    margin: 5px auto 0;
+    border: 1px solid $border;
+  }
+
+  .accept {
+    float: left;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    width: 90%;
+    border: 1px solid $border;
+    padding: 5px;
+    background-color: $main-background;
+    cursor: pointer;
+    transition: all 0.6s;
+    color: $light;
+
+    &:hover {
+      background-color: $green;
+      color: $light-active;
+    }
+
+    > .accept-button {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+  }
+}

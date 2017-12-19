@@ -1,6 +1,8 @@
 # Created by https://www.gitignore.io/api/node
 /dist
 /docs
+src/style/css
+src/style/fonts
 
 ### Node ###
 # Logs

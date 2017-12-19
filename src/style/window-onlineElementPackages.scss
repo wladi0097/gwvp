@@ -1,0 +1,120 @@
+.window-onlineElementPackages {
+
+  .window-content {
+    width: 50%;
+    height: 50px;
+    .input {
+      z-index: 2;
+      width: 90%;
+      height: calc(100% - 2px);
+      float: left;
+
+      > input {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-size: 30px;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .button {
+      z-index: 2;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: $main;
+      width: calc(10% - 8px);
+      border-left: 1px solid $border;
+      height: 100%;
+      float: right;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: $main-background;
+
+        > i {
+          color: $light-active;
+        }
+      }
+
+      > i {
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        line-height: 50px;
+        font-size: 40px;
+        color: $border;
+        transition: all 0.3s;
+      }
+    }
+
+    .window-response {
+      z-index: -1;
+      width: 100%;
+      margin-top: 2px;
+      display: inline-block;
+      background-color: $main;
+
+      .error,
+      > i {
+        padding: 10px;
+        margin: 20px 0;
+        color: $light;
+        width: 100%;
+        text-align: center;
+      }
+
+      > .error {
+        font-size: 20px;
+        font-weight: 500;
+        color: $red;
+      }
+
+      > .found {
+        width: 100%;
+        height: 100px;
+        margin: 20px 0;
+
+        > .img {
+          margin-left: 5%;
+          float: left;
+          width: 100px;
+          height: 100%;
+          padding: 5px;
+          position: relative;
+
+          > img {
+            min-width: 100%;
+            min-height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+
+        > .info {
+          float: left;
+          width: calc(75% - 120px);
+          padding: 5px;
+          color: $light;
+
+          > h2 {
+            margin: 0 0 5px;
+          }
+
+          > p {
+            word-break: break-all;
+            margin: 0;
+            padding-right: 20px;
+          }
+
+          .disclaimer {
+            font-size: 15px;
+            font-weight: 600;
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
