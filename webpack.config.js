@@ -54,7 +54,14 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      template: 'src/html/entry.html'
+      template: 'src/html/entry.html',
+      filename: 'index.html',
+      minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          conservativeCollapse: false,
+          preserveLineBreaks: false,
+        }
     })] : [
     new HtmlWebpackPlugin({
       template: 'src/html/entry.html'
