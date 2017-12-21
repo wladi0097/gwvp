@@ -57,11 +57,11 @@ module.exports = {
       template: 'src/html/entry.html',
       filename: 'index.html',
       minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          conservativeCollapse: false,
-          preserveLineBreaks: false,
-        }
+        removeComments: true,
+        collapseWhitespace: true,
+        conservativeCollapse: false,
+        preserveLineBreaks: false
+      }
     })] : [
     new HtmlWebpackPlugin({
       template: 'src/html/entry.html'
