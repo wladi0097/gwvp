@@ -47,6 +47,7 @@ html, body {
 .hide{
   display: none !important;
 }
+@import "keyframes";
 
 @import "input";
 @import "sidebar";
@@ -56,5 +57,6 @@ html, body {
 @import "domtree";
 @import "textEditor";
 @import "window";
+@import "newElement";
 @import "window-onlineElementPackages";
 @import "window-addToUsingElementPackages";

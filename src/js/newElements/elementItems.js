@@ -5,8 +5,6 @@ const addToUsingElementPackages = require('./addToUsingElementPackages')
 
 // TODO: add dependency by reference or by text
 // TODO: clean the online inputs from injection
-// TODO: fix css bug where the using categories are not on the left
-// TODO: make addToUsingElementPackages window more fancy
 
 /** A JSON can be used to add new dom elements to the current project.
  * Examples can be found in the packages folder.
@@ -119,7 +117,7 @@ const elementItems = {
       // is package clicked
       let elementPackage = e.target.closest('.newElements-item')
       if (elementPackage) {
-        this.togglePackageDomVisibility(elementPackage)
+        this.showPackageDom(elementPackage)
       }
     })
   },
@@ -144,15 +142,26 @@ const elementItems = {
     }
   },
 
-  /** Hide or show the content of a package
+  /** show the content of a package
   * @param {HTMLElement} $domPackage - the element to toggle
   */
-  togglePackageDomVisibility ($domPackage) {
+  showPackageDom ($domPackage) {
     if ($domPackage.classList.contains('active')) {
       $domPackage.classList.remove('active')
     } else {
+      this.hidePackageDom()
       $domPackage.classList.add('active')
     }
+  },
+
+  /** hide the content of a package */
+  hidePackageDom () {
+    Array.from(document.getElementsByClassName('newElements-item'))
+      .forEach((element) => {
+        if (element.classList.contains('active')) {
+          element.classList.remove('active')
+        }
+      })
   },
 
   /** Hide or show the categories of a package
@@ -248,7 +257,7 @@ const elementItemsHTML = {
    * @return {String} completed html
    */
   templateItemCategories (id, data, hidden = true) {
-    let html = `<div class="newElements-content ${(hidden) ? 'hidden' : ''}" id="content-${id}">`
+    let html = `<div class="newElements-content  ${(hidden) ? '' : 'active'}" id="content-${id}">`
     for (var i = 0; i < data.length; i++) {
       html += `
       <div class="sidebar-header sidebar-element">
@@ -285,14 +294,36 @@ const elementItemsHTML = {
   addUsingPackage (data, existing) {
     if (existing) {
       let old = existing.outerHTML
-      this.$using.innerHTML += old
+      this.addUsingContainer(old)
       existing.parentNode.removeChild(existing)
     } else {
-      this.$using.innerHTML +=
-        this.templatePackage(data.id, data.name, data.icon)
+      this.addUsingContainer(this.templatePackage(data.id, data.name, data.icon))
     }
     document.getElementById(data.id).innerHTML +=
       this.templateItemCategories(data.id, data.content)
+  },
+
+  /** For styling reasons only 3 packages are stored in one div.
+   * This Method is to check how full the current div is
+   * and to append the package to the right one.
+   * @param {String} htmlData - raw html
+   */
+  addUsingContainer (htmlData) {
+    let children = this.$using.children
+    if (children.length === 0) {
+      this.$using.innerHTML += `
+      <div class="container-for-3">${htmlData}</div>
+      `
+      return
+    }
+    let usingElements = children[children.length - 1]
+    if (usingElements.children.length < 3) {
+      usingElements.innerHTML += htmlData
+    } else {
+      this.$using.innerHTML += `
+      <div class="container-for-3">${htmlData}</div>
+      `
+    }
   },
 
   /** add a official or online package without implementation to the DOM

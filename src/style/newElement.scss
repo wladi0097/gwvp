@@ -1,0 +1,239 @@
+.sidebar-elements {
+  .sidebar-category {
+    margin-top: 5px;
+    color: $border;
+    text-align: center;
+
+    > p {
+      padding: 2px;
+      border-bottom: 1px solid $main-background;
+      width: 80%;
+      margin-left: 10%;
+
+      > i {
+        float: right;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          color: $light-active;
+        }
+      }
+    }
+  }
+
+  .newElements-items {
+    margin: 20px 0;
+    width: 100%;
+
+    &::after {
+      clear: both;
+      content: "";
+      display: block;
+    }
+
+    .newElements-item {
+      margin-bottom: 20px;
+      width: 25%;
+      margin-left: 6.25%;
+      float: left;
+      cursor: pointer;
+
+      &.active {
+        > .img {
+          border: 2px solid $highlight;
+          transform: rotate(10deg);
+        }
+
+        &:hover {
+          > .img {
+            background-color: initial;
+          }
+
+          > p {
+            letter-spacing: initial;
+          }
+        }
+
+        & > .newElements-content {
+          display: block !important;
+        }
+      }
+
+      &:hover {
+        > .img {
+          background-color: $main-background;
+        }
+
+        > p {
+          letter-spacing: 1px;
+        }
+      }
+
+      > .img {
+        border: 1px solid $light;
+        width: 100%;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: all 0.3s;
+
+        > img {
+          transition: all 1s;
+          transform: scale(0.8);
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      > p {
+        transition: all 0.5s;
+        color: $light-active;
+      }
+    }
+  }
+}
+
+.newElements-items .newElements-item {
+  &:nth-child(1n) {
+    .newElements-content {
+      margin-left: -5px;
+    }
+  }
+
+  &:nth-child(2n) {
+    .newElements-content {
+      margin-left: -80px;
+    }
+  }
+
+  &:nth-child(3n) {
+    .newElements-content {
+      margin-left: -160px;
+    }
+  }
+}
+
+.newElements-items {
+  .container-for-3 {
+    margin-top: 20px;
+    display: block;
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .newElements-item {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.newElements-content {
+  position: static;
+  left: 10px;
+  margin-top: 10px;
+  width: calc(250px - 22px);
+  display: none;
+  border: 1px solid $border;
+
+  &.active {
+    display: block;
+  }
+
+  &:before {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: 10px;
+  }
+
+  .sidebar-element {
+    cursor: pointer;
+    position: relative;
+    float: left;
+    display: table;
+    border-collapse: collapse;
+
+    .sidebar-visible-header {
+      transition: all 0.5s;
+      >i{
+        transform: rotate(-90deg);
+        transition: transform .3s;
+      }
+
+      &:hover {
+        color: $light-active;
+
+        > i {
+          color: $light-active;
+        }
+      }
+
+      &.active {
+        > i {
+          transform: rotate(0deg);
+        }
+        & + .items {
+          display: table-row !important;
+        }
+      }
+    }
+
+    .items {
+      background-color: $main;
+      min-height: 100px;
+      display: inline-block;
+      position: relative;
+      display: none;
+      width: 100%;
+
+      .item {
+        position: relative;
+        height: 90px;
+        width: calc(100% / 3);
+        box-sizing: border-box;
+        float: left;
+        border: 1px solid $border;
+        transition: all 0.5s;
+
+        &:hover {
+          background-color: $main-background;
+        }
+
+        > .img {
+          width: 100%;
+          height: 80px;
+
+          > img {
+            padding: 0 5%;
+            width: 90%;
+            height: 100%;
+            user-select: none;
+            pointer-events: none;
+          }
+        }
+
+        > .name {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 20px;
+          font-size: 13px;
+          width: 100%;
+          text-align: center;
+        }
+
+        > .helpIcon {
+          display: none;
+        }
+
+        > .helpText {
+          display: none;
+        }
+      }
+    }
+  }
+}

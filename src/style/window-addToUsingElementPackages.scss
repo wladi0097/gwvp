@@ -5,23 +5,27 @@
     width: calc( 60% - 30px );
     max-height: 80%;
     padding: 20px;
+    border-radius: 2px;
 
     >h2{
       text-align: center;
       color: $light;
       margin: 5px 0;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed $border;
     }
 
     h3{
       font-size: 20px;
       color: $border;
       margin: 10px 0;
-      margin-top: 25px;
+      margin-top: 15px;
       cursor: pointer;
-      transition: all .3s;
+      transition: color .4s;
       >i {
         margin-left: 5px;
         transform: rotate(-90deg);
+        transition: all .4s;
       }
       & + * {
         display: none;
@@ -36,6 +40,7 @@
         color: $light;
         & + * {
           display: block;
+          animation: fadeIn 1s forwards;
         }
         >i{
           transform: rotate(0deg);
@@ -44,7 +49,6 @@
     }
   }
 }
-
 
 .window-addToUsingElementPackages .default-info {
   width: 100%;
@@ -128,6 +132,7 @@
 .window-addToUsingElementPackages .items-info .newElements-content{
   color: $border;
   width: 100%;
+  margin: 0;
   .items .item{
     width: 100px;
   }
