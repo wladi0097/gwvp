@@ -1,3 +1,4 @@
+/** The styling for the header and the generated headerItems by buildMenu.js */
 .header {
   position: relative;
   user-select: none;
@@ -8,6 +9,7 @@
   float: left;
 }
 
+/** The following is used for the generated items */
 .header-items {
   position: relative;
   float: left;
@@ -15,23 +17,26 @@
   margin-left: 5px;
   line-height: 45px;
 
-  .header-item, .header-contextmenu {
+  .header-contextmenu,
+  .header-item {
     float: left;
     position: relative;
     cursor: pointer;
 
-    &.header-contextmenu{
+    &.header-contextmenu {
       position: fixed;
-      >p{
+
+      > p {
         display: none;
       }
-      >.header-item-options{
+
+      > .header-item-options {
         display: block;
       }
     }
 
-    &:hover{
-      >.header-item-options{
+    &:hover {
+      > .header-item-options {
         display: block;
       }
     }
@@ -149,6 +154,7 @@
   }
 }
 
+/** non generated header icons */
 .header-icons {
   float: right;
   position: relative;

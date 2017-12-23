@@ -1,3 +1,4 @@
+/** The styling for left-sidebar.html and right-sidebar.html */
 .sidebar {
   width: 250px;
   position: relative;
@@ -7,18 +8,17 @@
   color: $light;
   user-select: none;
 
-  &.left-sidebar{
+  &.left-sidebar {
     float: left;
   }
 
-  &.right-sidebar{
+  &.right-sidebar {
     float: right;
     width: 300px;
   }
 }
 
-
-.sidebar-navigation{
+.sidebar-navigation {
   position: relative;
   width: 100%;
   height: 30px;
@@ -26,70 +26,75 @@
   background-color: $dark;
   line-height: 30px;
 
-  .sidebar-navigator{
+  .sidebar-navigator {
     float: left;
     width: 33.333%;
     text-align: center;
     cursor: pointer;
-    transition: all .3s;
+    transition: all 0.3s;
 
-    &:hover{
+    &:hover {
       background-color: $highlight-Hover;
       color: $light-active;
     }
 
-    &.selected{
+    &.selected {
       background-color: $highlight;
       color: $light-active;
     }
   }
 }
 
-.sidebar-header{
+.sidebar-header {
   width: 100%;
   height: 30px;
   background-color: $dark;
   border-bottom: 1px solid $border;
-  >div:first-child{
+
+  > div:first-child {
     width: calc(100% - 5px);
     height: 100%;
     padding: 0 0 0 5px;
-    >p{
+
+    > p {
       line-height: 30px;
       float: left;
     }
-    >i{
+
+    > i {
       float: right;
       line-height: 30px;
       margin-right: 10px;
       color: $border;
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         color: $light-active;
       }
     }
   }
 }
 
-.sidebar-border{
+.sidebar-border {
   border-bottom: 1px solid $highlight;
 }
 
-.sidebar-bottom{
+.sidebar-bottom {
   width: 100%;
   height: 37%;
 }
 
 .overflow {
-  width: calc( 100% + 30px) !important;
+  width: calc(100% + 30px) !important;
   overflow-x: hidden;
   overflow-y: scroll;
-  >div{
-    width: calc( 100% - 30px);
+
+  > div {
+    width: calc(100% - 30px);
   }
 }
 
-.sidebar-content{
+.sidebar-content {
   width: 100%;
   height: 60%;
 }

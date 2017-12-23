@@ -1,13 +1,14 @@
-.window-addToUsingElementPackages{
-  .window-content{
+/** The styling for window-addToUsingElementPackages.html */
+.window-addToUsingElementPackages {
+  .window-content {
     overflow-y: scroll;
     overflow-x: hidden;
-    width: calc( 60% - 30px );
+    width: calc(60% - 30px);
     max-height: 80%;
     padding: 20px;
     border-radius: 2px;
 
-    >h2{
+    > h2 {
       text-align: center;
       color: $light;
       margin: 5px 0;
@@ -15,34 +16,40 @@
       border-bottom: 1px dashed $border;
     }
 
-    h3{
+    h3 {
       font-size: 20px;
       color: $border;
-      margin: 10px 0;
-      margin-top: 15px;
+      margin: 15px 0 10px;
       cursor: pointer;
-      transition: color .4s;
-      >i {
+      transition: color 0.4s;
+
+      > i {
         margin-left: 5px;
         transform: rotate(-90deg);
-        transition: all .4s;
+        transition: all 0.4s;
       }
+
       & + * {
         display: none;
       }
-      &:hover{
+
+      &:hover {
         color: $light;
-        >i{
+
+        > i {
           color: $light;
         }
       }
-      &.active{
+
+      &.active {
         color: $light;
+
         & + * {
           display: block;
           animation: fadeIn 1s forwards;
         }
-        >i{
+
+        > i {
           transform: rotate(0deg);
         }
       }
@@ -52,75 +59,91 @@
 
 .window-addToUsingElementPackages .default-info {
   width: 100%;
-  >div{
+
+  > div {
     &::after {
       content: ".";
       clear: both;
       display: block;
       visibility: hidden;
-      height: 0px;
+      height: 0;
     }
-    >.img{
-    float: left;
-    width: 100px;
-    height: 100px;
-    >img{
-      width: 100%;
-      height: 100%;
-    }
-  }
-  >.description{
-    float: left;
-    width: calc(100% - 140px);
-    height: 100px;
-    padding: 0 20px;
-    >p{
-      color: $light-active;
-    }
-  }
-  }
 
+    > .img {
+      float: left;
+      width: 100px;
+      height: 100px;
+
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    > .description {
+      float: left;
+      width: calc(100% - 140px);
+      height: 100px;
+      padding: 0 20px;
+
+      > p {
+        color: $light-active;
+      }
+    }
+  }
 }
 
 .window-addToUsingElementPackages .dependency-info {
-  table{
+  table {
     border-collapse: collapse;
     width: 100%;
   }
-  table, th, td{
+
+  table,
+  td,
+  th {
     border: 1px solid $border;
   }
-  tr td:first-child{
+
+  tr td:first-child {
     width: 30%;
   }
-  td, th{
+
+  td,
+  th {
     padding: 10px;
   }
+
   th {
     color: $light;
     font-size: 18px;
   }
+
   td {
     color: $light;
-    >a {
+
+    > a {
       color: $light;
     }
   }
-  .inlcudeAs{
+
+  .inlcudeAs {
     width: 10%;
     text-align: center;
   }
 }
 
 .window-addToUsingElementPackages .code-info {
-  >div{
-    >p{
+  > div {
+    > p {
       color: $light;
-      >i{
+
+      > i {
         margin-left: 5px;
       }
     }
-    >code{
+
+    > code {
       color: $light;
       background-color: $main-background;
       padding: 5px;
@@ -129,19 +152,21 @@
   }
 }
 
-.window-addToUsingElementPackages .items-info .newElements-content{
+.window-addToUsingElementPackages .items-info .newElements-content {
   color: $border;
   width: 100%;
   margin: 0;
-  .items .item{
+
+  .items .item {
     width: 100px;
   }
+
   .hidden {
     display: table-row;
   }
 }
 
-.window-addToUsingElementPackages .accept{
+.window-addToUsingElementPackages .accept {
   margin-top: 30px;
   margin-bottom: 0;
 }

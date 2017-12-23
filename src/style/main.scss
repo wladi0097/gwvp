@@ -1,62 +1,21 @@
-// dark version
-$main: #21252b;
-$main-background:#343840;
-$border: #464646;
+/** entry point */
 
-$dark: #181a1f;
-$light: #d7dae0;
-$light-active: #fff;
+/** Global styling */
+@import "global/colors";
+@import "global/keyframes";
+@import "global/global";
+@import "global/font";
+@import "global/input";
+@import "global/scrollbar";
 
-$highlight: #568af2;
-$highlight-Hover: #72a1fd;
+/** Html specific styling */
+@import "particular/sidebar";
+@import "particular/header";
+@import "particular/center";
+@import "particular/domtree";
+@import "particular/textEditor";
+@import "particular/newElement";
 
-$frameHover: rgba(255, 0, 0, 0.50);
-$frameClick: #0046d2;
-
-$red: #c0392b;
-$green: #27ae60;
-
-
-
-// light version
-// TODO: change later
-// @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-@import "./css/font-awesome.min.css";
-*{
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-}
-
-html, body, p, h1, ul{
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  background-color: $main;
-  width: 100%;
-  height: 100%;
-}
-
-.main-application{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.hide{
-  display: none !important;
-}
-@import "keyframes";
-
-@import "input";
-@import "sidebar";
-@import "header";
-@import "center";
-@import "scrollbar";
-@import "domtree";
-@import "textEditor";
-@import "window";
-@import "newElement";
-@import "window-onlineElementPackages";
-@import "window-addToUsingElementPackages";
+@import "particular/window";
+@import "particular/window-onlineElementPackages";
+@import "particular/window-addToUsingElementPackages";

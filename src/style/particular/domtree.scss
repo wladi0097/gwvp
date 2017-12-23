@@ -1,11 +1,15 @@
+/** The styling for the generated domTree by pageDomTree.js */
 .domTree {
   padding: 5px;
   height: 300px;
-  >ul{
-    width: calc( 100% - 30px);
+
+  > ul {
+    width: calc(100% - 30px);
     margin-left: 0 !important;
   }
-  ul, li {
+
+  li,
+  ul {
     width: 100%;
     cursor: pointer;
     display: inline-block;
@@ -18,21 +22,24 @@
       color: $highlight;
     }
   }
+
   ul {
     position: relative;
     margin: 0 0 0 15px;
 
-    p{
+    p {
       float: left;
       width: 92%;
       font-size: 16px;
-      &:hover{
+
+      &:hover {
         background-color: $frameHover;
       }
     }
 
     &.hidden {
-      ul, li{
+      li,
+      ul {
         display: none;
       }
     }
@@ -42,10 +49,11 @@
       margin-right: 5px;
     }
 
-    li{
+    li {
       margin: 2px 0 2px 15px;
       list-style: none;
-      &:hover{
+
+      &:hover {
         background-color: $frameHover;
       }
     }
