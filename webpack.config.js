@@ -1,10 +1,21 @@
 const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+// Settings
 const PROD = false
+const ES6 = true
+
+const jsLoader = !ES6 ? {
+  test: /\.js$/,
+  loader: 'babel-loader',
+  query: {
+    presets: ['es2015']
+  }
+} : {}
 
 module.exports = {
-  entry: './src/index.js',
+  entry: !ES6 ? ['babel-polyfill', './src/index.js'] : './src/index.js',
   output: {
     filename: PROD ? 'bundle.min.js' : 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -14,6 +25,8 @@ module.exports = {
   },
   module: {
     rules: [
+      // JS
+      jsLoader,
       // SCSS
       {
         test: /\.scss$/,
@@ -35,6 +48,13 @@ module.exports = {
       // FONTS
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
+      },
+      // JSON
+      {
+        test: /\.(json)$/,
         use: [
           'file-loader'
         ]
