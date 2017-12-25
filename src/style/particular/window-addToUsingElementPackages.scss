@@ -1,6 +1,7 @@
 /** The styling for window-addToUsingElementPackages.html */
 .window-addToUsingElementPackages {
   .window-content {
+    position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
     width: calc(60% - 30px);
@@ -53,6 +54,30 @@
           transform: rotate(0deg);
         }
       }
+    }
+  }
+}
+
+.window-addToUsingElementPackages .loading{
+  display: none;
+  background-color: $main;
+  z-index: 1;
+  text-align: center;
+  color: $light;
+  overflow: hidden;
+  >h2{
+    margin-bottom: 50px;
+  }
+  >i{
+    display: block;
+    font-size: 50px;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  &.active{
+    display: block;
+    &+div{
+      display: none;
     }
   }
 }

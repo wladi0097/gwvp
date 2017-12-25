@@ -3,9 +3,6 @@ const idGen = require('../interaction/idGen')
 const onlineElementPackages = require('./onlineElementPackages')
 const addToUsingElementPackages = require('./addToUsingElementPackages')
 
-// TODO: add dependency by reference or by text
-// TODO: clean the online inputs from injection
-
 /** A JSON can be used to add new dom elements to the current project.
  * Examples can be found in the packages folder.
  * Its called a package and looks like this:

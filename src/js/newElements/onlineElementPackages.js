@@ -149,8 +149,8 @@ const onlineElementPackages = {
    * @return {String} formated text
    */
   cleanData (text) {
-    return text.replace(new RegExp('<', 'g'), '')
-      .replace(new RegExp('>', 'g'), '')
+    return text.replace(new RegExp('<', 'g'), '&lt;')
+      .replace(new RegExp('>', 'g'), '&gt;')
   },
 
   /** A get request to a destination url via ajax

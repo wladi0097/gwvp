@@ -43,7 +43,7 @@ const elementEvents = {
   * @return this
   */
   initAfterFrame () {
-    this.iframe = document.getElementById('simulated').contentDocument
+    this.$iframe = document.getElementById('simulated').contentDocument
     this.bindFrameEvents()
     pageDomTree.build()
     return this
@@ -72,11 +72,11 @@ const elementEvents = {
   * @return this
   */
   bindFrameEvents () {
-    this.iframe.addEventListener('mouseover', this.hover.bind(this), false)
-    this.iframe.addEventListener('mousedown', this.click.bind(this), false)
+    this.$iframe.addEventListener('mouseover', this.hover.bind(this), false)
+    this.$iframe.addEventListener('mousedown', this.click.bind(this), false)
     document.body.addEventListener('mouseover', this.noHover.bind(this), false)
-    contextMenu.init(this.iframe)
-    keydown.init(this.iframe)
+    contextMenu.init(this.$iframe)
+    keydown.init(this.$iframe)
     return this
   },
 
@@ -334,10 +334,10 @@ const elementEvents = {
     this.noHover() // "
 
     this.dragHoverEvent = this.dragHover.bind(this)
-    this.iframe.addEventListener('mousemove', this.dragHoverEvent)
+    this.$iframe.addEventListener('mousemove', this.dragHoverEvent)
 
     this.dragEndEvent = this.dragEnd.bind(this)
-    this.iframe.addEventListener('mouseup', this.dragEndEvent)
+    this.$iframe.addEventListener('mouseup', this.dragEndEvent)
     document.addEventListener('mouseup', this.dragEndEvent)
 
     this.allowInteraction = false
@@ -400,8 +400,8 @@ const elementEvents = {
     // paste  how to append - what to append, where to append
     this.paste(this.pasteDraggedAs, this.draggedElement, this.hoveredElement)
     // remove all not needed events
-    this.iframe.removeEventListener('mousemove', this.dragHoverEvent)
-    this.iframe.removeEventListener('mouseup', this.dragEndEvent)
+    this.$iframe.removeEventListener('mousemove', this.dragHoverEvent)
+    this.$iframe.removeEventListener('mouseup', this.dragEndEvent)
     document.removeEventListener('mouseup', this.dragEndEvent)
     // reset to previous
     this.allowHover = true
