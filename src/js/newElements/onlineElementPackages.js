@@ -4,8 +4,12 @@
 const onlineElementPackages = {
   /** currently selected package */
   currentData: null,
+  /** current selected URL */
+  currentURL: null,
   /** a elementItems instance */
   elementItems: null,
+  /** already inlcuded packages */
+  alreadyIncludedPackages: [],
 
   /** Initialize by binding events and caching dom element */
   init (elementItems) {
@@ -57,6 +61,7 @@ const onlineElementPackages = {
     // accept button got clicked
     this.$accept.addEventListener('mousedown', (e) => {
       this.elementItems.addPackage('Online', this.currentData)
+      this.alreadyIncludedPackages.push(this.currentURL) // include url to alreadyIncludedPackages
       this.hide(true)
     })
   },
@@ -72,10 +77,17 @@ const onlineElementPackages = {
   /** hide the extra window  */
   hide (e) {
     if (e.target === this.$fullWindow || e === true) {
-      this.$input.value = ''
+      this.reset()
       this.showResponse()
       this.$fullWindow.classList.add('hide')
     }
+  },
+
+  /** reset everything to default  */
+  reset () {
+    this.currentData = null
+    this.currentURL = null
+    this.$input.value = ''
   },
 
   /** check the response from the AJAX request and validate it,
@@ -83,6 +95,11 @@ const onlineElementPackages = {
    */
   showPackages () {
     let val = this.$input.value
+    this.currentURL = val
+    if (this.alreadyIncludedPackages.indexOf(val) !== -1) {
+      this.showResponse('error', 'Package already inlcuded')
+      return
+    }
     this.showResponse('load')
     this.getPackagesFromURL(val, (data, errorcode) => {
       if (data) {
