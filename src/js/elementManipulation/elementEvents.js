@@ -74,6 +74,7 @@ const elementEvents = {
   bindFrameEvents () {
     this.$iframe.addEventListener('mouseover', this.hover.bind(this), false)
     this.$iframe.addEventListener('mousedown', this.click.bind(this), false)
+    this.$iframe.addEventListener('scroll', this.onScroll.bind(this), true)
     document.body.addEventListener('mouseover', this.noHover.bind(this), false)
     contextMenu.init(this.$iframe)
     keydown.init(this.$iframe)
@@ -96,6 +97,14 @@ const elementEvents = {
     changeScreenSize.changeResolution(res)
     this.redrawRect()
     return this
+  },
+
+  /** This is a Event and a method.
+  * This gets fired after anything gets scrolled in the iframe
+  * @param {Event} e
+  */
+  onScroll (e) {
+    this.redrawRect()
   },
 
   /** This is a Event and a method.
