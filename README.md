@@ -20,3 +20,11 @@
  * *[node-sass](https://github.com/sass/node-sass)* allows you to natively compile .scss files.
  * *[license-checker](https://github.com/davglass/license-checker)* to list all licenses from all dependencies.
  * *[jquery](https://jquery.com/)*  is a slow, big, and feature-rich JavaScript library and is only used to write tests faster.
+
+### Also a big thanks to:
+
+* [Stackoverflow](https://stackoverflow.com)
+* [YOU MIGHT NOT NEED JQUERY](http://youmightnotneedjquery.com/)
+* [Gravit Designer](https://designer.gravit.io/)
+* [Font Awesome](http://fontawesome.io)
+* [Bitbucket](https://bitbucket.org)
