@@ -285,7 +285,7 @@ const elementEvents = {
         bubbles: true,
         cancelable: true
       })
-      this.hoveredElementt.dispatchEvent(event)
+      this.hoveredElement.dispatchEvent(event)
     }
     return this
   },
@@ -362,10 +362,9 @@ const elementEvents = {
     e.stopImmediatePropagation()
     this.hoveredElement = e.target // hovered item is now in this.hoveredElement
     // get position of mouse in item
-    let parentOffset = e.target.parentElement.getBoundingClientRect()
     let rect = e.target.getBoundingClientRect()
-    let x = (e.pageX - parentOffset.left)
-    let y = (e.pageY - parentOffset.top)
+    let x = (e.pageX - rect.left)
+    let y = (e.pageY - rect.top)
     // set default values
     this.pasteDraggedAs = 'in' // insert in the target
     let closeTo = 8
