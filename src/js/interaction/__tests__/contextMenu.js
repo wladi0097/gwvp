@@ -1,11 +1,11 @@
-/* global describe expect it Event */
+/* global describe expect it MouseEvent */
 const $ = require('jquery')
 window.$ = $
 const contextMenu = require('../contextMenu.js')
 
 // create a contextMenu to test all
 function resetDom () {
-  $('body').html('')
+  $('body').html('<p id="test"></p>')
   $('body').append(`<div class="contextMenu">
     <ul>
       <li>hi</li>
@@ -59,18 +59,16 @@ describe('event bindings', () => {
   ownContextMenu.init(document, $contextMenu[0])
 
   it('should fire context menu', () => {
-    let event = new Event('contextmenu')
+    let event = new MouseEvent('contextmenu')
+    event.target = document.getElementById('test')
     document.dispatchEvent(event)
     expect($contextMenu.attr('style')).not.toBe('display: none;')
   })
 
   it('should fire close context menu', () => {
-    let event = new Event('mousedown')
+    let event = new MouseEvent('mousedown')
+    event.force = true
     document.dispatchEvent(event)
     expect($contextMenu.attr('style')).toBe('display: none;')
   })
-})
-
-describe('best position', () => {
-
 })

@@ -2,37 +2,34 @@
  * to the new items. The items can be modified in menuItems.js
  * and the events can be found in eventList.js.
  * The contextmenu is a menu item and can also be found in menuItems.js.
+ * gets the menuItems JSON and translates it into a menu, keydown and contextmenu
  */
-
 const keydown = require('../interaction/keydown') // add keydown events to menu items
 const contextMenu = require('../interaction/contextMenu') // a menu item is going to be a contextmenu
 const menuItems = require('./menuItems')
 
-/** gets the menuItems JSON and translates it into a menu, keydown and contextmenu */
-module.exports = {
-  /** build the whole menu and add click and keydown events for every item.
-  * All functionality has to be parsed into build and then you can acces them over the menu.
-  * Initialize the menuItems with the given params and build everithing upon the menuItems.
-  * @param {Object} elementEvents - the elementEvents.js
-  */
-  build (elementEvents) {
-    this.menuItems = menuItems(elementEvents)
+/** build the whole menu and add click and keydown events for every item.
+* All functionality has to be parsed into build and then you can acces them over the menu.
+* Initialize the menuItems with the given params and build everithing upon the menuItems.
+* @param {Object} elementEvents - the elementEvents.js
+*/
+module.exports.build = function (elementEvents) {
+  this.menuItems = menuItems(elementEvents)
 
-    for (var i = 0; i < this.menuItems.length; i++) {
-      buildMenu.includeMenuItemStart(this.menuItems[i])
-      let items = this.menuItems[i].items
-      for (var k = 0; k < items.length; k++) {
-        buildMenu.includeMenuComponent(items[k])
-      }
-      buildMenu.includeMenuItemEnd()
+  for (var i = 0; i < this.menuItems.length; i++) {
+    buildMenu.includeMenuItemStart(this.menuItems[i])
+    let items = this.menuItems[i].items
+    for (var k = 0; k < items.length; k++) {
+      buildMenu.includeMenuComponent(items[k])
     }
-    buildMenu.append()
-
-    buildMenu.addClickEvents()
-    keydown.init(document) // create keydown events
-    let contextMenuElement = document.getElementsByClassName('header-contextmenu')[0]
-    contextMenu.init(document, contextMenuElement) // create contextmenu
+    buildMenu.includeMenuItemEnd()
   }
+  buildMenu.append()
+
+  buildMenu.addClickEvents()
+  keydown.init(document) // create keydown events
+  let contextMenuElement = document.getElementsByClassName('header-contextmenu')[0]
+  contextMenu.init(document, contextMenuElement) // create contextmenu
 }
 
 /**
@@ -92,7 +89,7 @@ const buildMenu = {
   * @param {String} item.href - if item is a anchor use this href
   */
   includeMenuComponentHTML (item) {
-    item.icon = (item.icon) ? item.icon : '' // is there a icon ?
+    item.icon = (item.icon) ? 'fa-' + item.icon : '' // is there a icon ?
     item.keycode = (item.keycode) ? item.keycode : '' // is there a keycode ?
     item.id = (item.id) ? 'event-' + item.id : '' // is there a Id ?
     // is delimiter
@@ -102,7 +99,7 @@ const buildMenu = {
     } else if (item.underItems) {
       this.html += `
       <li class="option-item">
-      <i class="fa fa-${item.icon}" aria-hidden="true"></i>
+      <i class="fa ${item.icon}" aria-hidden="true"></i>
       <p>${item.text}</p>
       <p class="shortcut">
       <i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -119,7 +116,7 @@ const buildMenu = {
     } else {
       this.html += `
       <li class="option-item" id="${item.id}">
-        <i class="fa fa-${item.icon}" aria-hidden="true"></i>
+        <i class="fa ${item.icon}" aria-hidden="true"></i>
         ${(item.href) ? `<a href="${item.href}">` : ''}
         <p>${item.text}</p>
         <p class="shortcut">${item.keycode}</p>
@@ -175,3 +172,4 @@ const buildMenu = {
     })
   }
 }
+module.exports.buildMenu = buildMenu

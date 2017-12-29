@@ -42,7 +42,7 @@ const contextMenu = {
   */
   bindCloseContextMenu (location) {
     location.addEventListener('mousedown', (e) => {
-      if (!e.target.closest('#contextMenu')) {
+      if (e.force || !e.target.closest('#contextMenu')) {
         this.$domItem.setAttribute('style', 'display: none;')
       }
     })

@@ -190,6 +190,7 @@ module.exports = function (elementEvents) {
   },
   {
     // this one wont be seen in the menu because its a contextmenu
+    name: 'contextmenu',
     id: 'contextmenu',
     items: [{
       id: 'CnewProject',

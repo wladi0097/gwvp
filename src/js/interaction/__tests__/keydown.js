@@ -1,6 +1,4 @@
 /* global describe expect it Event */
-const $ = require('jquery')
-window.$ = $
 const keydown = require('../keydown.js')
 
 // to ckeck if the keydown events are working
