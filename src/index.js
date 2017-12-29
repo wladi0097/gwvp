@@ -15,4 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('simulated').contentDocument.addEventListener('DOMContentLoaded', (event) => {
     elementEvents.initAfterFrame()
   })
+  setTimeout(function () {
+    elementEvents.initAfterFrame()
+  }, 10)
 })

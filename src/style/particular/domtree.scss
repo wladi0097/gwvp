@@ -4,7 +4,7 @@
   height: 300px;
 
   > ul {
-    width: calc(100% - 30px);
+    width: calc(100% - 30px) !important;
     margin-left: 0 !important;
   }
 
@@ -37,16 +37,26 @@
       }
     }
 
-    &.hidden {
-      li,
-      ul {
-        display: none;
+    &.active {
+      >i {
+        transform: rotate(90deg);
       }
+      >li,
+      >ul {
+        animation: fadeIn .6s forwards;
+        display: inline-block;
+      }
+    }
+    li,
+    ul {
+      display: none;
     }
 
     i {
       float: left;
       margin-right: 5px;
+      transform: rotate(0);
+      transition: transform .3s;
     }
 
     li {

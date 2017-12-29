@@ -41,6 +41,7 @@ const pageDomTree = {
     if (!this.hasEvents) { // add events if not exist
       this.addOpenCloseEvents()
         .addRelationEvents()
+        .addReloadEvent()
       this.hasEvents = true
     }
   },
@@ -51,6 +52,87 @@ const pageDomTree = {
   reset () {
     this.$domTree.innerHTML = ''
     return this
+  },
+
+  /** remove a DomTree Node
+   * @param {HTMLElement} element - an iframe element
+   */
+  removeNode (element) {
+    let id = 'tree-' + element.domTree
+    let elem = document.getElementById(id)
+    elem.parentNode.removeChild(elem)
+  },
+
+  /** change ul to li if the node is now empty
+   * @param {HTMLElement} element - an iframe element
+   */
+  removeNodeFix (parent) {
+    if (parent.children.length === 0) { // empty
+      let id = 'tree-' + parent.domTree
+      let elem = document.getElementById(id)
+
+      this.treeData.html = ''
+      this.createTree(this.wrapElement(parent))
+      elem.outerHTML = this.treeData.html
+      this.unwrapElement(parent)
+    }
+  },
+
+  /** add a new Node to the DomTree
+   * @param {String} appendStyle - how to append (after, before, in)
+   * @param {HTMLElement} element - an iframe element
+   */
+  addNode (appendStyle, element) {
+    this.treeData.html = ''
+    let id = 'tree-' + element.domTree
+    let elem = document.getElementById(id)
+    let finalElement = null
+    switch (appendStyle) {
+      case 'after':
+        finalElement = element.nextSibling
+        this.createTree(this.wrapElement(finalElement))
+        elem.insertAdjacentHTML('afterend',
+          this.treeData.html)
+        this.unwrapElement(finalElement)
+        break
+      case 'before':
+        finalElement = element.previousSibling
+        this.createTree(this.wrapElement(finalElement))
+        elem.insertAdjacentHTML('beforebegin',
+          this.treeData.html)
+        this.unwrapElement(finalElement)
+        break
+      case 'in':
+        this.createTree(this.wrapElement(element))
+        elem.outerHTML = this.treeData.html
+        this.unwrapElement(element)
+        break
+    }
+    return this
+  },
+
+  /** Thanks to http://codeblog.cz/vanilla/around.html#wrap
+   * wrap element into a div
+   * @param {HTMLElement} element - the element to wrap
+   * @return wrapped element
+   */
+  wrapElement (element, elem = 'div') {
+    var wrapper = document.createElement(elem)
+    element.before(wrapper)
+    wrapper.append(element)
+    return wrapper
+  },
+
+  /** Thanks to http://codeblog.cz/vanilla/around.html#unwrap
+   * unwrap a wrapped element
+   * @param {HTMLElement} element - the element to unwrap
+   */
+  unwrapElement (element) {
+    var wrapper = element.parentElement
+    while (wrapper.firstChild) {
+      wrapper.before(wrapper.firstChild)
+    }
+    wrapper.remove()
   },
 
   /** Create a dom tree with a recursive function.
@@ -67,7 +149,7 @@ const pageDomTree = {
       if (children[i].children.length > 0) {
         this.treeData.ids.push(children[i])
         children[i].domTree = this.treeData.counter
-        this.treeData.html += `<ul class="hidden" class="tree-item" id="tree-${this.treeData.counter++}">
+        this.treeData.html += `<ul class="tree-item" id="tree-${this.treeData.counter++}">
           <i class="fa fa-caret-right" aria-hidden="true"></i>
           <p>${children[i].nodeName}
            <span class="classes">${children[i].getAttribute('class') || ''}</span>
@@ -145,16 +227,23 @@ const pageDomTree = {
   * The 'fa' is for the fontawesome icons, which display the current state of the element
   */
   addOpenCloseEvent (e) {
-    if (e.target.tagName === 'I') {
-      let ul = e.target.parentNode
-      if (ul.classList.contains('hidden')) {
-        e.target.setAttribute('class', 'fa fa-caret-down')
-        ul.classList.remove('hidden')
+    let el = e.target.closest('p, i')
+    if (el) {
+      let ul = el.parentNode
+      if (ul.classList.contains('active')) {
+        ul.classList.remove('active')
       } else {
-        e.target.setAttribute('class', 'fa fa-caret-right')
-        ul.classList.add('hidden')
+        ul.classList.add('active')
       }
     }
+  },
+
+  /** reload whole domtree on click  */
+  addReloadEvent () {
+    document.getElementById('domTree-Reload')
+      .addEventListener('mousedown', () => {
+        this.build()
+      })
   }
 }
 module.exports = pageDomTree

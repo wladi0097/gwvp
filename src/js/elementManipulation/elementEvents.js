@@ -85,7 +85,7 @@ const elementEvents = {
   * @return this
   */
   change () {
-    pageDomTree.build()
+    // pageDomTree.build()
     return this
   },
 
@@ -213,10 +213,12 @@ const elementEvents = {
       alert('nothing selected to delete')
       return this
     }
-
-    this.currentElement.parentNode.removeChild(this.currentElement)
+    let parent = this.currentElement.parentNode
+    pageDomTree.removeNode(this.currentElement)
+    parent.removeChild(this.currentElement)
     this.noClick()
       .change()
+    pageDomTree.removeNodeFix(parent)
     return this
   },
 
@@ -246,7 +248,7 @@ const elementEvents = {
         insertDom.innerHTML += insertHTML
         break
     }
-
+    pageDomTree.addNode(appendStyle, insertDom)
     this.change()
     return this
   },
