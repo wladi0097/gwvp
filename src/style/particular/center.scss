@@ -29,7 +29,7 @@
   z-index: 100;
   display: none;
   position: absolute;
-  background-color: $frameHover;
+  border: 3px dashed $frameHover;
   width: 100%;
   height: 100%;
   pointer-events: none;

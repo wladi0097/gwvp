@@ -1,6 +1,7 @@
 /* global alert MouseEvent */
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
+const textEditor = require('./textEditor')
 const changeScreenSize = require('./changeScreenSize')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
@@ -36,6 +37,7 @@ const elementEvents = {
     this.cacheDom()
       .bindEvents()
     changeScreenSize.init()
+    textEditor.init()
     return this
   },
 
@@ -46,6 +48,7 @@ const elementEvents = {
     this.$iframe = document.getElementById('simulated').contentDocument
     this.bindFrameEvents()
     pageDomTree.build()
+    textEditor.initWithFrame(this.$iframe)
     return this
   },
 
@@ -72,12 +75,16 @@ const elementEvents = {
   * @return this
   */
   bindFrameEvents () {
-    this.$iframe.addEventListener('mouseover', this.hover.bind(this), false)
-    this.$iframe.addEventListener('mousedown', this.click.bind(this), false)
-    this.$iframe.addEventListener('scroll', this.onScroll.bind(this), true)
-    document.body.addEventListener('mouseover', this.noHover.bind(this), false)
-    contextMenu.init(this.$iframe)
-    keydown.init(this.$iframe)
+    if (!this.$iframe.hasEvents) {
+      this.$iframe.addEventListener('mouseover', this.hover.bind(this), false)
+      this.$iframe.addEventListener('mousedown', this.click.bind(this), false)
+      this.$iframe.addEventListener('dblclick', this.dblclick.bind(this), false)
+      this.$iframe.addEventListener('scroll', this.onScroll.bind(this), true)
+      document.body.addEventListener('mouseover', this.noHover.bind(this), false)
+      contextMenu.init(this.$iframe)
+      keydown.init(this.$iframe)
+      this.$iframe.hasEvents = true
+    }
     return this
   },
 
@@ -107,12 +114,17 @@ const elementEvents = {
     this.redrawRect()
   },
 
+  /** is the click event allowed  */
+  allowClick: true,
   /** This is a Event and a method.
   * This gets fired after anything gets clicked in the iframe
   * @param {Event} e
   * @return this
   */
   click (e) {
+    if (!this.allowClick) {
+      return
+    }
     if (e) {
       e.stopImmediatePropagation()
     }
@@ -134,6 +146,34 @@ const elementEvents = {
     this.hideRectAroundElement('click')
     elementEditor.unselect()
     return this
+  },
+
+  /** This is a Event
+  * This gets fired after anything gets double clicked in the iframe
+  * @param {Event} e
+  * @return this
+  */
+  dblclick (e) {
+    e.stopImmediatePropagation()
+    if (textEditor.active) {
+      this.leaveTexteditorMode()
+    } else {
+      this.enterTexteditorMode()
+    }
+  },
+
+  enterTexteditorMode () {
+    textEditor.enable()
+    this.allowHover = false
+    this.noHover()
+    this.allowClick = false
+    this.noClick()
+  },
+
+  leaveTexteditorMode () {
+    textEditor.disable()
+    this.allowHover = true
+    this.allowClick = true
   },
 
   /** Is the hover event allowed ? */
@@ -173,7 +213,7 @@ const elementEvents = {
   * @return this
   */
   copy () {
-    if (!this.allowInteraction) {
+    if (!this.nteraction) {
       alert('nothing selected')
       return this
     }
@@ -348,6 +388,7 @@ const elementEvents = {
     this.$iframe.addEventListener('mousemove', this.dragHoverEvent)
 
     this.dragEndEvent = this.dragEnd.bind(this)
+    console.log(this.$iframe)
     this.$iframe.addEventListener('mouseup', this.dragEndEvent)
     document.addEventListener('mouseup', this.dragEndEvent)
 

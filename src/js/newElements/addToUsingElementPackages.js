@@ -178,11 +178,7 @@ const addToUsingElementPackages = {
     Array.from(document.getElementsByClassName('addToUsingElementPackages-hide'))
       .forEach((element) => {
         element.addEventListener('mousedown', (e) => {
-          if (element.classList.contains('active')) {
-            element.classList.remove('active')
-          } else {
-            element.classList.add('active')
-          }
+          element.classList.toggle('active')
         })
       })
   },

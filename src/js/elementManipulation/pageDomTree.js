@@ -230,11 +230,7 @@ const pageDomTree = {
     let el = e.target.closest('p, i')
     if (el) {
       let ul = el.parentNode
-      if (ul.classList.contains('active')) {
-        ul.classList.remove('active')
-      } else {
-        ul.classList.add('active')
-      }
+      ul.classList.toggle('active')
     }
   },
 

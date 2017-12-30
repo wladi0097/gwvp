@@ -1,86 +1,85 @@
-<div class="texteditor">
+<div class="texteditor" id="texteditor">
   <!-- text align -->
   <div class="texteditor-items">
-    <div class="texteditor-item" title="align right">
-      <i class="fa fa-copy" aria-hidden="true"></i>
-    </div>
-    <div class="texteditor-item" title="align right">
-      <i class="fa fa-cut" aria-hidden="true"></i>
-    </div>
-    <div class="texteditor-item" title="align right">
-      <i class="fa fa-paste" aria-hidden="true"></i>
+    <div class="texteditor-item">
+      <div class="texteditor-block">
+        <i class="fa fa-header" aria-hidden="true"></i>
+        <p id="textEditor-item-tag" class="font-type noHover">-</p>
+      </div>
     </div>
     <div class="texteditor-delimiter"></div>
-    <div class="texteditor-item" title="align right">
-      <div class="dropdown">
-        <p class="font-type">Title</p> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
-        <ul class="dropdown-items">
-          <li>Header</li>
-          <li>normal</li>
+    <div class="texteditor-item">
+      <div class="texteditor-dropdown">
+        <i class="fa fa-font" aria-hidden="true"></i>
+        <input id="textEditor-item-fontFamily" class="font-style" type="text" name="" value="-"> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
+        <ul class="dropdown-items" id="textEditor-item-fontFamilyChoose" >
+          <li style='font-family: Georgia, serif'>Georgia</li>
+          <li style='font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif'>Palatino Linotype</li>
+          <li style='font-family: "Times New Roman", Times, serif'>Times New Roman</li>
+          <li style='font-family: Arial, Helvetica, sans-serif'>Arial</li>
+          <li style='font-family: "Arial Black", Gadget, sans-serif'>Arial Black</li>
+          <li style='font-family: "Comic Sans MS", cursive, sans-serif'>Comic Sans MS</li>
+          <li style='font-family: Impact, Charcoal, sans-serif'>Impact</li>
+          <li style='font-family: Lucida Sans Unicode'>Lucida Sans Unicode</li>
+          <li style='font-family: Lucida Sans Unicode'>Tahoma</li>
+          <li style='font-family: "Trebuchet MS", Helvetica, sans-serif'>Trebuchet MS</li>
+          <li style='font-family: Verdana, Geneva, sans-serif'>Verdana</li>
+          <li style='font-family: "Courier New", Courier, monospace'>Courier New</li>
+          <li style='"Lucida Console", Monaco, monospace'>Lucida Console</li>
         </ul>
       </div>
     </div>
     <div class="texteditor-delimiter"></div>
-    <div class="texteditor-item" title="align right">
-      <div class="dropdown">
-        <input class="font-style" type="text" name="" value="Lato"> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
-        <ul class="dropdown-items">
-          <li>Header</li>
-          <li>normal</li>
-        </ul>
+    <div class="texteditor-item">
+      <div class="texteditor-dropdown">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+        <input id="textEditor-item-fontSize" class="font-size" type="text" name="" value="-">
       </div>
     </div>
     <div class="texteditor-delimiter"></div>
-    <div class="texteditor-item" title="align right">
-      <div class="dropdown">
-        <input class="font-size" type="text" name="" value="18"> <i class="caret fa fa-caret-down" aria-hidden="true"></i>
-        <ul class="dropdown-items">
-          <li>Header</li>
-          <li>normal</li>
-        </ul>
-      </div>
-    </div>
-    <div class="texteditor-delimiter"></div>
-    <div class="texteditor-item" title="align left">
+    <div class="texteditor-item" title="align left" id="textEditor-item-alignLeft">
       <i class="fa fa-align-left" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="align center">
+    <div class="texteditor-item" title="align center" id="textEditor-item-alignCenter">
       <i class="fa fa-align-center" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="align right">
+    <div class="texteditor-item" title="align right" id="textEditor-item-alignRight">
       <i class="fa fa-align-right" aria-hidden="true"></i>
     </div>
     <div class="texteditor-delimiter"></div>
     <!-- format text -->
-    <div class="texteditor-item" title="bold">
+    <div class="texteditor-item" title="bold" id="textEditor-item-bold" elem='B'>
       <i class="fa fa-bold" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="italics">
+    <div class="texteditor-item" title="italics" id="textEditor-item-italics" elem='I'>
       <i class="fa fa-italic" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="underline">
+    <div class="texteditor-item" title="underline" id="textEditor-item-underline" elem='U'>
       <i class="fa fa-underline" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="strikethrough">
+    <div class="texteditor-item" title="strikethrough" id="textEditor-item-strikethrough" elem='STRIKE'>
       <i class="fa fa-strikethrough" aria-hidden="true"></i>
     </div>
-    <div class="texteditor-item" title="strikethrough">
-      <i class="fa fa-font" aria-hidden="true"></i>
+    <div class="texteditor-item" title="link" id="textEditor-item-link" elem='A'>
+      <i class="fa fa-link" aria-hidden="true"></i>
     </div>
     <div class="texteditor-delimiter"></div>
     <!-- font spacing and word spacing -->
     <div class="texteditor-item">
-      <i class="fa fa-text-width" aria-hidden="true"></i>
+      <div class="texteditor-dropdown">
+        <i class="fa fa-text-width" aria-hidden="true"></i>
+        <input id="textEditor-item-letterSpacing" class="font-spacing" type="text" name="" value="-">
+      </div>
     </div>
     <div class="texteditor-item">
-      <i class="fa fa-text-height" aria-hidden="true"></i>
+      <div class="texteditor-dropdown">
+        <i class="fa fa-text-height" aria-hidden="true"></i>
+        <input id="textEditor-item-lineHeight" class="font-spacing" type="text" name="" value="-">
+      </div>
     </div>
     <div class="texteditor-delimiter"></div>
-    <div class="texteditor-item">
-      <i class="fa fa-outdent" aria-hidden="true"></i>
-    </div>
-    <div class="texteditor-item">
-      <i class="fa fa-indent" aria-hidden="true"></i>
+    <div class="texteditor-item" id="textEditor-item-clear">
+      <i class="fa fa-eraser" aria-hidden="true"></i>
     </div>
     <div class="texteditor-delimiter"></div>
   </div>

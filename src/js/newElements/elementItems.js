@@ -165,11 +165,7 @@ const elementItems = {
   * @param {HTMLElement} $category - the element to toggle
   */
   toggleCategoryVisibility ($category) {
-    if ($category.classList.contains('active')) {
-      $category.classList.remove('active')
-    } else {
-      $category.classList.add('active')
-    }
+    $category.classList.toggle('active')
   },
 
   /** run the drag function from elementEvents with the HTML of the clicked element  */

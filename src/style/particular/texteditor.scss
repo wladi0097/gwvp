@@ -1,4 +1,5 @@
 /** The styling for texteditor.html */
+
 .texteditor {
   height: 0;
   width: 100%;
@@ -6,9 +7,8 @@
   float: left;
   transition: height 0.5s;
   background-color: $main;
-  overflow: hidden;
 
-  &.visible {
+  &.active {
     height: 35px;
     border-top: 1px solid $border;
     border-bottom: 1px solid $border;
@@ -16,6 +16,7 @@
 }
 
 .texteditor-items {
+  position: relative;
   height: 100%;
   padding: 0 3%;
 }
@@ -35,6 +36,14 @@
   margin-left: 3px;
   border-radius: 2px;
 
+  &.active {
+    > i,
+    p {
+      color: $light-active;
+      background-color: $main-background;
+    }
+  }
+
   > i,
   p {
     float: left;
@@ -46,79 +55,178 @@
     color: $light;
     cursor: pointer;
 
+    &.noHover {
+      cursor: default;
+
+      &:hover {
+        color: $light;
+        background: transparent;
+      }
+    }
+
     &:hover {
       color: $light-active;
       background-color: $main-background;
     }
   }
+  .font-type {
+    width: 80px;
+  }
+}
 
-  .dropdown {
-    border-radius: 2px;
+.texteditor-dropdown {
+  border-radius: 2px;
+  position: relative;
+  min-width: 100%;
 
-    &:focus,
-    &:hover {
-      background-color: $main-background;
+  >i{
+    color: $light;
+    padding-left: 5px;
+  }
 
-      input,
-      p {
-        background-color: $main-background;
-        border: 1px solid $main-background;
-      }
-
-      .caret {
-        border-left: 1px solid $border;
-      }
+  &.active {
+    ul {
+      display: block;
     }
+    background-color: $main-background;
 
     input,
     p {
-      font-size: 14px;
-      font-weight: 400;
-      border: 1px solid $main;
+      background-color: $main-background;
+      border: 1px solid $main-background;
     }
+  }
 
+  &:active,
+  &:hover {
+    background-color: $main-background;
+
+    input,
     p {
-      padding: 1.5px 5px;
-      line-height: 21px;
-
-      &~.caret {
-        height: 15px;
-        line-height: 18px;
-      }
-
-      &.font-type {
-        width: 60px;
-      }
-    }
-
-    input {
-      padding: 0 5px;
-
-      &.font-size {
-        width: 35px;
-      }
-
-      &.font-style {
-        width: 160px;
-      }
+      background-color: $main-background;
+      border: 1px solid $main-background;
     }
 
     .caret {
-      margin-left: 2px;
-      padding: 5px;
-      font-size: 12px;
+      border-left: 1px solid $border;
+    }
+  }
+
+  input,
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid $main;
+  }
+
+  p {
+    padding: 1.5px 5px;
+    line-height: 21px;
+
+    &~.caret {
+      height: 15px;
+      line-height: 18px;
+    }
+  }
+
+  input {
+    padding: 0 5px;
+
+    &.font-size {
+      width: 35px;
+    }
+
+    &.font-spacing {
+      width: 50px;
+    }
+
+    &.font-style {
+      width: 160px;
+    }
+  }
+
+  .caret {
+    margin-left: 2px;
+    padding: 5px;
+    font-size: 12px;
+    color: $light;
+    border-left: 1px solid $main;
+    cursor: pointer;
+  }
+
+  input {
+    margin-top: 2px;
+    height: 20px;
+  }
+
+  > .dropdown-items {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    min-width: 100%;
+    background-color: $main;
+    top: 30px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.75);
+
+    &:hover {
+      display: block;
+    }
+
+    li {
+      padding-left: 5px;
+      list-style: none;
+      margin-bottom: 5px;
+      line-height: 20px;
       color: $light;
-      border-left: 1px solid $main;
       cursor: pointer;
-    }
 
-    input {
-      margin-top: 2px;
-      height: 20px;
-    }
+      &:hover {
+        background-color: $main-background;
+      }
 
-    > ul {
-      display: none;
+      &:last-child {
+        border-bottom: 0;
+      }
     }
+  }
+}
+
+.texteditor-block{
+  >i{
+    float: left;
+    color: $light;
+    line-height: 25px;
+  }
+}
+
+.texteditor-tags {
+  width: auto;
+
+  li {
+    height: 25px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 5px 5px 5px 0;
+    white-space: nowrap;
+    line-height: 25px !important;
+  }
+
+  p {
+    font-size: initial;
+    font-weight: initial;
+    line-height: initial;
+    padding: 0;
+    background-color: transparent !important;
+    border: 0 !important;
+    float: none;
   }
 }
