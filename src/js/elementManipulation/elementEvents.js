@@ -388,7 +388,6 @@ const elementEvents = {
     this.$iframe.addEventListener('mousemove', this.dragHoverEvent)
 
     this.dragEndEvent = this.dragEnd.bind(this)
-    console.log(this.$iframe)
     this.$iframe.addEventListener('mouseup', this.dragEndEvent)
     document.addEventListener('mouseup', this.dragEndEvent)
 

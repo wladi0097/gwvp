@@ -94,7 +94,7 @@ const addToUsingElementPackages = {
   /** Adds the whole dependency to the iframe.
    * if the dependency gets added by text,
    * download it with a promise chain and return the whole HTML.
-   * @param {packages} packageData - the package to allow
+   * @param {elementPackage} packageData - the package to allow
    * @param {String} depType - either css or js
    * @param {this} _this - its this
    * @return {Promise} with html data
@@ -184,7 +184,7 @@ const addToUsingElementPackages = {
   },
 
   /** insert package data to all dom elements
-   * @param {packages} data
+   * @param {elementPackage} data
    */
   insertToHtml () {
     let data = this.currentPackage

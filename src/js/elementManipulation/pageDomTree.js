@@ -83,6 +83,9 @@ const pageDomTree = {
    * @param {HTMLElement} element - an iframe element
    */
   addNode (appendStyle, element) {
+    if (!element.domTree) {
+      this.build()
+    }
     this.treeData.html = ''
     let id = 'tree-' + element.domTree
     let elem = document.getElementById(id)

@@ -60,7 +60,7 @@ const onlineElementPackages = {
     })
     // accept button got clicked
     this.$accept.addEventListener('mousedown', (e) => {
-      this.elementItems.addPackage('Online', this.currentData)
+      this.elementItems.addPackageToList('Online', this.currentData)
       this.alreadyIncludedPackages.push(this.currentURL) // include url to alreadyIncludedPackages
       this.hide(true)
     })
@@ -152,7 +152,7 @@ const onlineElementPackages = {
   },
 
   /** Very simple validation if all needed elements exist
-   * @param {packages} data
+   * @param {elementPackage} data
    */
   validateResponse (data) {
     return (data.name &&

@@ -6,7 +6,7 @@ const addToUsingElementPackages = require('./addToUsingElementPackages')
 /** A JSON can be used to add new dom elements to the current project.
  * Examples can be found in the packages folder.
  * Its called a package and looks like this:
- * @typedef  {Object} packages
+ * @typedef  {Object} elementPackage
  * @property {String} name - the shown name of the package
  * @property {String} description -  a simple description about the content
  * @property {String} icon - URL to a image which represents the package
@@ -72,6 +72,8 @@ const elementItems = {
    */
   init (elementEvents) {
     this.elementEvents = elementEvents
+    this.cacheDomDescription()
+    this.bindDescriptionEvents()
     this.bindUsingEvents()
     this.bindAddToEvents()
     this.addBasicPackage()
@@ -82,7 +84,22 @@ const elementItems = {
   /** Add the basic HTML package  */
   addBasicPackage () {
     basicElementItems.id = idGen.new()
-    elementItemsHTML.addUsingPackage(basicElementItems)
+    this.addItemsAndDisplayPackage(basicElementItems)
+  },
+
+  /** dom elements for the item description  */
+  cacheDomDescription () {
+    this.$description = document.getElementById('newElementsDescription')
+    this.$descriptionName = document.getElementById('newElementsDescription-name')
+    this.$descriptionContent = document.getElementById('newElementsDescription-content')
+    this.$descriptionClose = document.getElementById('newElementsDescription-close')
+  },
+
+  /** bind events for the item description */
+  bindDescriptionEvents () {
+    this.$descriptionClose.addEventListener('mousedown', (e) => {
+      this.$description.classList.remove('active')
+    })
   },
 
   /** Create a big addEventListener and watch the clicked items,
@@ -93,6 +110,13 @@ const elementItems = {
   bindUsingEvents () {
     let all = document.getElementById('newElementsUsing')
     all.addEventListener('mousedown', (e) => {
+      // is the help icon clicked
+      let help = e.target.closest('.helpIcon')
+      if (help) {
+        this.showDescription(help)
+        return
+      }
+
       // is a single item clicked
       let item = e.target.closest('.html-element')
       if (item) {
@@ -126,17 +150,22 @@ const elementItems = {
   /** add a package to the packagedIndexTable and the packages arrays or inserts
    * it directly to the "using" dom element
    * @param {String} position - either using, official or online
-   * @param {packages} elementPackage - a packages object with all data
+   * @param {elementPackage} elementPackage - a packages object with all data
    */
-  addPackage (position, elementPackage) {
+  addPackageToList (position, elementPackage) {
     elementPackage.id = idGen.new()
     if (position === 'using') {
-      elementItemsHTML.addUsingPackage(elementPackage)
+      this.addItemsAndDisplayPackage(elementPackage)
     } else {
       this.packages.push(elementPackage)
       this.packagedIndexTable.push(elementPackage.id)
       elementItemsHTML.addEmptyPackage(position, elementPackage)
     }
+  },
+
+  removePackageFromList (index) {
+    this.packages.splice(index)
+    this.packagedIndexTable.splice(index)
   },
 
   /** show the content of a package
@@ -170,8 +199,11 @@ const elementItems = {
 
   /** run the drag function from elementEvents with the HTML of the clicked element  */
   dragStart (target) {
-    let html = unescape(target.getAttribute('html'))
-    this.elementEvents.dragStart(html)
+    let item = this.getItemByIndex(target.getAttribute('item-id'))
+    let html = item.html
+    if (html) {
+      this.elementEvents.dragStart(html)
+    }
   },
 
   /** Fire if a package from official or online gets clicked   */
@@ -190,7 +222,7 @@ const elementItems = {
   /** cache of the currently clicked package  */
   currentlyWatchedPackageIndex: null,
   /** Show a custom window where the user can see all details about the package
-   * @param {packages} elementPackage - a package
+   * @param {elementPackage} elementPackage - a package
    */
   showAddToUsingWindow (elementPackage) {
     // get the already added package from the packages array
@@ -203,7 +235,7 @@ const elementItems = {
   },
 
   /** get the ItemCategories HTML for a package
-   * @param {packages} elementPackage - a package
+   * @param {elementPackage} elementPackage - a package
    * @return {String} HTMl
    */
   getItemCategories (elementPackage) {
@@ -214,7 +246,54 @@ const elementItems = {
   movePackageToUsing () {
     let data = this.packages[this.currentlyWatchedPackageIndex]
     let element = document.getElementById(data.id)
-    elementItemsHTML.addUsingPackage(data, element)
+    this.addItemsAndDisplayPackage(data, element)
+    this.removePackageFromList(this.currentlyWatchedPackageIndex)
+  },
+
+  /** initialize the items so they have an id and then append them to html
+   * @param {elementPackage} elementPackage
+   * @param {HTMLElement} element - element to replace
+   */
+  addItemsAndDisplayPackage (elementPackage, element) {
+    this.initializeItems(elementPackage)
+    elementItemsHTML.addUsingPackage(elementPackage, element)
+  },
+
+  aviableItems: [],
+  aviableItemsIndex: [],
+  /** save the items in an array to get the html and the info from it
+   * @param {elementPackage} elementPackage
+   */
+  initializeItems (elementPackage) {
+    let content = elementPackage.content
+    for (var i = 0; i < content.length; i++) {
+      let items = content[i].items
+      for (var k = 0; k < items.length; k++) {
+        let item = items[k]
+        item.id = idGen.new()
+        this.aviableItemsIndex.push(item.id)
+        this.aviableItems.push(item)
+      }
+    }
+  },
+
+  /** get item by item id
+   * @param {String} id - item id
+   * @return {packageItems}
+   */
+  getItemByIndex (id) {
+    return this.aviableItems[this.aviableItemsIndex.indexOf(id)]
+  },
+
+  showDescription (element) {
+    let id = element.parentNode.getAttribute('item-id')
+    let item = this.getItemByIndex(id)
+    if (!this.$description.classList.contains('active')) {
+      this.$description.classList.add('active')
+    }
+    this.$descriptionName.innerHTML = item.name
+    let description = item.description || 'no description'
+    this.$descriptionContent.innerHTML = description
   }
 }
 module.exports = elementItems
@@ -245,7 +324,7 @@ const elementItemsHTML = {
   /** Create an HTML Block with all Categories and their items,
    * which can be used to add dom element to the current page
    * @param {String} id - a unique string sequence
-   * @param {packages} data - a package
+   * @param {elementPackage} data - a package
    * @param {Boolean} hidden - should it be hidden by default
    * @return {String} completed html
    */
@@ -262,7 +341,7 @@ const elementItemsHTML = {
       let items = data[i].items
       for (var k = 0; k < items.length; k++) {
         html += `
-        <div class="item html-element" html=${escape(items[k].html)}>
+        <div class="item html-element" item-id=${items[k].id}>
           <p class="helpIcon">?</p>
           <div class="img">
             <img src="${items[k].icon}" alt="${items[k].name}">
@@ -281,7 +360,7 @@ const elementItemsHTML = {
   },
 
   /** Add or move a using package to the dom.
-   * @param {packages} data - a package
+   * @param {elementPackage} data - a package
    * @param {HTMLElement} existing - html which should be replaced
    */
   addUsingPackage (data, existing) {
@@ -321,7 +400,7 @@ const elementItemsHTML = {
 
   /** add a official or online package without implementation to the DOM
    * @param {String} position - either official or online
-   * @param {packages} data - a package
+   * @param {elementPackage} data - a package
    */
   addEmptyPackage (position, data) {
     let destination = (data === 'official') ? this.$official : this.$online
