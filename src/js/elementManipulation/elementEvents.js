@@ -301,9 +301,8 @@ const elementEvents = {
       alert('nothing selected to duplicate')
       return this
     }
-    let clone = this.currentElement.cloneNode(true)
-    this.currentElement.parentNode.insertBefore(clone, this.currentElement.nextSibling)
-    this.change()
+    let clone = this.currentElement.outerHTML
+    this.paste('after', clone)
     return this
   },
 
