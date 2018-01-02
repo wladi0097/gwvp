@@ -57,6 +57,8 @@
         margin-left: 10px;
         height: 25px;
         list-style: none;
+        // edge fix (https://stackoverflow.com/questions/20356311/internet-explorer-11-ignores-list-stylenone-on-the-first-load)
+        list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
         float: left;
         color: $light;
         font-size: 15px;

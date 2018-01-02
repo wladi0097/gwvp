@@ -213,7 +213,7 @@ const elementEvents = {
   * @return this
   */
   copy () {
-    if (!this.nteraction) {
+    if (!this.allowInteraction) {
       alert('nothing selected')
       return this
     }

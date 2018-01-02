@@ -205,6 +205,7 @@
 
   .sidebar-visible-header {
     transition: all 0.5s;
+    height: 30px;
 
     > i {
       transform: rotate(-90deg);

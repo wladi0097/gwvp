@@ -132,7 +132,6 @@ const textEditor = {
   * @param {Event} e - event
   */
   overwrite (e) {
-    // overwrite original keydown
     e.stopImmediatePropagation()
   },
 
