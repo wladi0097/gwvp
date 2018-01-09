@@ -4,7 +4,7 @@ const changeScreenSize = {
   /** Simulate device width */
   width: 1200,
   /** Scale for easy use */
-  scale: 0.9,
+  scale: 1,
   /** Initialize */
   init () {
     this.cacheDom()
