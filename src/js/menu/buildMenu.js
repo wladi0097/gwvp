@@ -159,6 +159,7 @@ const buildMenu = {
       id.run = this.clickEvents.clickRun[i]
       id.addEventListener('mousedown', (e) => {
         e.currentTarget.run()
+        this.checkItemStates()
       })
     }
   },
