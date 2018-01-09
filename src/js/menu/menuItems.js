@@ -23,6 +23,7 @@
  * { delimiter: true }
  */
 const elementEvents = require('../elementManipulation/elementEvents.js')
+const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
 module.exports = function () {
   return [{
@@ -138,6 +139,20 @@ module.exports = function () {
         run () { changeScreenSize.changeResolution('Mobile') }
       }
       ]
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'refresh',
+      text: 'Tree Rebuild',
+      run () { pageDomTree.build() }
+    },
+    {
+      icon: 'check',
+      text: 'Tree Autoscroll',
+      active () { return pageDomTree.allowScrollToElement },
+      run () { pageDomTree.toggleAllowScrollToElement() }
     }
     ]
   },
