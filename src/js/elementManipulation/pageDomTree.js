@@ -26,7 +26,7 @@ const pageDomTree = {
   @param {HTMLElement} domTree - place domTree there
   */
   build (iframe, domTree) {
-    this.$iframe = iframe || document.getElementById('simulated').contentDocument.body
+    this.$iframe = iframe || document.getElementById('simulated').contentDocument
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
     this.treeData = {html: '', ids: [], counter: 0}
 
@@ -35,7 +35,7 @@ const pageDomTree = {
     }
 
     this.reset()
-      .createTree(this.$iframe)
+      .createTree(this.$iframe.body)
       .$domTree.innerHTML = this.treeData.html
 
     if (!this.hasEvents) { // add events if not exist
@@ -177,11 +177,10 @@ const pageDomTree = {
   * @return this
   */
   addRelationEvents () {
-    this.$domTree.removeEventListener('mousedown', this.addRelationClickEvents)
     this.$domTree.addEventListener('mousedown', this.addRelationClickEvents.bind(this), false)
-    // --
-    this.$domTree.removeEventListener('mouseover', this.addRelationHoverEvents)
     this.$domTree.addEventListener('mouseover', this.addRelationHoverEvents.bind(this), false)
+    this.$iframe.body.addEventListener('mousedown', this.domTreeScrollToElement.bind(this), false)
+
     return this
   },
 
@@ -189,14 +188,16 @@ const pageDomTree = {
   * If an element in the domTree gets hovered, hover over the same element in the iframe
   */
   addRelationHoverEvents (e) {
-    let el = e.target.closest('li, ul')
-    if (el) {
-      let event = new MouseEvent('mouseover', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      })
-      this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+    if (e.isTrusted) {
+      let el = e.target.closest('li, ul')
+      if (el) {
+        let event = new MouseEvent('mouseover', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        })
+        this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+      }
     }
   },
 
@@ -204,14 +205,52 @@ const pageDomTree = {
   * If an element in the domTree gets clicked, click over the same element in the iframe
   */
   addRelationClickEvents (e) {
-    let el = e.target.closest('li, ul')
-    if (el) {
-      let event = new MouseEvent('mousedown', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      })
-      this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+    if (e.isTrusted) {
+      let el = e.target.closest('li, ul')
+      if (el) {
+        let event = new MouseEvent('mousedown', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        })
+        this.treeData.ids[el.getAttribute('id').split('-')[1]].dispatchEvent(event)
+        this.iframeScrollToElement(this.treeData.ids[el.getAttribute('id').split('-')[1]])
+      }
+    }
+  },
+
+  allowScrollToElement: true,
+  toggleAllowScrollToElement () {
+    this.allowScrollToElement = !this.allowScrollToElement
+  },
+  /** scroll to the clicked element
+  * @param {HTMLElement} elem - element to sctoll to
+  */
+  iframeScrollToElement (elem) {
+    if (this.allowScrollToElement) {
+      if (elem.scrollIntoViewIfNeeded) {
+        elem.scrollIntoViewIfNeeded()
+      } else {
+        elem.scrollIntoView()
+      }
+    }
+  },
+
+  /** open all ul parent elements of the dom tree item and scroll to it
+  * @param {Event} e
+  */
+  domTreeScrollToElement (e) {
+    if (e.isTrusted && this.allowScrollToElement) {
+      let elem = document.getElementById('tree-' + e.target.domTree)
+      let parent = elem
+      while (parent.nodeName !== 'DIV') {
+        if (parent.nodeName === 'UL' && !parent.classList.contains('active')) {
+          parent.classList.add('active')
+        }
+        parent = parent.parentNode
+      }
+      let offsetTop = 20
+      this.$domTree.scrollTop = elem.getBoundingClientRect().top - this.$domTree.getBoundingClientRect().top + this.$domTree.scrollTop - offsetTop
     }
   },
 
