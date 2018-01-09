@@ -1,0 +1,350 @@
+// delimiter
+.elementEditor .delimiter {
+  border-bottom: 1px solid $main-background;
+  width: 60%;
+  margin: 5px 0;
+  margin-left: 20%;
+}
+
+.elementEditor .sidebar-category{
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.text-with-input {
+  &::after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+  }
+  >p{
+    text-align: left;
+    width: 50%;
+    float: left;
+  }
+  >input{
+    text-align: center;
+    background-color: $main-background;
+    border: 1px solid $border;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+  }
+}
+
+.colorpicker{
+
+}
+// Selector
+.elementEditor .selector {
+  width: 100%;
+
+  .input {
+    width: 80%;
+    margin-left: 10%;
+    background-color: $main;
+    padding: 5px;
+    border: 1px solid $border;
+
+    &::after {
+      content: ".";
+      clear: both;
+      display: block;
+      visibility: hidden;
+      height: 0;
+    }
+
+    &:hover {
+      background-color: $main-background;
+    }
+
+    .item,
+    input {
+      background-color: transparent;
+      border: 0;
+      margin: 2px;
+      display: table-cell;
+    }
+
+    input {
+      width: auto;
+    }
+
+    .item {
+      float: left;
+      position: relative;
+      background-color: $highlight;
+      color: $light;
+      padding: 0 3px;
+      border-radius: 2px;
+
+      &:hover {
+        &:after {
+          display: block;
+          background-color: $main;
+        }
+      }
+
+      &:after {
+        background-color: transparent;
+        transition: all 1s;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        content: "x";
+        border-radius: 2px;
+      }
+    }
+  }
+}
+// Layout padding-margin
+.layout .padding-margin {
+  $abstand: 5px;
+  .margin {
+    margin: 40px 0;
+    position: relative;
+    width: 180px;
+    margin-left: 60px;
+    height: 120px;
+
+    .bottom,
+    .top {
+      width: 180px - 30px - $abstand;
+    }
+
+    .left,
+    .right {
+      height: 120px - 30px - $abstand;
+      input{
+        width: 50px;
+        top: 35px;
+      }
+    }
+
+    .top input{
+      top: -20px;
+    }
+    .bottom input{
+      top: 20px;
+    }
+    .left input{
+      left: -50px;
+    }
+    .right input{
+      left: 10px;
+    }
+  }
+
+  .padding {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 140px;
+    height: 80px;
+
+    .bottom,
+    .top {
+      width: 140px - 30px - $abstand;
+    }
+
+    .left,
+    .right {
+      height: 80px - 30px - $abstand;
+      input{
+        width: 50px;
+        top: 15px;
+      }
+    }
+
+    .top input{
+      top: 20px;
+    }
+    .bottom input{
+      top: -20px;
+    }
+    .left input{
+      left: 10px;
+    }
+    .right input{
+      left: -50px;
+    }
+  }
+
+  .bottom,
+  .top {
+    height: 15px;
+    left: 15px + $abstand / 2;
+  }
+
+  .left,
+  .right {
+    width: 15px;
+    top: 15px + $abstand / 2;
+  }
+}
+
+.editor-direction {
+  position: absolute;
+  background-color: $main-background;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    clear: both;
+  }
+
+  >input {
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+.editor-direction {
+  &.top{
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    &::after,
+    &::before {
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      top: 0;
+      border-top: 15px solid $main-background;
+    }
+    &::before{
+      left: -15px;
+    }
+    &::after{
+      right: -15px;
+    }
+  }
+
+  &.right{
+    height: 100%;
+    right: 0;
+    top: 0;
+
+    &::after,
+    &::before {
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      left: 0;
+      border-right: 15px solid $main-background;
+    }
+
+    &::before{
+      top: -15px;
+    }
+
+    &::after{
+      bottom: -15px;
+    }
+  }
+
+  &.bottom {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+
+    &::after,
+    &::before {
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      top: 0;
+      border-bottom: 15px solid $main-background;
+    }
+
+    &::before{
+      left: -15px;
+    }
+    &::after{
+      right: -15px;
+    }
+  }
+
+  &.left {
+    height: 100%;
+    left: 0;
+    top: 0;
+
+    &::after,
+    &::before {
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      left: 0;
+      border-left: 15px solid $main-background;
+    }
+
+    &::before{
+      top: -15px;
+    }
+
+    &::after{
+      bottom: -15px;
+    }
+  }
+}
+// Layout width-height
+.elementEditor .width-height{
+  .expandable-container {
+    .expandable-header{
+      >i{
+        width: 10%;
+        float: left;
+      }
+      >.text-with-input{
+        &:first-child{
+          margin-left: 5%;
+        }
+        width: 40%;
+        float: left;
+        >input{
+          padding: 3px 0;
+        }
+      }
+    }
+    .expandable-content{
+      display: none;
+      &.active{
+        display: block;
+      }
+      >.text-with-input{
+        &:nth-child(2n){
+          margin-left: 10%;
+        }
+        margin-top: 10px;
+        margin-left: 5%;
+        width: 40%;
+        float: left;
+        >input{
+          padding: 3px 0;
+        }
+      }
+      &::after {
+        content: ".";
+        clear: both;
+        display: block;
+        visibility: hidden;
+        height: 0;
+      }
+    }
+  }
+}

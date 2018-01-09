@@ -6,7 +6,7 @@ const navigation = {
 
   /** switch between the three tabs */
   leftNavBarSelection () {
-    let elements = document.getElementsByClassName('sidebar-navigator')
+    let elements = document.getElementsByClassName('sidebar-navigator-left')
     Array.from(elements).forEach((element) => {
       element.addEventListener('click', this.leftNavBarSelectionEvent.bind(this))
     })
@@ -14,7 +14,7 @@ const navigation = {
 
   /** Its the event for leftNavBarSelection */
   leftNavBarSelectionEvent (e) {
-    Array.from(document.getElementsByClassName('sidebar-navigator'))
+    Array.from(document.getElementsByClassName('sidebar-navigator-left'))
       .forEach((element) => {
         element.classList.remove('selected')
       })
