@@ -22,40 +22,20 @@
  * To make things fancy, you an add a delimiter:
  * { delimiter: true }
  */
-module.exports = function (elementEvents) {
+const elementEvents = require('../elementManipulation/elementEvents.js')
+const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
+module.exports = function () {
   return [{
     name: 'File',
     items: [{
-      id: 'newProject',
       icon: '',
       text: 'New Project',
       keycode: 'ALT + N'
     },
     {
-      icon: 'plus',
-      text: 'Add',
-      underItems: [{
-        id: 'addElement',
-        icon: 'circle',
-        text: 'Element'
-      },
-      {
-        id: 'addSection',
-        icon: 'bars',
-        text: 'Section'
-      },
-      {
-        id: 'addFile',
-        icon: 'file',
-        text: 'Page'
-      }
-      ]
-    },
-    {
       delimiter: true
     },
     {
-      id: 'openProject',
       icon: '',
       text: 'Open Project'
     }
@@ -64,14 +44,12 @@ module.exports = function (elementEvents) {
   {
     name: 'Edit',
     items: [{
-      id: 'undo',
       icon: 'undo',
       text: 'Undo',
       keycode: 'STRG + Z',
       run () { elementEvents.undo() }
     },
     {
-      id: 'redo',
       icon: 'repeat',
       text: 'Redo',
       keycode: 'SHIFT + STRG + Z',
@@ -81,38 +59,38 @@ module.exports = function (elementEvents) {
       delimiter: true
     },
     {
-      id: 'cut',
       icon: 'scissors',
       text: 'Cut',
       keycode: 'STRG + X',
+      clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.cut() }
     },
     {
-      id: 'clone',
       icon: 'clone',
       text: 'Copy',
       keycode: 'STRG + C',
+      clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.copy() }
     },
     {
-      id: 'duplicate',
       icon: 'clone',
       text: 'Duplicate',
       keycode: 'STRG + D',
+      clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.duplicate() }
     },
     {
-      id: 'clipboard',
       icon: 'clipboard',
       text: 'Paste',
       keycode: 'STRG + V',
+      clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.paste() }
     },
     {
-      id: 'trash',
       icon: 'trash',
       text: 'Delete',
       keycode: 'DEL',
+      clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.delete() }
     }
     ]
@@ -120,14 +98,14 @@ module.exports = function (elementEvents) {
   {
     name: 'View',
     items: [{
-      id: 'showLeftNav',
       icon: 'check',
-      text: 'Show left Nav'
+      text: 'Show left Nav',
+      active () { return false }
     },
     {
-      id: 'showRightNav',
       icon: 'check',
-      text: 'Show right Nav'
+      text: 'Show right Nav',
+      active () { return true }
     },
     {
       delimiter: true
@@ -136,32 +114,28 @@ module.exports = function (elementEvents) {
       icon: 'resize',
       text: 'Screen Size',
       underItems: [{
-        id: 'resizeToTv',
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
-        run () { elementEvents.changeRes('Tv') }
+        run () { changeScreenSize.changeResolution('Tv') }
       },
       {
-        id: 'resizeToLaptop',
         icon: 'laptop',
         text: 'Notebook',
         keycode: 'ALT + 2',
-        run () { elementEvents.changeRes('Computer') }
+        run () { changeScreenSize.changeResolution('Computer') }
       },
       {
-        id: 'resizeToTablet',
         icon: 'tablet',
         text: 'Tablet',
         keycode: 'ALT + 3',
-        run () { elementEvents.changeRes('Tablet') }
+        run () { changeScreenSize.changeResolution('Tablet') }
       },
       {
-        id: 'resizeToMobile',
         icon: 'mobile',
         text: 'Phone',
         keycode: 'ALT + 4',
-        run () { elementEvents.changeRes('Mobile') }
+        run () { changeScreenSize.changeResolution('Mobile') }
       }
       ]
     }
@@ -190,10 +164,9 @@ module.exports = function (elementEvents) {
   },
   {
     // this one wont be seen in the menu because its a contextmenu
-    name: 'contextmenu',
     id: 'contextmenu',
+    name: 'contextmenu',
     items: [{
-      id: 'CnewProject',
       icon: '',
       text: 'New Project'
     }]

@@ -107,6 +107,12 @@ const keydown = {
     }
   },
 
+  addArray (array) {
+    array.forEach((elem) => {
+      this.add(elem)
+    })
+  },
+
   toUpperCase (item) {
     return item.toUpperCase()
   },

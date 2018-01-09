@@ -4,17 +4,16 @@
  * The contextmenu is a menu item and can also be found in menuItems.js.
  * gets the menuItems JSON and translates it into a menu, keydown and contextmenu
  */
-const keydown = require('../interaction/keydown') // add keydown events to menu items
-const contextMenu = require('../interaction/contextMenu') // a menu item is going to be a contextmenu
+const idGen = require('../interaction/idGen')
 const menuItems = require('./menuItems')
 
 /** build the whole menu and add click and keydown events for every item.
 * All functionality has to be parsed into build and then you can acces them over the menu.
-* Initialize the menuItems with the given params and build everithing upon the menuItems.
-* @param {Object} elementEvents - the elementEvents.js
+* Initialize the menuItems.
 */
-module.exports.build = function (elementEvents) {
-  this.menuItems = menuItems(elementEvents)
+module.exports.build = function () {
+  window.check = buildMenu.checkItemStates.bind(buildMenu)
+  this.menuItems = menuItems()
 
   for (var i = 0; i < this.menuItems.length; i++) {
     buildMenu.includeMenuItemStart(this.menuItems[i])
@@ -24,12 +23,13 @@ module.exports.build = function (elementEvents) {
     }
     buildMenu.includeMenuItemEnd()
   }
-  buildMenu.append()
 
-  buildMenu.addClickEvents()
-  keydown.init(document) // create keydown events
-  let contextMenuElement = document.getElementsByClassName('header-contextmenu')[0]
-  contextMenu.init(document, contextMenuElement) // create contextmenu
+  buildMenu.append()
+  buildMenu.addAllEvents()
+}
+
+module.exports.getKeyCodes = function () {
+  return buildMenu.keycodes
 }
 
 /**
@@ -38,8 +38,16 @@ module.exports.build = function (elementEvents) {
 const buildMenu = {
   /** The final html to append */
   html: '',
+  keycodes: [],
   /** position of the final Html */
   $headerItems: document.getElementsByClassName('header-items')[0],
+
+  /** add external and interlan events to the already build menu  */
+  addAllEvents () {
+    this.addClickEvents()
+    this.addHoverEvents()
+    this.checkItemStates()
+  },
 
   /** append the final result into the $headerItems */
   append () {
@@ -72,15 +80,16 @@ const buildMenu = {
   * @param {Object} item - a menuItems item
   */
   includeMenuComponent (item) {
+    item.id = item.id || idGen.new()
     this.includeMenuComponentHTML(item) // include html
     this.includeMenuComponentClick(item) // include click event
     this.includeMenuComponentKeycode(item) // include keydown event
+    this.includeMenuComponentState(item)
   },
 
   /** builds HTML the fastest way by
   * pushing all into a html and appending the result
   * @param {Object} item - a menuItems item
-  * @param {String} item.id - the id of the menuItem
   * @param {String} item.name - the name of the menuItem
   * @param {String} item.keycode - the keycode of the menuItem
   * @param {String} item.delimiter - is the item a delmiter
@@ -91,7 +100,6 @@ const buildMenu = {
   includeMenuComponentHTML (item) {
     item.icon = (item.icon) ? 'fa-' + item.icon : '' // is there a icon ?
     item.keycode = (item.keycode) ? item.keycode : '' // is there a keycode ?
-    item.id = (item.id) ? 'event-' + item.id : '' // is there a Id ?
     // is delimiter
     if (item.delimiter) {
       this.html += `<li class="option-delimiter"></li>`
@@ -155,6 +163,18 @@ const buildMenu = {
     }
   },
 
+  /** registrer hover event on the menu item
+   * using the clickEvents
+  */
+  addHoverEvents () {
+    Array.from(document.getElementsByClassName('header-item'))
+      .forEach((element) => {
+        element.addEventListener('mouseover', () => {
+          this.checkItemStates()
+        })
+      })
+  },
+
   /** register the keycode events
   * @param {Object} item - a menuItems item
   * @param {String} item.keycode - the keycode of the menuItem
@@ -166,10 +186,45 @@ const buildMenu = {
       return false
     }
 
-    keydown.add({
+    this.keycodes.push({
       run: item.run,
       keycode: item.keycode
     })
+  },
+
+  /** all menu items which have an item state  */
+  itemsWithStates: [],
+  /** if an items has an item state include it to the itemsWithStates array */
+  includeMenuComponentState (item) {
+    if (item.clickable || item.active) {
+      this.itemsWithStates.push(item)
+    }
+  },
+
+  /** check item states and append them to the item  */
+  checkItemStates () {
+    this.itemsWithStates.forEach((item) => {
+      let elem = document.getElementById(item.id)
+      if (item.clickable) {
+        this.setItemStateCss(elem, 'disabled', item.clickable())
+      }
+
+      if (item.active) {
+        this.setItemStateCss(elem, 'inActive', item.active())
+      }
+    })
+  },
+
+  /** remove the css class and add one if it is active
+   * @param {HTMLElement} elem - li to set css
+   * @param {String} cssClass - classname to set
+   * @param {Boolen} active - should set
+   */
+  setItemStateCss (elem, cssClass, active) {
+    elem.classList.remove(cssClass)
+    if (!active) {
+      elem.classList.add(cssClass)
+    }
   }
 }
 module.exports.buildMenu = buildMenu

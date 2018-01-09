@@ -96,16 +96,6 @@ const elementEvents = {
     return this
   },
 
-  /** change resolution with the changeScreenSize object
-  * @param {String} res - either TV, Computer, Tablet or Mobile
-  * @return this
-  */
-  changeRes (res) {
-    changeScreenSize.changeResolution(res)
-    this.redrawRect()
-    return this
-  },
-
   /** This is a Event and a method.
   * This gets fired after anything gets scrolled in the iframe
   * @param {Event} e

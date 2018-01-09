@@ -94,6 +94,12 @@
         }
       }
 
+      &.inActive {
+        >i{
+          color: $dark;
+        }
+      }
+
       &:hover {
         color: $light-active;
         background-color: $main;
