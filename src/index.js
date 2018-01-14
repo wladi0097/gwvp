@@ -9,7 +9,7 @@ const keydown = require('./js/interaction/keydown')
 
 document.addEventListener('DOMContentLoaded', () => {
   elementEvents.init()
-  menu.build(elementEvents)
+  menu.build()
   contextMenu.init(document, document.getElementsByClassName('header-contextmenu')[0])
   keydown.addArray(menu.getKeyCodes())
   keydown.init(document)

@@ -6,7 +6,6 @@
   height: calc(100% - 40px);
   background-color: $main;
   color: $light;
-  overflow: hidden;
   user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -16,6 +15,7 @@
   }
 
   &.right-sidebar {
+    overflow: hidden;
     float: right;
     width: 300px;
   }
