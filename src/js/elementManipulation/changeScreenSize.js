@@ -45,7 +45,9 @@ const changeScreenSize = {
    * @param {String} type - possible TV, Compuer, Tablet and Mobile
    */
   changeResolution (type) {
-    this.$buttons.querySelectorAll('.selected')[0].classList.remove('selected')
+    if (this.$buttons.querySelectorAll('.selected')[0]) {
+      this.$buttons.querySelectorAll('.selected')[0].classList.remove('selected')
+    }
     let width = 1200
     switch (type) {
       case 'Tv':
@@ -73,6 +75,9 @@ const changeScreenSize = {
    * @param {Number} percent - default 0.9
    */
   changeZoom (percent) {
+    if (percent > 2.0 || percent < 0.5) {
+      return false
+    }
     this.scale = percent
     this.applyStyle()
   }
