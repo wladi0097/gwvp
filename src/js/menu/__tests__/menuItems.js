@@ -1,7 +1,7 @@
 /* global describe it expect */
 // this is just a validation of the file
 const menuItems = require('../menuItems')
-const obj = menuItems(null)
+const obj = menuItems()
 
 describe('menuuItems', () => {
   it('should be function', () => {

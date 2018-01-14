@@ -72,3 +72,37 @@ describe('event bindings', () => {
     expect($contextMenu.attr('style')).toBe('display: none;')
   })
 })
+
+describe('getBestPoition', () => {
+  let $contextMenu = resetDom()
+  let ownContextMenu = {...contextMenu}
+  ownContextMenu.init(document, $contextMenu[0])
+  let cube = 100
+  window.innerWidth = cube
+  window.innerHeight = cube
+  let tolerance = 25 // tolerance
+
+  it('should return top left ', () => {
+    let pos = ownContextMenu.getBestPosition(0, 0)
+    expect(pos.x).toBe(0)
+    expect(pos.y).toBe(0)
+  })
+
+  it('should return bottom right', () => {
+    let pos = ownContextMenu.getBestPosition(100, 100)
+    expect(pos.x).toBe(cube - tolerance)
+    expect(pos.y).toBe(cube - tolerance)
+  })
+
+  it('should return top right', () => {
+    let pos = ownContextMenu.getBestPosition(0, 100)
+    expect(pos.x).toBe(0)
+    expect(pos.y).toBe(cube - tolerance)
+  })
+
+  it('should return bottom left', () => {
+    let pos = ownContextMenu.getBestPosition(100, 0)
+    expect(pos.x).toBe(cube - tolerance)
+    expect(pos.y).toBe(0)
+  })
+})

@@ -54,15 +54,14 @@ const contextMenu = {
    * and so on.
    * @param {Number} x - x coordinate
    * @param {Number} y - y coordinate
-   * @todo replace hardcoded width and height
   */
   getBestPosition (x, y) {
     // block has to be visible to get width and height
     this.$domItem.setAttribute('style', `display: block;`)
     let position = {x: x, y: y}
     let tolerance = 25
-    let width = this.$domItem.children[1].offsetWidth + tolerance
-    let height = this.$domItem.children[1].offsetHeight + tolerance
+    let width = this.$domItem.offsetWidth + tolerance
+    let height = this.$domItem.offsetHeight + tolerance
     let fullwidth = window.innerWidth
     let fullheight = window.innerHeight
 

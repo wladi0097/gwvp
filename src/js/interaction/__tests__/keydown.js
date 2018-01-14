@@ -1,12 +1,8 @@
-/* global describe expect it Event */
+/* global describe expect it Event jest */
 const keydown = require('../keydown.js')
 
 // to ckeck if the keydown events are working
-let toRunRunned = 0
-function toRun () {
-  toRunRunned++
-  return true
-}
+let toRun = jest.fn()
 
 // simple one key keycode
 const keycode1 = {
@@ -78,7 +74,7 @@ describe('fire new events', () => {
   })
   it('should run provided function', () => {
     // got pressed above
-    expect(toRunRunned).toBe(1) // run event got fired
+    expect(toRun.mock.calls.length).toBe(1) // run event got fired
   })
   it('should ignore not registered keydowns', () => {
     // keydown
@@ -90,14 +86,13 @@ describe('fire new events', () => {
     e.keyCode = 0
     document.dispatchEvent(e)
     // test
-    expect(toRunRunned).toBe(1) // run event wasn't fired
+    expect(toRun.mock.calls.length).toBe(1) // run event wasn't fired
   })
   it('should register and run multiple keydowns', () => {
     // keydown ALT
     let e = new Event('keydown')
     e.keyCode = 18
     document.dispatchEvent(e)
-    // $(document).trigger(e1)
     // keydown #
     e = new Event('keydown')
     e.keyCode = 35
@@ -105,7 +100,7 @@ describe('fire new events', () => {
 
     expect(keydown.pressed[0]).toBe(18) // key ALT got pressed
     expect(keydown.pressed[1]).toBe(35) // key # got pressed
-    expect(toRunRunned).toBe(2) // run event got fired
+    expect(toRun.mock.calls.length).toBe(2) // run event got fired
   })
 })
 
