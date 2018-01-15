@@ -1,4 +1,4 @@
-/** The styling for left-sidebar.html and right-sidebar.html */
+// The styling for left-sidebar.html and right-sidebar.html
 .sidebar {
   width: 250px;
   position: relative;
@@ -33,7 +33,7 @@
     float: left;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background-color .3s, color .3s;
     width: 33.333%;
 
     &.half {
@@ -41,7 +41,7 @@
     }
 
     &:hover {
-      background-color: $highlight-Hover;
+      background-color: $highlight-hover;
       color: $light-active;
     }
 
@@ -58,6 +58,7 @@
   background-color: $dark;
   border-bottom: 1px solid $border;
 
+  // sass-lint:disable force-pseudo-nesting
   > div:first-child {
     width: calc(100% - 5px);
     height: 100%;
@@ -92,6 +93,7 @@
   overflow: hidden;
 }
 
+// sass-lint:disable no-important
 .overflow {
   width: calc(100% + 30px) !important;
   overflow-x: hidden;
@@ -109,25 +111,25 @@
 
 
 .sidebar-category {
-    margin-top: 5px;
-    color: $border;
-    text-align: center;
+  margin-top: 5px;
+  color: $border;
+  text-align: center;
 
-    > p {
-      padding: 2px;
-      border-bottom: 1px solid $main-background;
-      width: 80%;
-      margin-left: 10%;
-      margin-bottom: 10px;
+  > p {
+    padding: 2px;
+    border-bottom: 1px solid $main-background;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 10px;
 
-      > i {
-        float: right;
-        transition: all 0.3s;
-        cursor: pointer;
+    > i {
+      float: right;
+      transition: color .3s;
+      cursor: pointer;
 
-        &:hover {
-          color: $light-active;
-        }
+      &:hover {
+        color: $light-active;
       }
     }
+  }
 }

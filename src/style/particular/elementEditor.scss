@@ -1,30 +1,32 @@
 // delimiter
-.elementEditor .delimiter {
+.element-editor .delimiter {
   border-bottom: 1px solid $main-background;
   width: 60%;
   margin: 5px 0;
   margin-left: 20%;
 }
 
-.elementEditor .sidebar-category{
+.element-editor .sidebar-category {
   display: inline-block;
   margin-top: 10px;
 }
 
 .text-with-input {
   &::after {
-    content: ".";
+    content: '.';
     clear: both;
     display: block;
     visibility: hidden;
-    height: 0px;
+    height: 0;
   }
-  >p{
+
+  >p {
     text-align: left;
     width: 50%;
     float: left;
   }
-  >input{
+
+  >input {
     text-align: center;
     background-color: $main-background;
     border: 1px solid $border;
@@ -35,11 +37,8 @@
   }
 }
 
-.colorpicker{
-
-}
 // Selector
-.elementEditor .selector {
+.element-editor .selector {
   width: 100%;
 
   .input {
@@ -50,7 +49,7 @@
     border: 1px solid $border;
 
     &::after {
-      content: ".";
+      content: '.';
       clear: both;
       display: block;
       visibility: hidden;
@@ -82,15 +81,15 @@
       border-radius: 2px;
 
       &:hover {
-        &:after {
+        &::after {
           display: block;
           background-color: $main;
         }
       }
 
-      &:after {
+      &::after {
         background-color: transparent;
-        transition: all 1s;
+        transition: background-color 1s;
         cursor: pointer;
         position: absolute;
         top: 0;
@@ -98,15 +97,17 @@
         width: 100%;
         height: 100%;
         display: none;
-        content: "x";
+        content: 'x';
         border-radius: 2px;
       }
     }
   }
 }
+
 // Layout padding-margin
 .layout .padding-margin {
   $abstand: 5px;
+
   .margin {
     margin: 40px 0;
     position: relative;
@@ -122,22 +123,26 @@
     .left,
     .right {
       height: 120px - 30px - $abstand;
-      input{
+
+      input {
         width: 50px;
         top: 35px;
       }
     }
 
-    .top input{
+    .top input {
       top: -20px;
     }
-    .bottom input{
+
+    .bottom input {
       top: 20px;
     }
-    .left input{
+
+    .left input {
       left: -50px;
     }
-    .right input{
+
+    .right input {
       left: 10px;
     }
   }
@@ -157,22 +162,26 @@
     .left,
     .right {
       height: 80px - 30px - $abstand;
-      input{
+
+      input {
         width: 50px;
         top: 15px;
       }
     }
 
-    .top input{
+    .top input {
       top: 20px;
     }
-    .bottom input{
+
+    .bottom input {
       top: -20px;
     }
-    .left input{
+
+    .left input {
       left: 10px;
     }
-    .right input{
+
+    .right input {
       left: -50px;
     }
   }
@@ -214,10 +223,8 @@
     background-color: transparent;
     border: 0;
   }
-}
 
-.editor-direction {
-  &.top{
+  &.top {
     width: 100%;
     top: 0;
     left: 0;
@@ -229,15 +236,17 @@
       top: 0;
       border-top: 15px solid $main-background;
     }
-    &::before{
+
+    &::before {
       left: -15px;
     }
-    &::after{
+
+    &::after {
       right: -15px;
     }
   }
 
-  &.right{
+  &.right {
     height: 100%;
     right: 0;
     top: 0;
@@ -250,11 +259,11 @@
       border-right: 15px solid $main-background;
     }
 
-    &::before{
+    &::before {
       top: -15px;
     }
 
-    &::after{
+    &::after {
       bottom: -15px;
     }
   }
@@ -272,10 +281,11 @@
       border-bottom: 15px solid $main-background;
     }
 
-    &::before{
+    &::before {
       left: -15px;
     }
-    &::after{
+
+    &::after {
       right: -15px;
     }
   }
@@ -293,58 +303,66 @@
       border-left: 15px solid $main-background;
     }
 
-    &::before{
+    &::before {
       top: -15px;
     }
 
-    &::after{
+    &::after {
       bottom: -15px;
     }
   }
 }
+
 // Layout width-height
-.elementEditor .width-height{
-  .expandable-container {
-    .expandable-header{
-      >i{
-        width: 10%;
-        float: left;
+.element-editor .width-height .expandable-container {
+  .expandable-header {
+    >i {
+      width: 10%;
+      float: left;
+    }
+
+    >.text-with-input {
+      width: 40%;
+      float: left;
+
+      &:first-child {
+        margin-left: 5%;
       }
-      >.text-with-input{
-        &:first-child{
-          margin-left: 5%;
-        }
-        width: 40%;
-        float: left;
-        >input{
-          padding: 3px 0;
-        }
+
+      >input {
+        padding: 3px 0;
       }
     }
-    .expandable-content{
-      display: none;
-      &.active{
-        display: block;
+  }
+
+  .expandable-content {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+
+    >.text-with-input {
+      margin-top: 10px;
+      margin-left: 5%;
+      width: 40%;
+      float: left;
+
+      &:nth-child(2n) {
+        margin-left: 10%;
       }
-      >.text-with-input{
-        &:nth-child(2n){
-          margin-left: 10%;
-        }
-        margin-top: 10px;
-        margin-left: 5%;
-        width: 40%;
-        float: left;
-        >input{
-          padding: 3px 0;
-        }
+
+      >input {
+        padding: 3px 0;
       }
-      &::after {
-        content: ".";
-        clear: both;
-        display: block;
-        visibility: hidden;
-        height: 0;
-      }
+    }
+
+    &::after {
+      content: '.';
+      clear: both;
+      display: block;
+      visibility: hidden;
+      height: 0;
     }
   }
 }

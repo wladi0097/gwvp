@@ -1,5 +1,5 @@
 $main: #21252b;
-$main-background:#343840;
+$main-background: #343840;
 $border: #464646;
 
 $dark: #181a1f;
@@ -7,10 +7,12 @@ $light: #d7dae0;
 $light-active: #fff;
 
 $highlight: #568af2;
-$highlight-Hover: #72a1fd;
+$highlight-hover: #72a1fd;
 
-$frameHover: rgba(255, 0, 0, 0.50);
-$frameClick: #0046d2;
+$frame-hover: rgba(255, 0, 0, .5);
+$frame-click: #0046d2;
 
 $red: #c0392b;
 $green: #27ae60;
+
+$shadow: rgba(0, 0, 0, .75);

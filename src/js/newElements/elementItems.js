@@ -111,7 +111,7 @@ const elementItems = {
     let all = document.getElementById('newElementsUsing')
     all.addEventListener('mousedown', (e) => {
       // is the help icon clicked
-      let help = e.target.closest('.helpIcon')
+      let help = e.target.closest('.help-icon')
       if (help) {
         this.showDescription(help)
         return
@@ -132,11 +132,11 @@ const elementItems = {
       }
 
       // is anything inside the packae clicked
-      let contentContainer = e.target.closest('.newElements-content')
+      let contentContainer = e.target.closest('.new-elements-content')
       if (contentContainer) { return }
 
       // is package clicked
-      let elementPackage = e.target.closest('.newElements-item')
+      let elementPackage = e.target.closest('.new-elements-item')
       if (elementPackage) {
         this.showPackageDom(elementPackage)
       }
@@ -182,7 +182,7 @@ const elementItems = {
 
   /** hide the content of a package */
   hidePackageDom () {
-    Array.from(document.getElementsByClassName('newElements-item'))
+    Array.from(document.getElementsByClassName('new-elements-item'))
       .forEach((element) => {
         if (element.classList.contains('active')) {
           element.classList.remove('active')
@@ -211,7 +211,7 @@ const elementItems = {
     [document.getElementById('newElementsOfficial'),
       document.getElementById('newElementsOnline')].forEach((element) => {
       element.addEventListener('mousedown', (e) => {
-        let elementPackage = e.target.closest('.newElements-item')
+        let elementPackage = e.target.closest('.new-elements-item')
         if (elementPackage) {
           this.showAddToUsingWindow(elementPackage)
         }
@@ -312,7 +312,7 @@ const elementItemsHTML = {
    */
   templatePackage (id, name, img) {
     return `
-    <div class="newElements-item" id=${id}>
+    <div class="new-elements-item" id=${id}>
       <div class="img">
         <img src="${img}" alt="image of ${name}">
       </div>
@@ -329,7 +329,7 @@ const elementItemsHTML = {
    * @return {String} completed html
    */
   templateItemCategories (id, data, hidden = true) {
-    let html = `<div class="newElements-content  ${(hidden) ? '' : 'active'}" id="content-${id}">`
+    let html = `<div class="new-elements-content  ${(hidden) ? '' : 'active'}" id="content-${id}">`
     for (var i = 0; i < data.length; i++) {
       html += `
       <div class="sidebar-header sidebar-element">
@@ -342,12 +342,12 @@ const elementItemsHTML = {
       for (var k = 0; k < items.length; k++) {
         html += `
         <div class="item html-element" item-id=${items[k].id}>
-          <p class="helpIcon">?</p>
+          <p class="help-icon">?</p>
           <div class="img">
             <img src="${items[k].icon}" alt="${items[k].name}">
           </div>
           <p class="name">${items[k].name}</p>
-          <div class="helpText">
+          <div class="help-text">
             <p>${items[k].description}</p>
             <button>Close</button>
           </div>

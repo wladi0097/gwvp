@@ -1,4 +1,4 @@
-/** The styling for all windows */
+// The styling for all windows
 
 .window {
   position: fixed;
@@ -6,7 +6,7 @@
   height: 100vh;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: $shadow;
   z-index: 100;
 
   .window-info {
@@ -32,7 +32,7 @@
     padding: 5px;
     background-color: $main-background;
     cursor: pointer;
-    transition: all 0.6s;
+    transition: background-color .6s, color .6s;
     color: $light;
 
     &:hover {

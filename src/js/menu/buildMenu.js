@@ -211,7 +211,7 @@ const buildMenu = {
       }
 
       if (item.active) {
-        this.setItemStateCss(elem, 'inActive', item.active())
+        this.setItemStateCss(elem, 'in-active', item.active())
       }
     })
   },

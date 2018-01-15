@@ -1,5 +1,6 @@
-/** The styling for center.html */
+// The styling for center.html
 .center {
+  align-items: center;
   position: relative;
   float: left;
   width: calc(100% - 550px);
@@ -7,13 +8,13 @@
   background-color: $main-background;
   display: flex;
   justify-content: center;
-  align-items: center;
+
   overflow: hidden;
 
   > iframe {
     height: 95%;
-    border: none;
-    background-color: #fff;
+    border: 0;
+    background-color: $light-active;
   }
 }
 
@@ -30,7 +31,7 @@
   z-index: 100;
   display: none;
   position: absolute;
-  border: 3px dashed $frameHover;
+  border: 3px dashed $frame-hover;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -40,7 +41,7 @@
   z-index: 100;
   display: none;
   position: absolute;
-  border: 3px solid $frameClick;
+  border: 3px solid $frame-click;
 
   > .items {
     position: absolute;
@@ -52,14 +53,14 @@
       margin: 0;
       padding: 0 5px;
       height: 25px;
-      background-color: $frameClick;
+      background-color: $frame-click;
 
       > li {
         margin-left: 10px;
         height: 25px;
         list-style: none;
         // edge fix (https://stackoverflow.com/questions/20356311/internet-explorer-11-ignores-list-stylenone-on-the-first-load)
-        list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+        list-style-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
         float: left;
         color: $light;
         font-size: 15px;
@@ -67,7 +68,7 @@
         pointer-events: all;
         cursor: pointer;
 
-        &.itemName {
+        &.item-name {
           cursor: initial;
         }
 

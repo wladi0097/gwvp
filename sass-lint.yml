@@ -1,0 +1,27 @@
+files:
+  include: src/style/**/*.scss
+options:
+  formatter: stylish
+  merge-default-rules: true
+rules:
+  extends-before-declarations: 2
+  extends-before-mixins: 2
+  hex-notation: 0
+  indentation:
+    - 2
+    -
+      size: 2
+  mixins-before-declarations: 2
+  no-debug: 1
+  no-ids: 2
+  no-important: 2
+  no-vendor-prefixes: 0
+  no-warn: 1
+  placeholder-in-extend: 2
+  property-sort-order: 0
+  variable-for-property: 2
+  force-element-nesting: 0
+  nesting-depth:
+    - 2
+    -
+      max-depth: 4

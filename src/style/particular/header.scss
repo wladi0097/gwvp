@@ -1,4 +1,4 @@
-/** The styling for the header and the generated headerItems by buildMenu.js */
+// The styling for the header and the generated headerItems by buildMenu.js
 .header {
   position: relative;
   user-select: none;
@@ -9,7 +9,7 @@
   float: left;
 }
 
-/** The following is used for the generated items */
+// The following is used for the generated items
 .header-items {
   position: relative;
   float: left;
@@ -94,8 +94,8 @@
         }
       }
 
-      &.inActive {
-        >i{
+      &.in-active {
+        >i {
           color: $dark;
         }
       }
@@ -103,6 +103,10 @@
       &:hover {
         color: $light-active;
         background-color: $main;
+
+        > .option-underitem {
+          display: block;
+        }
       }
 
       > a {
@@ -142,25 +146,19 @@
         }
       }
 
-      &:hover {
-        > .option-underitem {
-          display: block;
-        }
-      }
-
       .option-underitem {
         border: 1px solid $border;
         padding: 2px 0;
         display: none;
         position: absolute;
         right: -242px;
-        background-color: #181a1f;
+        background-color: $dark;
       }
     }
   }
 }
 
-/** non generated header icons */
+// non generated header icons
 .header-icons {
   float: right;
   position: relative;
@@ -173,7 +171,7 @@
     font-size: 20px;
     padding: 5px;
     border-radius: 5px;
-    transition: all 0.3s;
+    transition: color .3s;
     cursor: pointer;
 
     &:hover {

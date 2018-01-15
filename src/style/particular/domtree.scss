@@ -1,8 +1,9 @@
-/** The styling for the generated domTree by pageDomTree.js */
-.domTree {
+// The styling for the generated domTree by pageDomTree.js
+.dom-tree {
   padding: 5px;
   height: 90%;
 
+  // sass-lint:disable no-important
   > ul {
     width: calc(100% - 30px) !important;
     margin-left: 0 !important;
@@ -33,7 +34,7 @@
       font-size: 16px;
 
       &:hover {
-        background-color: $frameHover;
+        background-color: $frame-hover;
       }
     }
 
@@ -41,12 +42,14 @@
       >i {
         transform: rotate(90deg);
       }
+
       >li,
       >ul {
         animation: fadeIn .6s forwards;
         display: inline-block;
       }
     }
+
     li,
     ul {
       display: none;
@@ -64,7 +67,7 @@
       list-style: none;
 
       &:hover {
-        background-color: $frameHover;
+        background-color: $frame-hover;
       }
     }
   }

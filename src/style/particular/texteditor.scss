@@ -1,11 +1,11 @@
-/** The styling for texteditor.html */
+// The styling for texteditor.html
 
 .texteditor {
   height: 0;
   width: 100%;
   position: relative;
   float: left;
-  transition: height 0.5s;
+  transition: height .5s;
   background-color: $main;
 
   &.active {
@@ -55,7 +55,7 @@
     color: $light;
     cursor: pointer;
 
-    &.noHover {
+    &.no-hover {
       cursor: default;
 
       &:hover {
@@ -69,6 +69,7 @@
       background-color: $main-background;
     }
   }
+
   .font-type {
     width: 80px;
   }
@@ -79,16 +80,17 @@
   position: relative;
   min-width: 100%;
 
-  >i{
+  >i {
     color: $light;
     padding-left: 5px;
   }
 
   &.active {
+    background-color: $main-background;
+
     ul {
       display: block;
     }
-    background-color: $main-background;
 
     input,
     p {
@@ -131,6 +133,8 @@
 
   input {
     padding: 0 5px;
+    margin-top: 2px;
+    height: 20px;
 
     &.font-size {
       width: 35px;
@@ -154,11 +158,6 @@
     cursor: pointer;
   }
 
-  input {
-    margin-top: 2px;
-    height: 20px;
-  }
-
   > .dropdown-items {
     display: none;
     position: absolute;
@@ -168,7 +167,7 @@
     top: 30px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0 $shadow;
 
     &:hover {
       display: block;
@@ -193,14 +192,15 @@
   }
 }
 
-.texteditor-block{
-  >i{
+.texteditor-block {
+  >i {
     float: left;
     color: $light;
     line-height: 25px;
   }
 }
 
+// sass-lint:disable no-important
 .texteditor-tags {
   width: auto;
 
