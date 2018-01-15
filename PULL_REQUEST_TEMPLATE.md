@@ -28,11 +28,11 @@ Explain the **motivation** for making this change. What existing problem does th
 
 Demonstrate the code is solid. Example: The exact commands you ran and their output, screenshots / videos if the pull request changes UI.
 
-<!-- Make sure tests pass on both Travis and Circle CI. -->
+<!-- Make sure tests pass -->
 
 **Code formatting**
 
-<!-- See the simple style guide. -->
+<!-- Make sure ESLINT or SASS-Lint linter passes -->
 
 **Closing issues**
 

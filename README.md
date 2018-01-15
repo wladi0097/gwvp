@@ -1,6 +1,25 @@
 # GWvP
 
 
+### CLI Scripts:
+execute with ``npm run {{command}}``
+
+``test`` 	- run all Javascript tests    
+``testw`` 	- run Javascript tests in watch mode    
+``testc`` 	- get Javascript test coverage report    
+``build`` 	- build whole project (see webpack.config.js)   
+``watch``	- build program in watch mode    
+``start`` 	- build program in watch mode with a dev-server   
+``docs`` 	- create inline documentation HTML-page    
+``license``	- get all production relevant licensenses    
+``lints`` 	- get SASS lint report   
+``lintj`` 	- get Javascript lint report    
+
+### Made with:
+
+* *[Font Awesome](http://fontawesome.io)* for awesome icons
+* and custom configurable development dependencies
+
 ### Made with (for development):
 
  * *[webpack](https://webpack.js.org/)* is a module bundler.
@@ -26,5 +45,4 @@
 * [Stackoverflow](https://stackoverflow.com)
 * [YOU MIGHT NOT NEED JQUERY](http://youmightnotneedjquery.com/)
 * [Gravit Designer](https://designer.gravit.io/)
-* [Font Awesome](http://fontawesome.io)
 * [Bitbucket](https://bitbucket.org)
