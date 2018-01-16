@@ -1,9 +1,3 @@
-/** Creates a html menu item and binds click and keydown events
- * to the new items. The items can be modified in menuItems.js
- * and the events can be found in eventList.js.
- * The contextmenu is a menu item and can also be found in menuItems.js.
- * gets the menuItems JSON and translates it into a menu, keydown and contextmenu
- */
 const idGen = require('../interaction/idGen')
 const menuItems = require('./menuItems')
 
@@ -32,9 +26,12 @@ module.exports.getKeyCodes = function () {
   return buildMenu.keycodes
 }
 
-/**
-  Builds the HTML for the menu and the contextmenu by the menuItems.js
-*/
+/** Creates a html menu item and binds click and keydown events
+ * to the new items. The items can be modified in menuItems.js
+ * and the events can be found in eventList.js.
+ * The contextmenu is a menu item and can also be found in menuItems.js.
+ * gets the menuItems JSON and translates it into a menu, keydown and contextmenu
+ */
 const buildMenu = {
   /** The final html to append */
   html: '',

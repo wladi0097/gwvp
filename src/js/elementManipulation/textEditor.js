@@ -1,4 +1,5 @@
 /* global getComputedStyle */
+/** edit text inside the iframe */
 const textEditor = {
   /** is textEditor mode active */
   active: false,
