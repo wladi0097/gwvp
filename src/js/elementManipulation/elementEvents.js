@@ -2,7 +2,6 @@
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
 const textEditor = require('./textEditor')
-const changeScreenSize = require('./changeScreenSize')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 
@@ -33,10 +32,9 @@ const elementEvents = {
   /** Initialize
   * @return this
   */
-  init () {
+  init (externals = true) {
     this.cacheDom()
       .bindEvents()
-    changeScreenSize.init()
     textEditor.init()
     return this
   },
@@ -44,7 +42,7 @@ const elementEvents = {
   /** Initialize after the content was appended to the iframe.
   * @return this
   */
-  initAfterFrame () {
+  initAfterFrame (externals = true) {
     this.$iframe = document.getElementById('simulated').contentDocument
     this.bindFrameEvents()
     pageDomTree.build()
@@ -66,7 +64,7 @@ const elementEvents = {
   * @return this
   */
   bindEvents () {
-    this.$close.addEventListener('click', (e) => { this.noClick() })
+    this.$close.addEventListener('mousedown', (e) => { this.noClick() })
     this.$drag.addEventListener('mousedown', (e) => { this.dragStart() })
     return this
   },
@@ -92,7 +90,6 @@ const elementEvents = {
   * @return this
   */
   change () {
-    // pageDomTree.build()
     return this
   },
 
@@ -112,12 +109,10 @@ const elementEvents = {
   * @return this
   */
   click (e) {
-    if (!this.allowClick) {
+    if (!this.allowClick || !e) {
       return
     }
-    if (e) {
-      e.stopImmediatePropagation()
-    }
+    e.stopImmediatePropagation()
     this.noHover()
       .showRectAroundElement(e, 'click')
     this.allowInteraction = true
@@ -184,6 +179,7 @@ const elementEvents = {
   },
 
   /** remove any effects from the hover event
+  * @param {Event} e
   * @return this
   */
   noHover (e) {
@@ -203,7 +199,7 @@ const elementEvents = {
   * @return this
   */
   copy () {
-    if (!this.allowInteraction) {
+    if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected')
       return this
     }
@@ -222,24 +218,11 @@ const elementEvents = {
     return this
   },
 
-  /** copy a selected element and delete it afterwards
-  * @return this
-  */
-  cut () {
-    if (!this.allowInteraction) {
-      alert('nothing selected to cut')
-      return this
-    }
-    this.copy()
-      .delete()
-    return this
-  },
-
   /** delete a selected element from the iframe and run the change method afterwards
   * @return this
   */
   delete () { // remove element
-    if (!this.allowInteraction) {
+    if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to delete')
       return this
     }
@@ -252,15 +235,29 @@ const elementEvents = {
     return this
   },
 
+  /** copy a selected element and delete it afterwards
+  * @return this
+  */
+  cut () {
+    if (!this.allowInteraction || !this.currentElement) {
+      alert('nothing selected to cut')
+      return this
+    }
+    this.copy()
+      .delete()
+    return this
+  },
+
   /** appends the virtual clipboard to a specific location
   *  @param {String} appendStyle - how to append the items
   *  @param {String} data - what to appendStyle
   *  @param {String} whereDom - where to append in the dom
   *  @return this
   */
-  paste (appendStyle = 'in', data, whereDom) {
+  paste (appendStyle, data, whereDom) {
     let insertHTML = data || this.clipboard
     let insertDom = whereDom || this.currentElement
+    appendStyle = appendStyle || 'in'
     if (!insertHTML || !insertDom) {
       alert('no selected element or nothing in clipboard')
       return this
@@ -287,7 +284,7 @@ const elementEvents = {
   * @return this
   */
   duplicate () { // duplicates the selected element under the selected
-    if (!this.allowInteraction) {
+    if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to duplicate')
       return this
     }
@@ -325,15 +322,20 @@ const elementEvents = {
   * @return this
   */
   showRectAroundElement (e, type) {
+    if (!e) {
+      return this
+    }
     let rect = e.target.getBoundingClientRect()
     let elem = document.getElementsByClassName(type)[0]
-    elem.setAttribute('style', `
-      display: block;
-      width:${rect.width}px;
-      height:${rect.height}px;
-      top:${rect.top}px;
-      left:${rect.left}px;
-      `)
+    if (elem && rect) {
+      elem.setAttribute('style', `
+        display: block;
+        width:${rect.width}px;
+        height:${rect.height}px;
+        top:${rect.top}px;
+        left:${rect.left}px;
+        `)
+    }
     return this
   },
 
@@ -343,7 +345,9 @@ const elementEvents = {
   */
   hideRectAroundElement (type) {
     let elem = document.getElementsByClassName(type)[0]
-    elem.setAttribute('style', '')
+    if (elem) {
+      elem.setAttribute('style', '')
+    }
     return this
   },
 
