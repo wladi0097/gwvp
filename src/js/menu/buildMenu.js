@@ -7,16 +7,14 @@ const menuItems = require('./menuItems')
 */
 module.exports.build = function () {
   window.check = buildMenu.checkItemStates.bind(buildMenu)
-  this.menuItems = menuItems()
 
-  for (var i = 0; i < this.menuItems.length; i++) {
-    buildMenu.includeMenuItemStart(this.menuItems[i])
-    let items = this.menuItems[i].items
-    for (var k = 0; k < items.length; k++) {
-      buildMenu.includeMenuComponent(items[k])
-    }
+  menuItems().forEach((menuItem) => {
+    buildMenu.includeMenuItemStart(menuItem)
+    menuItem.items.forEach((item) => {
+      buildMenu.includeMenuComponent(item)
+    })
     buildMenu.includeMenuItemEnd()
-  }
+  })
 
   buildMenu.append()
   buildMenu.addAllEvents()
@@ -110,10 +108,9 @@ const buildMenu = {
       <i class="fa fa-caret-right" aria-hidden="true"></i>
       </p>
       <ul class="option-underitem">`
-      for (var i = 0; i < item.underItems.length; i++) {
-        // recursive for underItems
-        this.includeMenuComponent(item.underItems[i])
-      }
+      item.underItems.forEach((underitem) => {
+        this.includeMenuComponent(underitem)
+      })
       this.html += `
         </ul>
       </li>`
@@ -141,9 +138,7 @@ const buildMenu = {
   * @param {String} item.run - the function to run
   */
   includeMenuComponentClick (item) {
-    if (!item.run || !item.id) {
-      return false // if there is no id or runable function, then break this function
-    }
+    if (!item.run || !item.id) return false // if there is no id or runable function, then break this function
     this.clickEvents.clickId.push(item.id)
     this.clickEvents.clickRun.push(item.run)
   },
@@ -151,14 +146,14 @@ const buildMenu = {
    * using the clickEvents
   */
   addClickEvents () {
-    for (var i = 0; i < this.clickEvents.clickId.length; i++) {
-      let id = document.getElementById(this.clickEvents.clickId[i])
+    this.clickEvents.clickId.forEach((cid, i) => {
+      let id = document.getElementById(cid)
       id.run = this.clickEvents.clickRun[i]
       id.addEventListener('mousedown', (e) => {
         e.currentTarget.run()
         this.checkItemStates()
       })
-    }
+    })
   },
 
   /** registrer hover event on the menu item
@@ -179,11 +174,7 @@ const buildMenu = {
   * @param {String} item.run - the function to run
   */
   includeMenuComponentKeycode (item) {
-    if (!item.run || !item.keycode) {
-      // if there is no keycode or runable function, then break this function
-      return false
-    }
-
+    if (!item.run || !item.keycode) return false // if there is no keycode or runable function, then break this function
     this.keycodes.push({
       run: item.run,
       keycode: item.keycode
@@ -194,22 +185,15 @@ const buildMenu = {
   itemsWithStates: [],
   /** if an items has an item state include it to the itemsWithStates array */
   includeMenuComponentState (item) {
-    if (item.clickable || item.active) {
-      this.itemsWithStates.push(item)
-    }
+    if (item.clickable || item.active) this.itemsWithStates.push(item)
   },
 
   /** check item states and append them to the item  */
   checkItemStates () {
     this.itemsWithStates.forEach((item) => {
       let elem = document.getElementById(item.id)
-      if (item.clickable) {
-        this.setItemStateCss(elem, 'disabled', item.clickable())
-      }
-
-      if (item.active) {
-        this.setItemStateCss(elem, 'in-active', item.active())
-      }
+      if (item.clickable) this.setItemStateCss(elem, 'disabled', item.clickable())
+      if (item.active) this.setItemStateCss(elem, 'in-active', item.active())
     })
   },
 
@@ -220,9 +204,7 @@ const buildMenu = {
    */
   setItemStateCss (elem, cssClass, active) {
     elem.classList.remove(cssClass)
-    if (!active) {
-      elem.classList.add(cssClass)
-    }
+    if (!active) elem.classList.add(cssClass)
   }
 }
 module.exports.buildMenu = buildMenu

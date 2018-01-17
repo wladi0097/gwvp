@@ -19,14 +19,14 @@ describe('object validation', () => {
   })
 
   it('each array point has name', () => {
-    for (var i = 0; i < obj.length; i++) {
-      expect(obj[i].name).toBeDefined()
-    }
+    obj.forEach((o) => {
+      expect(o.name).toBeDefined()
+    })
   })
 
   it('each array point has items', () => {
-    for (var i = 0; i < obj.length; i++) {
-      expect(obj[i].items).toBeDefined()
-    }
+    obj.forEach((o) => {
+      expect(o.items).toBeDefined()
+    })
   })
 })

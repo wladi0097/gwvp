@@ -48,14 +48,12 @@ module.exports = function () {
     items: [{
       icon: 'undo',
       text: 'Undo',
-      keycode: 'STRG + Z',
-      run () { elementEvents.undo() }
+      keycode: 'STRG + Z'
     },
     {
       icon: 'repeat',
       text: 'Redo',
-      keycode: 'SHIFT + STRG + Z',
-      run () { elementEvents.redo() }
+      keycode: 'SHIFT + STRG + Z'
     },
     {
       delimiter: true
@@ -100,16 +98,6 @@ module.exports = function () {
   {
     name: 'View',
     items: [{
-      icon: 'check',
-      text: 'Show left Nav',
-      active () { return false }
-    },
-    {
-      icon: 'check',
-      text: 'Show right Nav',
-      active () { return true }
-    },
-    {
       delimiter: true
     },
     {
