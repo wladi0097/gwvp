@@ -1,9 +1,5 @@
 /* global MouseEvent */
-/** show full page dom
-  * building the tree almost takes no time,
-  * because of that it gets rebuild after every action
-  * It is standalone and can be used in other projects.
-*/
+/** show full page dom */
 const pageDomTree = {
   /**
   * @example {
@@ -22,23 +18,23 @@ const pageDomTree = {
   hasEvents: false,
 
   /** build whole tree with reset
-  @param {HTMLElement} iframe - build domtree of that
+  @param {HTMLElement} iframe - build domtree out of that
   @param {HTMLElement} domTree - place domTree there
   */
   build (iframe, domTree) {
-    this.$iframe = iframe || document.getElementById('simulated').contentDocument
+    this.$iframe = iframe || ((document.getElementById('simulated')) ? document.getElementById('simulated').contentDocument : null)
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
-    this.treeData = {html: '', ids: [], counter: 0}
-
-    if (!this.$iframe && !this.$domTree) {
+    if (!this.$iframe || !this.$domTree) {
       return false
     }
+
+    this.treeData = {html: '', ids: [], counter: 0}
 
     this.reset()
       .createTree(this.$iframe.body)
       .$domTree.innerHTML = this.treeData.html
 
-    if (!this.hasEvents) { // add events if not exist
+    if (!this.hasEvents) { // add events if not included
       this.addOpenCloseEvents()
         .addRelationEvents()
         .addReloadEvent()
@@ -60,7 +56,11 @@ const pageDomTree = {
   removeNode (element) {
     let id = 'tree-' + element.domTree
     let elem = document.getElementById(id)
-    elem.parentNode.removeChild(elem)
+    if (elem) {
+      elem.parentNode.removeChild(elem)
+    } else { // hard reset
+      this.build()
+    }
   },
 
   /** change ul to li if the node is now empty
@@ -70,7 +70,6 @@ const pageDomTree = {
     if (parent.children.length === 0) { // empty
       let id = 'tree-' + parent.domTree
       let elem = document.getElementById(id)
-
       this.treeData.html = ''
       this.createTree(this.wrapElement(parent))
       elem.outerHTML = this.treeData.html
