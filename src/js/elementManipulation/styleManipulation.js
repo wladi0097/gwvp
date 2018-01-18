@@ -1,9 +1,8 @@
 /* global getComputedStyle */
 
-/** manipulate CSS style for elements or classes
-*/
+/** Manipulate CSS styles for elements or classes */
 const styleManipulation = {
-  /** get computed style from element
+  /** Get the computed style from an element.
   * @param {HTMLElement} elem
   * @param {String} style - style like 'width'
   * @return style or false if error
@@ -14,7 +13,7 @@ const styleManipulation = {
     return (computed === '') ? 'default' : computed
   },
 
-  /** sets the inlineStyle for a element
+  /** Sets the inlineStyle for a element.
   * @param {HTMLElement} elem
   * @param {String} style - style like 'width'
   * @param {String} value - value for the style
@@ -27,7 +26,7 @@ const styleManipulation = {
     return elem
   },
 
-  /** remove a single inlineStyle argument
+  /** Remove a single inlineStyle argument from an element.
   * @param {HTMLElement} elem
   * @param {String} style - style like 'width'
   * @return elem or false if error
@@ -40,7 +39,7 @@ const styleManipulation = {
     return elem
   },
 
-  /** remove complete inlineStyle from element
+  /** Remove the complete inlineStyle from an element.
   * @param {HTMLElement} elem
   * @return elem or false if error
   */
@@ -56,16 +55,16 @@ const styleManipulation = {
   * @property {String} style - stylename like 'width'
   * @property {String} value - value of the style
   */
-
+  cssClasses: [],
   /**
   * @typedef  {Object} cssClass
   * @property {String} name - selector
   * @property {cssClassStyles[]} styles - array out of styles
   */
-  cssClasses: [],
+
   headStyle: null,
 
-  /** create a style inside the head if not found  */
+  /** Create a style element inside the dom head if not found.  */
   isCustomStyleTagPresent () {
     if (!this.headStyle) {
       document.getElementsByTagName('head')[0].innerHTML +=
@@ -74,7 +73,7 @@ const styleManipulation = {
     }
   },
 
-  /** find a existing class inside cssClasses
+  /** Find an existing class inside cssClasses.
   * @param {String} name - css selector like '.start'
   * @return {cssClass || undefined}
   */
@@ -84,7 +83,7 @@ const styleManipulation = {
     })
   },
 
-  /**
+  /** Create a CssClass.
   * @param {String} name - css selector like '.start'
   * @return {cssClass} created cssClass
   */
@@ -96,11 +95,12 @@ const styleManipulation = {
     return this.cssClasses[this.cssClasses.length - 1]
   },
 
+  /** Remove a CssClass. */
   removeCssClass (cssClass) {
     this.cssClasses = this.cssClasses.filter((e) => e !== cssClass)
   },
 
-  /** add style to cssClass
+  /** Add style to an cssClass.
   * @param {String} cssClass - css selector like '.start'
   * @param {String} style - css style like 'height'
   * @param {String} value - css value like '200px'
@@ -119,7 +119,7 @@ const styleManipulation = {
     return cssClass
   },
 
-  /** remove style from cssClass
+  /** Remove style from an cssClass.
   * @param {String} cssClass - css selector like '.start'
   * @param {String} style - css style like 'height'
   * @return {cssClass}
@@ -129,7 +129,7 @@ const styleManipulation = {
     return cssClass
   },
 
-  /** add a class with styles
+  /** Add a class with styles.
   * @param {String} className - css selector like '.start
   * @param {String} style - css style like 'height'
   * @param {String} value - css value like '200px'
@@ -140,7 +140,7 @@ const styleManipulation = {
     this.addCssClassStyles(foundClass, style, value)
   },
 
-  /** remove a class style and remove the class if empty afterwards
+  /** Remove a class style and remove the class if it is empty afterwards.
   * @param {String} className - css selector like '.start
   * @param {String} style - css style like 'height''
   */
@@ -153,7 +153,7 @@ const styleManipulation = {
     }
   },
 
-  /** insert valid css into a style tag */
+  /** Insert valid css into the headStyle style tag */
   createStyleHTML () {
     let html = ''
     this.cssClasses.forEach((item) => {

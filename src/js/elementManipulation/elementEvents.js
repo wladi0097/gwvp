@@ -5,31 +5,23 @@ const textEditor = require('./textEditor')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 
-/** All Dom manipulations of the Iframe are happening here.
- * Here are also all events (which are affecting the dom).
+/** Modify all Iframe Dom elements width elementEvents,
+ * also highlight currently hovered and selected elements and save them for further use.
+ * ! Styling is not made with elementEvents.
 */
 const elementEvents = {
-  /** are you allowed to use this functions */
+  /** Are you allowed to use elementEvents functions. */
   allowInteraction: false,
-  /**
-  * After a click the element gets selected and saved here.
-  * currentElement - The currently selected Element.
-  */
+  /** After a click the element gets selected and saved here. */
   currentElement: null,
-  /**
-  * After a hover the element gets selected and saved here.
-  * hoveredElement - The currently hovered Element.
-  */
+  /** After a hovering over an Element, it gets selected and saved here. */
   hoveredElement: null,
-  /**
-  * The Virtual Clipboard.
-  * Clipboard - HTML as Text.
-  */
+  /** The virtual Clipboard saves copied elements as an String. */
   clipboard: null,
-  /** iframe - The main iframe */
+  /** The main iframe */
   iframe: null,
 
-  /** Initialize
+  /** Initialize elementEvents.
   * @return this
   */
   init (externals = true) {
@@ -39,7 +31,7 @@ const elementEvents = {
     return this
   },
 
-  /** Initialize after the content was appended to the iframe.
+  /** Initialize everything that requires the iframe to be loaded.
   * @return this
   */
   initAfterFrame (externals = true) {
@@ -50,7 +42,7 @@ const elementEvents = {
     return this
   },
 
-  /** Cache dom elements
+  /** Cache static dom elements.
   * @return this
   */
   cacheDom () {
@@ -86,25 +78,25 @@ const elementEvents = {
     return this
   },
 
-  /** this gets fired after something in the dom was changed
+  /** Change gets triggered after the dom has changed.
   * @return this
   */
   change () {
     return this
   },
 
-  /** This is a Event and a method.
-  * This gets fired after anything gets scrolled in the iframe
+  /** This is a event and a method.
+  * onScroll gets triggered after anything gets scrolled in the iframe.
   * @param {Event} e
   */
   onScroll (e) {
     this.redrawRect()
   },
 
-  /** is the click event allowed  */
+  /** Is the click event allowed?  */
   allowClick: true,
   /** This is a Event and a method.
-  * This gets fired after anything gets clicked in the iframe
+  * Click gets triggered after anything gets clicked in the iframe
   * @param {Event} e
   * @return this
   */
@@ -122,7 +114,7 @@ const elementEvents = {
     return this
   },
 
-  /** remove any effects from the click event
+  /** Remove any effects from the click event.
   * @return this
   */
   noClick () {
@@ -133,8 +125,8 @@ const elementEvents = {
     return this
   },
 
-  /** This is a Event
-  * This gets fired after anything gets double clicked in the iframe
+  /** This is a Event.
+  * Dblclick gets triggered after anything gets double clicked in the iframe.
   * @param {Event} e
   * @return this
   */
@@ -161,10 +153,10 @@ const elementEvents = {
     this.allowClick = true
   },
 
-  /** Is the hover event allowed ? */
+  /** Is the hover event allowed? */
   allowHover: true,
   /** This is a Event and a method.
-  * This gets fired after anything gets hovered in the iframe
+  * Hover gets triggered after anything gets hovered in the iframe.
   * @param {Event} e
   * @return this
   */
@@ -178,7 +170,7 @@ const elementEvents = {
     return this
   },
 
-  /** remove any effects from the hover event
+  /** Remove any effects from the hover event.
   * @param {Event} e
   * @return this
   */
@@ -194,8 +186,8 @@ const elementEvents = {
     return this
   },
 
-  /** copy a selected element to the virtual and the real clipboard
-  * as a HTML string
+  /** Copy a selected element to the virtual and the real clipboard
+  * as a Html string.
   * @return this
   */
   copy () {
@@ -218,10 +210,10 @@ const elementEvents = {
     return this
   },
 
-  /** delete a selected element from the iframe and run the change method afterwards
+  /** Delete a selected element from the iframe.
   * @return this
   */
-  delete () { // remove element
+  delete () {
     if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to delete')
       return this
@@ -235,7 +227,7 @@ const elementEvents = {
     return this
   },
 
-  /** copy a selected element and delete it afterwards
+  /** copy a selected element and delete it afterwards.
   * @return this
   */
   cut () {
@@ -248,7 +240,8 @@ const elementEvents = {
     return this
   },
 
-  /** appends the virtual clipboard to a specific location
+  /** Appends the virtual clipboard to a specific
+  * location ('after', 'in' or 'before' the selected element).
   *  @param {String} appendStyle - how to append the items
   *  @param {String} data - what to appendStyle
   *  @param {String} whereDom - where to append in the dom
@@ -280,10 +273,10 @@ const elementEvents = {
     return this
   },
 
-  /** copies the selected element and appends it as a sibling below the selected one
+  /** Copies the selected element and appends it as a sibling below itslef.
   * @return this
   */
-  duplicate () { // duplicates the selected element under the selected
+  duplicate () {
     if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to duplicate')
       return this
@@ -293,7 +286,7 @@ const elementEvents = {
     return this
   },
 
-  /** If the visible dom changes, redraw the hover and click rectangles
+  /** Redraw the currently displayed rectangles.
   * @return this
   */
   redrawRect () {
@@ -316,7 +309,7 @@ const elementEvents = {
     return this
   },
 
-  /** display rectangle around choosen element
+  /** Display a rectangle around an element.
   * @param {Event} e - the event with taget
   * @param {String} type - click or hover
   * @return this
@@ -339,7 +332,7 @@ const elementEvents = {
     return this
   },
 
-  /** hide the click/hover rectangle
+  /** Hide the rectangle elements.
   * @param {String} type - click or hover
   * @return this
   */
@@ -351,13 +344,12 @@ const elementEvents = {
     return this
   },
 
-  /** The dragged element */
+  /** The dragged element. */
   draggedElement: null,
-  /** How should the dragged element be appended */
+  /** How should the dragged element be appended? */
   pasteDraggedAs: null,
   /** Initialize the dragging.
-  * add custom events and set everithing up
-  * @param {String} html - html as string (not required)
+  * @param {String} html - Html as string (not required)
   */
   dragStart (html) {
     if (!this.currentElement && !html) {
@@ -388,7 +380,7 @@ const elementEvents = {
     return this
   },
 
-  /** display the appending possibilities
+  /** Display the appending possibilities.
   * @param {Event} e - event
   */
   dragHover (e) {
@@ -436,7 +428,7 @@ const elementEvents = {
     return this
   },
 
-  /** End the dragging process and remove all events
+  /** End the dragging process and remove all events.
   * @param {Event} e - event
   */
   dragEnd (e) {

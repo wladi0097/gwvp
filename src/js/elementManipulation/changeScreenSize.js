@@ -1,17 +1,19 @@
-/** Scale the iframe and all overlays
+/** Scale the iframe and all overlays. <br>
+* change width or scale. <br>
+* A Overlay is the rectangle around a selected or hovered dom element.
 */
 const changeScreenSize = {
-  /** Simulate device width */
+  /** Screen width. */
   width: 1200,
-  /** Scale for easy use */
+  /** Screen scale. */
   scale: 1,
-  /** Initialize */
+  /** Initialize changeScreenSize. */
   init () {
     this.cacheDom()
     this.bindEvents()
   },
 
-  /** Cache dom elements */
+  /** Cache dom elements. */
   cacheDom () {
     // dom to resize
     this.$hover = document.getElementsByClassName('hover-wrapper')[0]
@@ -26,7 +28,7 @@ const changeScreenSize = {
     this.$mobile = document.getElementById('screen-Mobile')
   },
 
-  /** apply events to static content */
+  /** Apply events to static content. */
   bindEvents () {
     this.$tv.addEventListener('mousedown', () => { this.changeResolution('Tv') })
     this.$computer.addEventListener('mousedown', () => { this.changeResolution('Computer') })
@@ -34,14 +36,17 @@ const changeScreenSize = {
     this.$mobile.addEventListener('mousedown', () => { this.changeResolution('Mobile') })
   },
 
-  /** Apply styling to the iframe and the overlays */
+  /** Apply styling to the iframe and the overlays.
+   * the used values are stored in this object and edited by changeResolution and changeZoom.
+   */
   applyStyle () {
     this.$hover.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
     this.$click.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
     this.$simulated.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
   },
 
-  /** Change the resolution to a device width.
+  /** Change the resolution to a device width and highlight the selected icon.
+   * The width Values are from https://getbootstrap.com/.
    * @param {String} type - possible TV, Compuer, Tablet and Mobile
    */
   changeResolution (type) {
@@ -71,7 +76,7 @@ const changeScreenSize = {
     this.applyStyle()
   },
 
-  /** Change the Zoom
+  /** Change the this.scale.
    * @param {Number} percent - default 0.9
    */
   changeZoom (percent) {

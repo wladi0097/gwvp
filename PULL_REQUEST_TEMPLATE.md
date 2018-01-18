@@ -32,7 +32,7 @@ Demonstrate the code is solid. Example: The exact commands you ran and their out
 
 **Code formatting**
 
-<!-- Make sure ESLINT or SASS-Lint linter passes -->
+<!-- Make sure ESLINT and SASS-Lint linter passes -->
 
 **Closing issues**
 

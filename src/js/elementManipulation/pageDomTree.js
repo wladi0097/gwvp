@@ -1,40 +1,41 @@
 /* global MouseEvent */
-/** show full page dom */
+
+/** Create a Html tree out of a Html element. */
 const pageDomTree = {
   /**
+  * The current Domtree state.
+  * @typedef  {Object} treeData
+  * @property {String} html - html to append
+  * @property {HTMLElement[]} ids -  all iframe dom Elements
+  * @property {Number} counter - id counter
   * @example {
   *   html: '',
   *   ids: [],
   *   counter: 0
-  *}
-  * {String} treeData.html - html to append
-  * {HTMLElement[]} treeData.ids - all iframe dom Elements
-  * {Number} treeData.counter - id counter
   */
   treeData: null,
-  /**
-   * true if events are attached
-  */
+  /** Are the domTree Events initialized?  */
   hasEvents: false,
 
-  /** build whole tree with reset
-  @param {HTMLElement} iframe - build domtree out of that
-  @param {HTMLElement} domTree - place domTree there
+  /** Reset the current domTree and build a new.
+  * @param {HTMLElement} iframe - Build domTree out of this Element
+  * @param {HTMLElement} domTree - Element to display the domTree
   */
   build (iframe, domTree) {
     this.$iframe = iframe || ((document.getElementById('simulated')) ? document.getElementById('simulated').contentDocument : null)
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
-    if (!this.$iframe || !this.$domTree) {
-      return false
-    }
-
-    this.treeData = {html: '', ids: [], counter: 0}
+    if (!this.$iframe || !this.$domTree) return false
 
     this.reset()
       .createTree(this.$iframe.body)
       .$domTree.innerHTML = this.treeData.html
 
-    if (!this.hasEvents) { // add events if not included
+    this.bindEvents()
+  },
+
+  /** Add Domtree Events */
+  bindEvents () {
+    if (!this.hasEvents) {
       this.addOpenCloseEvents()
         .addRelationEvents()
         .addReloadEvent()
@@ -42,15 +43,16 @@ const pageDomTree = {
     }
   },
 
-  /** reset to default state
+  /** Resets the domTree to the default state.
   * @return this
   */
   reset () {
+    this.treeData = {html: '', ids: [], counter: 0}
     this.$domTree.innerHTML = ''
     return this
   },
 
-  /** remove a DomTree Node
+  /** Remove a domTree node.
    * @param {HTMLElement} element - an iframe element
    */
   removeNode (element) {
@@ -63,11 +65,11 @@ const pageDomTree = {
     }
   },
 
-  /** change ul to li if the node is now empty
+  /** Change ul to li if the node is now empty.
    * @param {HTMLElement} element - an iframe element
    */
   removeNodeFix (parent) {
-    if (parent.children.length === 0) { // empty
+    if (parent.children.length === 0) {
       let id = 'tree-' + parent.domTree
       let elem = document.getElementById(id)
       this.treeData.html = ''
@@ -77,8 +79,8 @@ const pageDomTree = {
     }
   },
 
-  /** add a new Node to the DomTree
-   * @param {String} appendStyle - how to append (after, before, in)
+  /** Add a new node to the domTree.
+   * @param {String} appendStyle - append style (after, before, in)
    * @param {HTMLElement} element - an iframe element
    */
   addNode (appendStyle, element) {
@@ -113,8 +115,8 @@ const pageDomTree = {
     return this
   },
 
-  /** Thanks to http://codeblog.cz/vanilla/around.html#wrap
-   * wrap element into a div
+  /** Thanks to http://codeblog.cz/vanilla/around.html#wrap.
+   * Wrap element into a div.
    * @param {HTMLElement} element - the element to wrap
    * @return wrapped element
    */
@@ -125,8 +127,8 @@ const pageDomTree = {
     return wrapper
   },
 
-  /** Thanks to http://codeblog.cz/vanilla/around.html#unwrap
-   * unwrap a wrapped element
+  /** Thanks to http://codeblog.cz/vanilla/around.html#unwrap.
+   * Unwrap a wrapped element.
    * @param {HTMLElement} element - the element to unwrap
    */
   unwrapElement (element) {
@@ -140,8 +142,7 @@ const pageDomTree = {
   /** Create a dom tree with a recursive function.
   * Append html after done = ~ 5ms.
   * Append each element itself = ~ 300ms.
-  * This is using the whole treeData object, please check it out before
-  * reading the following.
+  * CreateTree is using the whole treeData object.
   * @param {HTMLElement} node - html node
   * @return this
   */
@@ -172,7 +173,7 @@ const pageDomTree = {
   },
 
   /**
-  * add click and mouseover events to appended dom items
+  * Add click and mouseover events to appended dom items.
   * @return this
   */
   addRelationEvents () {
@@ -184,7 +185,7 @@ const pageDomTree = {
   },
 
   /** This is an Event.
-  * If an element in the domTree gets hovered, hover over the same element in the iframe
+  * If an element in the domTree gets hovered, hover over the same element in the iframe.
   */
   addRelationHoverEvents (e) {
     if (e.isTrusted) {
@@ -201,7 +202,7 @@ const pageDomTree = {
   },
 
   /** This is an Event.
-  * If an element in the domTree gets clicked, click over the same element in the iframe
+  * If an element in the domTree gets clicked, click the same element in the iframe.
   */
   addRelationClickEvents (e) {
     if (e.isTrusted) {
@@ -222,8 +223,9 @@ const pageDomTree = {
   toggleAllowScrollToElement () {
     this.allowScrollToElement = !this.allowScrollToElement
   },
-  /** scroll to the clicked element
-  * @param {HTMLElement} elem - element to sctoll to
+
+  /** Scroll to the clicked element.
+  * @param {HTMLElement} elem - element to sctoll to.
   */
   iframeScrollToElement (elem) {
     if (this.allowScrollToElement) {
@@ -235,7 +237,7 @@ const pageDomTree = {
     }
   },
 
-  /** open all ul parent elements of the dom tree item and scroll to it
+  /** Open all ul parent elements of the dom tree item and scroll to it.
   * @param {Event} e
   */
   domTreeScrollToElement (e) {
@@ -253,8 +255,8 @@ const pageDomTree = {
     }
   },
 
-  /** add caret icons for better navigation
-  * all ul items can be expanded with a click
+  /** Add caret icons for better navigation.
+  * All ul items can be expanded with a click.
   * @return this
   */
   addOpenCloseEvents () {
@@ -263,9 +265,9 @@ const pageDomTree = {
     return this
   },
 
-  /** This is a Event.
+  /** This is an Event.
   * Show or hide elements with the class 'hidden', it also hides all children elements.
-  * The 'fa' is for the fontawesome icons, which display the current state of the element
+  * The 'fa' is for the fontawesome icons, which display the current state of the element.
   */
   addOpenCloseEvent (e) {
     let el = e.target.closest('p, i')
@@ -275,7 +277,7 @@ const pageDomTree = {
     }
   },
 
-  /** reload whole domtree on click  */
+  /** Reload whole domtree on click.  */
   addReloadEvent () {
     document.getElementById('domTree-Reload')
       .addEventListener('mousedown', () => {

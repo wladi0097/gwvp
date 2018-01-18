@@ -25,10 +25,11 @@ describe('build', () => {
     expect(pageDomTree.$domTree).toBe(document.getElementById('simulatedDomTree'))
   })
 
-  it('should reset and create the whole tree (ignore events)', () => {
+  it('should reset and create the whole tree', () => {
     document.body.innerHTML = '<div id="simulatedDomTree"></div><iframe id="simulated"></iframe>'
     document.getElementById('simulated').contentDocument.innerHTML = '<p></p>'
     let copy = {...pageDomTree}
+    copy.treeData = {html: '', ids: [], counter: 0}
     copy.hasEvents = true
     let mock = jest.fn().mockReturnValue(copy)
     copy.reset = mock
@@ -36,7 +37,9 @@ describe('build', () => {
     copy.build()
     expect(mock.mock.calls.length).toBe(2)
   })
+})
 
+describe('bindEvents', () => {
   it('should add events if none are present', () => {
     document.body.innerHTML = '<div id="simulatedDomTree"></div><iframe id="simulated"></iframe>'
     document.getElementById('simulated').contentDocument.innerHTML = '<p></p>'
@@ -44,6 +47,7 @@ describe('build', () => {
     let mock = jest.fn().mockReturnValue(copy)
     copy.reset = () => { return copy }
     copy.createTree = () => { return copy }
+    copy.treeData = {html: '', ids: [], counter: 0}
     copy.addOpenCloseEvents = mock
     copy.addRelationEvents = mock
     copy.addReloadEvent = mock

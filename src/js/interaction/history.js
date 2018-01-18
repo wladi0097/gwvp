@@ -1,4 +1,6 @@
 // save history for Undo and Redo
+
+/** save states of any element and allow to revert them to previous states */
 const history = {
   history: [],
   maxSaves: 20,
