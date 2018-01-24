@@ -2,7 +2,7 @@ const elementEvents = require('../elementManipulation/elementEvents.js')
 const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
 
-/** The menu and keycodes are creted by this object.
+/** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
  * To add a menu item, you have to add it to the exports array like:
  * @example

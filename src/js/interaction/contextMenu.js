@@ -1,7 +1,6 @@
 /**
  * The contextmenu (right click) displays a domItem at the location of the mouse.
  * The domItem hides after clicking something else.
- * It is standalone and can be used in other projects.
  */
 const contextMenu = {
   /** Initialize the contextMenu to a domItem with a domItem
@@ -25,7 +24,7 @@ const contextMenu = {
     element.setAttribute('id', 'contextMenu')
   },
 
-  /** bind the right click to the former given location and domItem.
+  /** Bind the right click to the former given location and domItem.
    * The domItem will be shown after the right click to the stablest reasonable position.
    * @param {HTMLElement} location - dom element where right click should be triggered
   */
@@ -48,7 +47,7 @@ const contextMenu = {
     })
   },
 
-  /** get the stablest reasonable position for the domItem.
+  /** Get the stablest reasonable position for the domItem.
    * If the click is on the far left, show the domItem right from the mouse position.
    * If the click is on the far right, show the domItem left from the mouse position
    * and so on.

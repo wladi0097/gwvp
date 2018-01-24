@@ -1,9 +1,9 @@
 /* global localStorage */
 /**
- * introduces JS-objects in the localstorage
+ * Save JS-objects in the localstorage
  */
 const localStorages = {
-  /** save a object into the localstorage
+  /** Save a object into the localstorage
    * @param {String} name - name of the localstorage cell
    * @param {Object} data - data to save
    * @return {Boolean} false if there was a error
@@ -17,7 +17,7 @@ const localStorages = {
     }
   },
 
-  /** returns the data drom a name
+  /** Returns the data by a name
    * @param {String} name - name of the localstorage cell
    * @return {Object} stored data
   */
@@ -25,7 +25,7 @@ const localStorages = {
     return JSON.parse(localStorage.getItem(name))
   },
 
-  /** deletes a localstorage cell
+  /** Deletes a localstorage cell
    * @param {String} name - name of the localstorage cell
    * @return {Boolean} false if there was a error
   */
@@ -37,7 +37,7 @@ const localStorages = {
     }
   },
 
-  /** replace current data
+  /** Replace current data
    * @param {String} name - name of the localstorage cell
    * @param {Object} data - data to save
    * @return {Boolean} false if there was a error
@@ -51,7 +51,7 @@ const localStorages = {
     }
   },
 
-  /** replace current data
+  /** Check if data exists
    * @param {String} name - name of the localstorage cell
    * @return {Boolean} true if exists
   */
