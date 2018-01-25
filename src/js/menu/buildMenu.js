@@ -1,7 +1,7 @@
 const idGen = require('../interaction/idGen')
 const menuItems = require('./menuItems')
 
-/** build the whole menu and add click and keydown events for every item.
+/** build the whole menu and add events (click keydown) for every item.
 * All functionality has to be parsed into build and then you can acces them over the menu.
 * Initialize the menuItems.
 */
@@ -27,29 +27,28 @@ module.exports.getKeyCodes = function () {
 /** Creates a html menu item and binds click and keydown events
  * to the new items. The items can be modified in menuItems.js
  * and the events can be found in eventList.js.
- * The contextmenu is a menu item and can also be found in menuItems.js.
- * gets the menuItems JSON and translates it into a menu, keydown and contextmenu
+ * The contextmenu is a menu item and can be found in menuItems.js.
  */
 const buildMenu = {
-  /** The final html to append */
+  /** The final html to append. */
   html: '',
   keycodes: [],
-  /** position of the final Html */
+  /** Position of the final Html */
   $headerItems: document.getElementsByClassName('header-items')[0],
 
-  /** add external and interlan events to the already build menu  */
+  /** Add events to the already build menu.  */
   addAllEvents () {
     this.addClickEvents()
     this.addHoverEvents()
     this.checkItemStates()
   },
 
-  /** append the final result into the $headerItems */
+  /** Append the final result into the $headerItems. */
   append () {
     this.$headerItems.innerHTML = this.html
   },
 
-  /** the start of the menu HTML
+  /** The start of the menu Html.
   * @param {Object} item - a menuItems item
   * @param {String} item.id - the id of the menuItem
   * @param {String} item.name - the name of the menuItem
@@ -62,7 +61,7 @@ const buildMenu = {
       <ul>`
   },
 
-  /** Close all Tags of the menu HTML */
+  /** Close all Tags for the Html menu. */
   includeMenuItemEnd () {
     this.html += `
         </ul>
@@ -71,7 +70,7 @@ const buildMenu = {
     `
   },
 
-  /** builds the html and includes the click and keydown events
+  /** Builds the html and includes events (click and keydown) .
   * @param {Object} item - a menuItems item
   */
   includeMenuComponent (item) {
@@ -82,8 +81,8 @@ const buildMenu = {
     this.includeMenuComponentState(item)
   },
 
-  /** builds HTML the fastest way by
-  * pushing all into a html and appending the result
+  /** Builds Html the fastest way by
+  * pushing all into a html and appending the result.
   * @param {Object} item - a menuItems item
   * @param {String} item.name - the name of the menuItem
   * @param {String} item.keycode - the keycode of the menuItem
@@ -127,12 +126,13 @@ const buildMenu = {
     }
   },
 
-  /** a reference which id has which event */
+  /** A reference which id has which event. */
   clickEvents: {
     clickId: [],
     clickRun: []
   },
-  /** save the item into clickEvents for later use
+
+  /** Save the item into clickEvents for later use.
   * @param {Object} item - a menuItems item
   * @param {String} item.id - the id of the menuItem
   * @param {String} item.run - the function to run
@@ -142,8 +142,9 @@ const buildMenu = {
     this.clickEvents.clickId.push(item.id)
     this.clickEvents.clickRun.push(item.run)
   },
-  /** registrer click event on the menu item
-   * using the clickEvents
+
+  /** Registers click events to menu item
+   * using the clickEvents.
   */
   addClickEvents () {
     this.clickEvents.clickId.forEach((cid, i) => {
@@ -156,8 +157,8 @@ const buildMenu = {
     })
   },
 
-  /** registrer hover event on the menu item
-   * using the clickEvents
+  /** Registers hover events to menu items
+   * using the clickEvents.
   */
   addHoverEvents () {
     Array.from(document.getElementsByClassName('header-item'))
@@ -168,7 +169,7 @@ const buildMenu = {
       })
   },
 
-  /** register the keycode events
+  /** Register keycode events.
   * @param {Object} item - a menuItems item
   * @param {String} item.keycode - the keycode of the menuItem
   * @param {String} item.run - the function to run
@@ -181,14 +182,15 @@ const buildMenu = {
     })
   },
 
-  /** all menu items which have an item state  */
+  /** All menu items which have an item state.  */
   itemsWithStates: [],
-  /** if an items has an item state include it to the itemsWithStates array */
+
+  /** If an items has an item state include it to the itemsWithStates array. */
   includeMenuComponentState (item) {
     if (item.clickable || item.active) this.itemsWithStates.push(item)
   },
 
-  /** check item states and append them to the item  */
+  /** Check item states and append them to the item.  */
   checkItemStates () {
     this.itemsWithStates.forEach((item) => {
       let elem = document.getElementById(item.id)
@@ -197,7 +199,7 @@ const buildMenu = {
     })
   },
 
-  /** remove the css class and add one if it is active
+  /** Remove the css class and add one if it is active
    * @param {HTMLElement} elem - li to set css
    * @param {String} cssClass - classname to set
    * @param {Boolen} active - should set

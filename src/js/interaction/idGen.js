@@ -1,9 +1,9 @@
 /** @see https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
- * a simple id Generator
+ * A simple id Generator
  */
 const idGen = {
   /**
-   * get a new unique id
+   * Get a new unique id
    * @return {String} id
    */
   new () {
@@ -13,7 +13,7 @@ const idGen = {
     this.idGenerator()
   },
 
-  /** creates a random number sequence
+  /** Creates a random number sequence
     @return {String} number sequence
    */
   idGenerator () {

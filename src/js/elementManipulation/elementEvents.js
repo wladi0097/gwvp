@@ -5,12 +5,12 @@ const textEditor = require('./textEditor')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 
-/** Modify all Iframe Dom elements width elementEvents,
+/** Modify all Iframe Dom elements with elementEvents,
  * also highlight currently hovered and selected elements and save them for further use.
  * ! Styling is not made with elementEvents.
 */
 const elementEvents = {
-  /** Are you allowed to use elementEvents functions. */
+  /** Are you allowed to use elementEvents functions? */
   allowInteraction: false,
   /** After a click the element gets selected and saved here. */
   currentElement: null,
@@ -52,7 +52,7 @@ const elementEvents = {
     return this
   },
 
-  /** apply events to static content
+  /** Apply events to static content
   * @return this
   */
   bindEvents () {
@@ -61,7 +61,7 @@ const elementEvents = {
     return this
   },
 
-  /** apply events to the iframe content and run iframe specific methods
+  /** Apply events to the iframe content and run iframe specific methods
   * @return this
   */
   bindFrameEvents () {
@@ -86,7 +86,7 @@ const elementEvents = {
   },
 
   /** This is a event and a method.
-  * onScroll gets triggered after anything gets scrolled in the iframe.
+  * OnScroll gets triggered after anything gets scrolled in the iframe.
   * @param {Event} e
   */
   onScroll (e) {
@@ -227,7 +227,7 @@ const elementEvents = {
     return this
   },
 
-  /** copy a selected element and delete it afterwards.
+  /** Copy a selected element and delete it afterwards.
   * @return this
   */
   cut () {
@@ -241,9 +241,9 @@ const elementEvents = {
   },
 
   /** Appends the virtual clipboard to a specific
-  * location ('after', 'in' or 'before' the selected element).
+  * location ('after', 'in' or 'before') an selected element.
   *  @param {String} appendStyle - how to append the items
-  *  @param {String} data - what to appendStyle
+  *  @param {String} data - what to append
   *  @param {String} whereDom - where to append in the dom
   *  @return this
   */
@@ -273,7 +273,7 @@ const elementEvents = {
     return this
   },
 
-  /** Copies the selected element and appends it as a sibling below itslef.
+  /** Copies the selected element and append it as a sibling below itself.
   * @return this
   */
   duplicate () {

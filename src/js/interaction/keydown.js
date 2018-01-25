@@ -1,7 +1,6 @@
 /**
  * Catch single or multiple keydowns from a user and run a given function.
  * The keydown object can be used at multiple locations with the same keycodes (if you pass it by reference, which is default).
- * It is standalone and can be used in other projects.
  */
 const keydown = {
   /**
@@ -13,7 +12,7 @@ const keydown = {
   */
   keycodes: [],
   /**
-   * All keydowns are saved as a keycode in a array.
+   * All pressed keydowns are saved as a keycode in a array.
    * @example [[0, 1]...]
   */
   pressed: [],
@@ -61,7 +60,7 @@ const keydown = {
     return true
   },
 
-  /** Run the .run() method from the found param.
+  /** Run the .run() method from the keyCode.
    * @param {Object} found - a object with a run method
    * @param {Function} found.run - fuction which should be runned
   */
@@ -70,7 +69,7 @@ const keydown = {
   },
 
   /** Check if the keycodes already exists in the this.keycodes.
-   * @param {Object} obj - a object with informations about a keycode and a run method
+   * @param {Object} obj - an object with informations about a keycode and a run method
    * @param {Number[]} obj.keycode - the converted keycode of the object
    * @param {Function} obj.run - function which should be runned
   */

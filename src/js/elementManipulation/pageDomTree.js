@@ -1,6 +1,6 @@
 /* global MouseEvent */
 
-/** Create a Html tree out of a Html element. */
+/** Create a Html tree out of a Html elements. */
 const pageDomTree = {
   /**
   * The current Domtree state.
