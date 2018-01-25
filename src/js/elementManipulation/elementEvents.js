@@ -4,6 +4,7 @@ const pageDomTree = require('./pageDomTree')
 const textEditor = require('./textEditor')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
+const history = require('../interaction/history.js')
 
 /** Modify all Iframe Dom elements width elementEvents,
  * also highlight currently hovered and selected elements and save them for further use.
@@ -39,6 +40,7 @@ const elementEvents = {
     this.bindFrameEvents()
     pageDomTree.build()
     textEditor.initWithFrame(this.$iframe)
+    this.change()
     return this
   },
 
@@ -82,7 +84,30 @@ const elementEvents = {
   * @return this
   */
   change () {
+    history.add(this.$iframe.body.outerHTML)
     return this
+  },
+
+  /** Undo last dom change.
+  * @return this
+  */
+  undo () {
+    if (!history.undoPossible) {
+      alert('undo not possible')
+      return this
+    }
+    this.$iframe.body.outerHTML = history.undo()
+  },
+
+  /** Redo last dom change.
+  * @return this
+  */
+  redo () {
+    if (!history.redoPossible) {
+      alert('redo not possible')
+      return this
+    }
+    this.$iframe.body.outerHTML = history.redo()
   },
 
   /** This is a event and a method.
@@ -211,9 +236,10 @@ const elementEvents = {
   },
 
   /** Delete a selected element from the iframe.
+  * @param {Boolean} noChange - true if it should not count as dom change
   * @return this
   */
-  delete () {
+  delete (noChange = false) {
     if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to delete')
       return this
@@ -222,7 +248,7 @@ const elementEvents = {
     pageDomTree.removeNode(this.currentElement)
     parent.removeChild(this.currentElement)
     this.noClick()
-      .change()
+    if (!noChange) this.change()
     pageDomTree.removeNodeFix(parent)
     return this
   },
@@ -236,7 +262,8 @@ const elementEvents = {
       return this
     }
     this.copy()
-      .delete()
+      .delete(true)
+      .change()
     return this
   },
 
@@ -245,9 +272,10 @@ const elementEvents = {
   *  @param {String} appendStyle - how to append the items
   *  @param {String} data - what to appendStyle
   *  @param {String} whereDom - where to append in the dom
+    * @param {Boolean} noChange - true if it should not count as dom change
   *  @return this
   */
-  paste (appendStyle, data, whereDom) {
+  paste (appendStyle, data, whereDom, noChange = false) {
     let insertHTML = data || this.clipboard
     let insertDom = whereDom || this.currentElement
     appendStyle = appendStyle || 'in'
@@ -269,7 +297,7 @@ const elementEvents = {
         break
     }
     pageDomTree.addNode(appendStyle, insertDom)
-    this.change()
+    if (!noChange) this.change()
     return this
   },
 
@@ -362,7 +390,7 @@ const elementEvents = {
     } else {
       let x = this.currentElement.outerHTML // clicked element
       this.draggedElement = x // save element
-      this.delete() // remove element from dom
+      this.delete(true) // remove element from dom
     }
 
     this.allowHover = false // remove currenthoverEvent

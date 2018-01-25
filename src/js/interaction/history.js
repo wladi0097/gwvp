@@ -28,8 +28,8 @@ const history = {
 
   /** check if redo or undo are possible  */
   checkPossibilities () {
-    this.redoPossible = (this.pointer < this.maxSaves)
     this.undoPossible = (this.pointer > 0)
+    this.redoPossible = (this.pointer < this.history.length - 1)
   },
 
   undoPossible: false,
