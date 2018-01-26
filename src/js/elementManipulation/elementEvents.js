@@ -1,9 +1,10 @@
-/* global alert MouseEvent */
+/* global MouseEvent */
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
 const textEditor = require('./textEditor')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
+const displayMessage = require('../interaction/displayMessage.js')
 
 /** Modify all Iframe Dom elements with elementEvents,
  * also highlight currently hovered and selected elements and save them for further use.
@@ -192,7 +193,7 @@ const elementEvents = {
   */
   copy () {
     if (!this.allowInteraction || !this.currentElement) {
-      alert('nothing selected')
+      displayMessage.show('No element selected to copy', 2000, 'warning', false)
       return this
     }
 
@@ -215,7 +216,7 @@ const elementEvents = {
   */
   delete () {
     if (!this.allowInteraction || !this.currentElement) {
-      alert('nothing selected to delete')
+      displayMessage.show('No element selected to delete', 2000, 'warning', false)
       return this
     }
     let parent = this.currentElement.parentNode
@@ -232,7 +233,7 @@ const elementEvents = {
   */
   cut () {
     if (!this.allowInteraction || !this.currentElement) {
-      alert('nothing selected to cut')
+      displayMessage.show('No element selected to cut', 2000, 'warning', false)
       return this
     }
     this.copy()
@@ -252,7 +253,7 @@ const elementEvents = {
     let insertDom = whereDom || this.currentElement
     appendStyle = appendStyle || 'in'
     if (!insertHTML || !insertDom) {
-      alert('no selected element or nothing in clipboard')
+      displayMessage.show('No element selected to paste or your clipboard is empty', 2500, 'warning', false)
       return this
     }
     switch (appendStyle) {
@@ -278,7 +279,7 @@ const elementEvents = {
   */
   duplicate () {
     if (!this.allowInteraction || !this.currentElement) {
-      alert('nothing selected to duplicate')
+      displayMessage.show('No element selected to duplicate', 2000, 'warning', false)
       return this
     }
     let clone = this.currentElement.outerHTML
@@ -353,7 +354,7 @@ const elementEvents = {
   */
   dragStart (html) {
     if (!this.currentElement && !html) {
-      alert('nothing selected to drag')
+      displayMessage.show('No element selected to drag', 2000, 'warning', false)
       return this
     }
 
