@@ -3,7 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // Settings
-const PROD = false
+const PROD = true
 const ES6 = true
 
 const jsLoader = !ES6 ? {
