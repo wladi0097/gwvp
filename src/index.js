@@ -6,9 +6,11 @@ const navigation = require('./js/navigation') // standalone navigation
 const menu = require('./js/menu/buildMenu')
 const contextMenu = require('./js/interaction/contextMenu')
 const keydown = require('./js/interaction/keydown')
+const displayMessage = require('./js/interaction/displayMessage')
 const changeScreenSize = require('./js/elementManipulation/changeScreenSize')
 
 document.addEventListener('DOMContentLoaded', () => {
+  displayMessage.init(document.getElementById('displayMessage'))
   elementEvents.init()
   menu.build()
   contextMenu.init(document, document.getElementsByClassName('header-contextmenu')[0])

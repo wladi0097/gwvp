@@ -1,0 +1,62 @@
+.display-message {
+  position: fixed;
+  top: 0;
+  right: -15px;
+  width: 515px;
+  height: 50%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 100;
+  pointer-events: none;
+
+  .message {
+    width: 430px;
+    margin-left: 50px;
+    margin-top: 10px;
+    float: left;
+    pointer-events: painted;
+    border-radius: 3px;
+    box-shadow: 10px 10px 5px 0 $shadow;
+    transform-origin: 50% 0;
+    animation: bounceInDown 1s;
+
+    &.hide-message {
+      animation: bounceOutRight 1s;
+    }
+
+    &.warning {
+      background-color: $orange;
+    }
+
+    &.success {
+      background-color: $green;
+    }
+
+    &.error {
+      background-color: $red;
+    }
+
+    .close {
+      height: 15px;
+      line-height: 15px;
+      padding: 5px 10px;
+      color: $light-active;
+
+      >i {
+        float: right;
+        font-size: 15px;
+        cursor: pointer;
+      }
+    }
+
+    .text {
+      color: $light-active;
+      padding: 20px;
+      padding-top: 0;
+
+      >p {
+        font-size: 17px;
+      }
+    }
+  }
+}

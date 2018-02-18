@@ -1,6 +1,6 @@
 {
   "name": "gwvp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "webpage builder",
   "main": "index.js",
   "scripts": {

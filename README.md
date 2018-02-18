@@ -1,5 +1,5 @@
 # GWvP
-
+[![Build Status](https://travis-ci.org/wladi0097/gwvp.svg?branch=master)](https://travis-ci.org/wladi0097/gwvp)
 
 ### CLI Scripts:
 execute with ``npm run {{command}}``
