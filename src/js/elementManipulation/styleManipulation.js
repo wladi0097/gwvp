@@ -1,5 +1,3 @@
-/* global getComputedStyle */
-
 /** Manipulate CSS styles for elements or classes */
 const styleManipulation = {
   /** Get the computed style from an element.
@@ -9,7 +7,7 @@ const styleManipulation = {
   */
   getStyle (elem, style) {
     if (!elem || !style) return false
-    let computed = getComputedStyle(elem)[style]
+    let computed = elem.style[style] || window.getComputedStyle(elem)[style]
     return (computed === '') ? 'default' : computed
   },
 
