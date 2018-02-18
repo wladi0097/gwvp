@@ -1,7 +1,10 @@
 // global inputs
-input {
+input,
+select {
   background-color: $main;
-  border: 1px solid $main;
+  border: 0;
+  border-bottom: 1px solid $border;
+  box-sizing: border-box;
   color: $light;
   font-size: 14px;
   outline: 0;

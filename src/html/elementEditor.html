@@ -1,94 +1,193 @@
-<div class="sidebar-content element-editor overflow">
+<div class="sidebar-content element-editor overflow" id="elementEditor">
   <div class="sidebar-category">
     <p>Selector</p>
     <div class="selector">
-      <div class="input">
+      <div class="input" id="elementClasses">
         <p class="item">Div</p>
-        <input type="text" name="" value="" placeholder="+class">
+        <input id="addClass" type="text" placeholder="+class">
       </div>
     </div>
   </div>
   <div class="sidebar-category">
     <p>Layout</p>
     <div class="layout">
+<!------------------------------>
       <div class="padding-margin">
         <div class="margin">
           <div class="top editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-top" type="text" placeholder="initial">
           </div>
           <div class="right editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-right" type="text" placeholder="initial">
           </div>
           <div class="bottom editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-bottom" type="text" placeholder="initial">
           </div>
           <div class="left editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-left" type="text" placeholder="initial">
           </div>
           <div class="padding">
             <div class="top editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-top" type="text" placeholder="initial">
             </div>
             <div class="right editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-right" type="text" placeholder="initial">
             </div>
             <div class="bottom editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-bottom" type="text" placeholder="initial">
             </div>
             <div class="left editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-left" type="text" placeholder="initial">
             </div>
           </div>
         </div>
       </div>
+<!------------------------------>
       <div class="width-height">
         <div class="expandable-container">
           <div class="expandable-header">
             <div class="text-with-input">
               <p>Width:</p>
-              <input value="100 %">
+              <input editCSS="width" placeholder="initial">
             </div>
             <i class="fa fa-caret-up" aria-hidden="true"></i>
             <div class="text-with-input">
               <p>Height:</p>
-              <input value="100 %">
+              <input editCSS="height" placeholder="initial">
             </div>
           </div>
           <div class="expandable-content">
             <div class="text-with-input">
               <p>min:</p>
-              <input value="100 %">
+              <input editCSS="min-width" placeholder="initial">
             </div>
             <div class="text-with-input">
               <p>min:</p>
-              <input value="100 %">
+              <input editCSS="min-height" placeholder="initial">
             </div>
             <div class="text-with-input">
               <p>max:</p>
-              <input value="100 %">
+              <input editCSS="max-width" placeholder="initial">
             </div>
             <div class="text-with-input">
               <p>max:</p>
-              <input value="100 %">
+              <input editCSS="max-height" placeholder="initial">
             </div>
           </div>
         </div>
       </div>
+<!------------------------------>
+      <div class="radio-block">
+        <h2>Display</h2>
+        <div radio editCSS="display" class="radio">
+          <div val="block" class="item active">
+            <img src="../img/domEditor/display_block.svg" alt="Display Block" title="Block">
+          </div>
+          <div val="inline-block" class="item">
+            <img src="../img/domEditor/display_inlineblock.svg" alt="" alt="Display Inline-Block" title="Inline-Block">
+          </div>
+          <div val="inline" class="item">
+            <img src="../img/domEditor/display_inline.svg" alt="" alt="Display Inline" title="Inline">
+          </div>
+          <div val="flex" class="item">
+            <img src="../img/domEditor/display_flex.svg" alt="" alt="Display Flex" title="Flex">
+          </div>
+          <div val="none" class="item">
+            <img src="../img/domEditor/invisible.svg" alt="" alt="Display None" title="None">
+          </div>
+        </div>
+        <div class="radio-choices">
+          <div class="flex">
+          </div>
+        </div>
+      </div>
+
+      <div class="radio-block">
+        <h2>Position</h2>
+        <div radio editCSS="position" class="radio">
+          <div val="static" class="item">
+            <img src="../img/domEditor/position_static.svg" alt="" alt="Position Static" title="Static">
+          </div>
+          <div val="relative" class="item">
+            <img src="../img/domEditor/position_relative.svg" alt="" alt="Position Relative" title="Relative">
+          </div>
+          <div val="absolute" class="item active">
+            <img src="../img/domEditor/position_absolute.svg" alt="" alt="Position Absolute" title="Absolute">
+          </div>
+          <div val="fixed" class="item">
+            <img src="../img/domEditor/position_fixed.svg" alt="" alt="Position Fixed" title="Fixed">
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="sidebar-category">
     <p>Background</p>
-    <div class="colorpicker">
-      <div class="color">
+    <div class="text-with-input background-color colorpicker">
+      <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+      <input editCSS="background-color" type="color" name="" value="#fff">
+    </div>
 
-      </div>
-      <input type="text" name="" value="">
+    <div class="text-with-input background-image">
+      <!-- <p>Image:</p> -->
+      <p><i class="fa fa-image" aria-hidden="true"></i></p>
+      <input editCSS="background-image" placeholder="initial">
     </div>
   </div>
   <div class="sidebar-category">
     <p>Border</p>
+    <div class="border-styles">
+      <div class="border-top"></div>
+      <div class="border-right"></div>
+      <div class="border-bottom"></div>
+      <div class="border-left"></div>
+    </div>
+    <div class="text-with-input border-color colorpicker">
+      <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+      <input editCSS="border-color" type="color" name="" value="#fff">
+    </div>
+    <div class="text-with-input border-style">
+      <p> <img src="../img/domEditor/border_style.svg" alt=""> </p>
+      <select editCSS="border-style">
+        <option value="solid">Solid</option>
+      </select>
+    </div>
   </div>
   <div class="sidebar-category">
-    <p>Effects</p>
+    <p>Typography</p>
+    <div class="text-with-input font-color colorpicker">
+      <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+      <input editCSS="background-color" type="color" name="" value="#fff">
+    </div>
+    <div class="text-with-input typography-font-family">
+      <p><i class="fa fa-font" aria-hidden="true"></i></p>
+      <input editCSS="font-family" placeholder="initial">
+    </div>
+    <div class="text-with-input typography-font-size">
+      <p><i class="fa fa-expand" aria-hidden="true"></i></p>
+      <input editCSS="font-size" placeholder="initial">
+    </div>
+    <div class="radio-block typography-text-align">
+      <div radio editCSS="text-align" class="radio">
+        <div val="left" class="item">
+          <i class="fa fa-align-left" aria-hidden="true"></i>
+        </div>
+        <div val="center" class="item">
+          <i class="fa fa-align-center" aria-hidden="true"></i>
+        </div>
+        <div val="right" class="item active">
+          <i class="fa fa-align-right" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="text-with-input typography-line-spacing">
+      <p><i class="fa fa-text-height" aria-hidden="true"></i></p>
+      <input editCSS="line-height" placeholder="initial">
+    </div>
+    <div class="text-with-input typography-line-spacing">
+      <p><i class="fa fa-text-width" aria-hidden="true"></i></p>
+      <input editCSS="letter-spacing" placeholder="initial">
+    </div>
   </div>
 </div>

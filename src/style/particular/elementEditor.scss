@@ -1,4 +1,9 @@
 // delimiter
+.element-editor {
+  height: 100%;
+}
+
+
 .element-editor .delimiter {
   border-bottom: 1px solid $main-background;
   width: 60%;
@@ -12,6 +17,9 @@
 }
 
 .text-with-input {
+  height: 25px;
+  float: left;
+
   &::after {
     content: '.';
     clear: both;
@@ -21,19 +29,29 @@
   }
 
   >p {
+    line-height: 25px;
+    height: 25px;
     text-align: left;
     width: 50%;
     float: left;
+
+    >img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
-  >input {
-    text-align: center;
-    background-color: $main-background;
-    border: 1px solid $border;
-    border-radius: 2px;
-    box-sizing: border-box;
+  >input,
+  >select {
+    height: 25px;
+    text-align: left;
     width: 50%;
     float: left;
+
+    &:active {
+      border: 0;
+      border-bottom: 1px solid $border;
+    }
   }
 }
 
@@ -315,10 +333,26 @@
 
 // Layout width-height
 .element-editor .width-height .expandable-container {
+  &::after {
+    content: '.';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
+
   .expandable-header {
     >i {
+      height: 25px;
+      line-height: 25px;
       width: 10%;
       float: left;
+      cursor: pointer;
+      transition: color .5s;
+
+      &:hover {
+        color: $light-active;
+      }
     }
 
     >.text-with-input {
@@ -363,6 +397,209 @@
       display: block;
       visibility: hidden;
       height: 0;
+    }
+  }
+}
+
+.element-editor .radio-block {
+  width: 100%;
+  margin-top: 15px;
+
+  >h2 {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  >.radio {
+    border: 1px solid $border;
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+
+    .item {
+      border-right: 1px solid $border;
+      float: left;
+      flex: 1;
+      height: 25px;
+      cursor: pointer;
+      transition: background-color .5s;
+
+      &:hover {
+        background-color: $main-background;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      &.active {
+        background-color: $main-background;
+      }
+
+      >p {
+        font-size: 14px;
+      }
+
+      >img,
+      >i {
+        margin-top: 2.5px;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.typography-font-family,
+.background-image {
+  margin-left: 5%;
+  width: 100%;
+
+  >p {
+    width: 20px;
+  }
+
+  >input {
+    width: calc(100% - 20px);
+  }
+}
+
+.background-image {
+  width: 60%;
+}
+
+.typography-font-size {
+  width: 30%;
+  margin-left: 5%;
+  margin-top: 15px;
+  float: left;
+
+  >p {
+    width: 20px;
+  }
+
+  >input {
+    width: calc(100% - 20px);
+  }
+}
+
+.element-editor .typography-text-align {
+  width: 60%;
+  float: left;
+  margin-top: 15px;
+
+  >.radio {
+    margin-left: 10%;
+    width: 90%;
+  }
+}
+
+.typography-line-spacing  {
+  width: 40%;
+  float: left;
+  margin-left: 5%;
+  margin-top: 15px;
+
+  >p {
+    width: 20px;
+  }
+
+  >input {
+    margin-left: 5px;
+    width: calc(100% - 30px);
+  }
+}
+
+
+.colorpicker {
+  margin-left: 5%;
+
+  >p {
+    width: 20px;
+  }
+
+  >input {
+    border: 0;
+    width: 50px;
+    float: left;
+  }
+}
+
+.border-color,
+.border-style {
+  margin-left: 10%;
+  margin-top: 5px;
+  width: 50%;
+
+  >p {
+    width: initial;
+  }
+
+  >input,
+  >select {
+    width: 60%;
+    margin-left: 10px;
+  }
+}
+
+.border-styles {
+  margin-left: 15%;
+  width: 70px;
+  height: 70px;
+  float: left;
+  position: relative;
+
+  >div {
+    width: 15px;
+    height: 15px;
+    background-color: $main-background;
+    position: absolute;
+    border: 3px solid $main-background;
+    border-style: dotted;
+    cursor: pointer;
+
+    &.border-top {
+      left: 25px;
+      top: 0;
+      border-top-color: $border;
+
+      &:hover,
+      .active {
+        border-top-color: $highlight;
+      }
+    }
+
+    &.border-right {
+      right: 0;
+      top: 25px;
+      border-right-color: $border;
+
+      &:hover,
+      .active {
+        border-right-color: $highlight;
+      }
+    }
+
+    &.border-bottom {
+      bottom: 0;
+      left: 25px;
+      border-bottom-color: $border;
+
+      &:hover,
+      .active {
+        border-bottom-color: $highlight;
+      }
+    }
+
+    &.border-left {
+      top: 25px;
+      left: 0;
+      border-left-color: $border;
+
+      &:hover,
+      .active {
+        border-left-color: $highlight;
+      }
     }
   }
 }
