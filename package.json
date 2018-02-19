@@ -12,11 +12,15 @@
     "start": "webpack-dev-server --open --hot",
     "docs": "documentation build src/js/** -f html -o docs",
     "license": "license-checker --production",
-    "lints": "sass-lint -c ./.sass-lint.yml -v -q",
+    "lints": "sass-lint -c ./sass-lint.yml ./src/style/**/*.scss -v -q",
     "lintj": "eslint -c ./.eslintrc.js ./src/js"
   },
-  "author": "wladislaw koschemako",
-  "license": "GPL",
+  "jest": {
+  "coverageDirectory": "./coverage/",
+  "collectCoverage": true
+  },
+  "author": "Wladislaw Koschemako",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

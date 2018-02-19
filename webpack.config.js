@@ -76,6 +76,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/html/entry.html',
       filename: 'index.html',
+      favicon: 'src/img/Logo.png',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -84,6 +85,7 @@ module.exports = {
       }
     })] : [
     new HtmlWebpackPlugin({
+      favicon: 'src/img/Logo.png',
       template: 'src/html/entry.html'
     })
   ]

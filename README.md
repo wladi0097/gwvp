@@ -1,5 +1,13 @@
 # GWvP
 [![Build Status](https://travis-ci.org/wladi0097/gwvp.svg?branch=master)](https://travis-ci.org/wladi0097/gwvp)
+[![codecov](https://codecov.io/gh/wladi0097/gwvp/branch/master/graph/badge.svg)](https://codecov.io/gh/wladi0097/gwvp)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+
+![GWvP Logo](https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/Logo.png)
+
+#### This project is still in early development !!
 
 ### CLI Scripts:
 execute with ``npm run {{command}}``
