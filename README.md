@@ -11,6 +11,28 @@
 
 #### This project is still in early development !!
 
+A one page web application to build **responsive** web pages **quickly** and still have **full control** over the created HTML, JS and CSS.    
+It comes with own little components to build a whole page. But you can always create your own or use already created ones.    
+**No dependencies** like JQuery or Bootstrap are used in this project but they can be added easily to your page.
+
+I created this project because good "what you see is what you get" editors are ~~too~~ expensive ~~and almost always have a monthly fee~~. So why pay for something i can do myself?
+
+### Getting Started
+Either use the *[online version](https://gwvp.glvp.de/)* or create a local copy with:
+
+```bash
+ > git clone https://github.com/wladi0097/gwvp.git
+ > cd gwvp/
+ > npm install
+```
+and run it with ``npm start``
+
+### Contributing
+I'm using *[Gitflow](https://github.com/nvie/gitflow)* to make my life easier
+1. Fork it!
+2. Follow *[this simple guide](https://danielkummer.github.io/git-flow-cheatsheet/)*
+5. Submit a pull request
+
 ### CLI Scripts:
 execute with ``npm run {{command}}``
 
@@ -50,9 +72,5 @@ execute with ``npm run {{command}}``
  * *[license-checker](https://github.com/davglass/license-checker)* to list all licenses from all dependencies.
  * *[jquery](https://jquery.com/)*  is a slow, big, and feature-rich JavaScript library and is only used to write tests faster.
 
-### Also a big thanks to:
-
-* [Stackoverflow](https://stackoverflow.com)
-* [YOU MIGHT NOT NEED JQUERY](http://youmightnotneedjquery.com/)
-* [Gravit Designer](https://designer.gravit.io/)
-* [Bitbucket](https://bitbucket.org)
+### License
+* [GNU General Public License v3.0](https://github.com/wladi0097/gwvp/blob/master/LICENSE)
