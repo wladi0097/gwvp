@@ -1,11 +1,13 @@
-# GWvP
-[![Build Status](https://travis-ci.org/wladi0097/gwvp.svg?branch=master)](https://travis-ci.org/wladi0097/gwvp)
-[![codecov](https://codecov.io/gh/wladi0097/gwvp/branch/master/graph/badge.svg)](https://codecov.io/gh/wladi0097/gwvp)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<p align="center">
+  <img alt="GWvP" src="https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/GithubLogo.svg" width="400"/>
+</p>
 
-
-![GWvP Logo](https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/Logo.png)
+<p align="center">
+  <a title="Build Status" href="https://travis-ci.org/wladi0097/gwvp"><img src="https://travis-ci.org/wladi0097/gwvp.svg?branch=master">  </a>
+  <a title="codecov" href="https://codecov.io/gh/wladi0097/gwvp"><img src="https://codecov.io/gh/wladi0097/gwvp/branch/master/graph/badge.svg"></a>
+  <a title="js-standard-style" href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat">  </a>
+  <a title="License: GPL v3" href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">  </a>
+</p>
 
 #### This project is still in early development !!
 
