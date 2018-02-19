@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="GWvP" src="https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/GithubLogo.svg" width="400"/>
+  <img alt="GWvP" src="https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/GithubLogo.png" width="400"/>
 </p>
 
 <p align="center">
