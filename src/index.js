@@ -11,9 +11,10 @@ const displayMessage = require('./js/interaction/displayMessage')
 const changeScreenSize = require('./js/elementManipulation/changeScreenSize')
 
 document.addEventListener('DOMContentLoaded', () => {
+  let $iframe = document.getElementById('simulated').contentDocument
   displayMessage.init(document.getElementById('displayMessage'))
   elementEvents.init()
-  elementEditor.init()
+  elementEditor.init($iframe)
   menu.build()
   contextMenu.init(document, document.getElementsByClassName('header-contextmenu')[0])
   keydown.addArray(menu.getKeyCodes())
