@@ -1,4 +1,3 @@
-/* global MouseEvent */
 const elementEditor = require('./elementEditor')
 const pageDomTree = require('./pageDomTree')
 const textEditor = require('./textEditor')
@@ -167,6 +166,7 @@ const elementEvents = {
     }
     if (this.allowHover) {
       this.showRectAroundElement(e, 'hover')
+      this.hoveredElement = e.target
     }
     return this
   },
@@ -292,20 +292,14 @@ const elementEvents = {
   */
   redrawRect () {
     if (this.currentElement) {
-      let event = new MouseEvent('mousedown', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      })
-      this.currentElement.dispatchEvent(event)
+      let e = {}
+      e.target = this.currentElement
+      this.showRectAroundElement(e, 'click')
     }
     if (this.hoveredElement) {
-      let event = new MouseEvent('mouseover', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-      })
-      this.hoveredElement.dispatchEvent(event)
+      let e = {}
+      e.target = this.hoveredElement
+      this.showRectAroundElement(e, 'hover')
     }
     return this
   },
