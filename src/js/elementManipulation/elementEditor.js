@@ -104,7 +104,8 @@ const elementEditor = {
     })
   },
 
-  showPropertiesValue (nodeName) {
+  /** Display property values.  */
+  showPropertiesValue () {
     if (!this.selectedItem) return false
     this.inputProp.forEach(item => {
       let prop = item.getAttribute('editProp')
@@ -141,6 +142,9 @@ const elementEditor = {
     if (isClass) classEditor.removeStyleClass()
   },
 
+  /** fill the inputs with the current style attributes
+   * @param {Bool} isClass - is the edited part a class
+   */
   setStylesInputs (isClass) {
     this.inputs.forEach(item => {
       let style = (isClass)
@@ -151,6 +155,9 @@ const elementEditor = {
     })
   },
 
+  /** fill the radios with the current style attributes
+   * @param {Bool} isClass - is the edited part a class
+   */
   setStylesRadios (isClass) {
     this.radios.forEach(item => {
       let style = (isClass)
