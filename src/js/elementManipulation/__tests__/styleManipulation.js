@@ -1,5 +1,6 @@
 /* global describe it expect */
 const styleManipulation = require('../styleManipulation')
+styleManipulation.init(document)
 
 describe('getStyle', () => {
   let test1 = document.createElement('div')
@@ -188,7 +189,7 @@ describe('removeStyleFromClass', () => {
 describe('createStyleHTML', () => {
   it('should create valid css', () => {
     let should = `.style {\nwidth: 100px;\nheight: 100px;\n}\n`
-    styleManipulation.cssClasses = [{name: '.style', styles: [{'style': 'width', 'value': '100px'}, {'style': 'height', 'value': '100px'}]}]
+    styleManipulation.cssClasses = [{name: 'style', styles: [{'style': 'width', 'value': '100px'}, {'style': 'height', 'value': '100px'}]}]
     styleManipulation.createStyleHTML()
     expect(styleManipulation.headStyle.innerHTML).toBe(should)
   })
