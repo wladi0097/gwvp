@@ -13,6 +13,7 @@ const elementEditor = {
     styleManipulation.init(iframe)
     this.cacheDom()
     this.bindGlobalEvent()
+    classEditor.init()
   },
 
   /** Cache dom elements. */
@@ -82,6 +83,7 @@ const elementEditor = {
     this.setStyles()
     classEditor.select(item)
     this.showProperties(item.nodeName)
+    this.showPropertiesValue(item.nodeName)
   },
 
   /** Remove the selected properties and reset style displays.   */
@@ -89,16 +91,11 @@ const elementEditor = {
     this.selectedItem = null
   },
 
-  /** Display compatible properties and fill them with the current value.
+  /** Display compatible properties.
    * @param {String} nodeName - nodeName to find compatible properties
    */
   showProperties (nodeName) {
-    if (!this.selectedItem) return
-    this.inputProp.forEach(item => {
-      let prop = item.getAttribute('editProp')
-      item.value = this.selectedItem.getAttribute(prop) || ''
-    })
-
+    if (!this.selectedItem) return false
     Array.from(this.$elementProperties).forEach(item => {
       item.classList.remove('active')
       if (item.getAttribute('inputFor') === nodeName) {
@@ -107,11 +104,19 @@ const elementEditor = {
     })
   },
 
+  showPropertiesValue (nodeName) {
+    if (!this.selectedItem) return false
+    this.inputProp.forEach(item => {
+      let prop = item.getAttribute('editProp')
+      item.value = this.selectedItem.getAttribute(prop) || ''
+    })
+  },
+
   /** Replace the current property with a new one or delete it.
   * @param {Event} e - the event with target
   */
   propChanged (e) {
-    if (!this.selectedItem) return
+    if (!this.selectedItem) return false
     let val = e.currentTarget.value
     let prop = e.currentTarget.getAttribute('editProp')
 
@@ -130,6 +135,13 @@ const elementEditor = {
       isClass = true
     }
 
+    this.setStylesInputs(isClass)
+    this.setStylesRadios(isClass)
+
+    if (isClass) classEditor.removeStyleClass()
+  },
+
+  setStylesInputs (isClass) {
     this.inputs.forEach(item => {
       let style = (isClass)
         ? classEditor.getStyleClass(item.getAttribute('editCSS'))
@@ -137,7 +149,9 @@ const elementEditor = {
       if (item.getAttribute('type') === 'color') style = this.rgbToHex(style)
       item.value = style
     })
+  },
 
+  setStylesRadios (isClass) {
     this.radios.forEach(item => {
       let style = (isClass)
         ? classEditor.getStyleClass(item.getAttribute('editCSS'))
@@ -148,8 +162,6 @@ const elementEditor = {
         if (child.getAttribute('val') === style) child.classList.add('active')
       })
     })
-
-    if (isClass) classEditor.removeStyleClass()
   },
 
   /** remove current style from inline or css
@@ -343,6 +355,5 @@ const classEditor = {
     this.hideAllandShow(this.$classListings)
   }
 }
-classEditor.init()
 
 module.exports.classEditor = classEditor
