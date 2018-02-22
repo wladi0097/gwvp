@@ -1,0 +1,97 @@
+<style >
+  @keyframes bounce {
+    0% {
+        opacity: 1;
+        transform: scaley(1.0);
+     }
+     50% {
+       opacity: 0;
+       transform: scaley(0.4);
+     }
+     100% {
+       opacity: 1;
+       transform: scaley(1.0);
+     }
+  }
+
+  .loading-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 888;
+    text-align: center;
+    font-family: sans-serif;
+    overflow: hidden;
+    background: #0f0c29;
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    user-select: none;
+  }
+
+  .loading-screen .img {
+    margin-top: 5%;
+    height: 60%;
+  }
+
+  .loading-screen .img img{
+    height: 100%;
+  }
+
+  .loading-screen .text h2 {
+    color: #fff;
+    font-size: 40px;
+    margin-top: 3%;
+  }
+
+  .loading-screen .text span {
+    display: inline-block;
+    animation: bounce 2.4s infinite cubic-bezier(.2,.68,.18,1.08);
+    transform-origin: center bottom;
+  }
+
+
+  .loading-screen .text span:nth-child(2) {
+   animation-delay: .2s;
+  }
+
+  .loading-screen .text span:nth-child(3) {
+   animation-delay: .4s;
+  }
+
+  .loading-screen .text span:nth-child(4) {
+   animation-delay: .6s;
+  }
+
+  .loading-screen .text span:nth-child(5) {
+   animation-delay: .8s;
+  }
+
+  .loading-screen .text span:nth-child(6) {
+   animation-delay: 1s;
+  }
+
+  .loading-screen .text span:nth-child(7) {
+   animation-delay: 1.2s;
+  }
+
+</style>
+
+<div id="loadingScreen" class="loading-screen">
+  <div class="img">
+    <img src="../img/GithubLogo.svg" alt="Logo">
+  </div>
+  <div class="text">
+    <h2>
+      <span>L</span>
+      <span>o</span>
+      <span>a</span>
+      <span>d</span>
+      <span>i</span>
+      <span>n</span>
+      <span>g</span>
+    </h2>
+  </div>
+</div>

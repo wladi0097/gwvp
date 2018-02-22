@@ -11,6 +11,7 @@ const displayMessage = require('./js/interaction/displayMessage')
 const changeScreenSize = require('./js/elementManipulation/changeScreenSize')
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('loadingScreen').remove()
   let $iframe = document.getElementById('simulated').contentDocument
   displayMessage.init(document.getElementById('displayMessage'))
   elementEvents.init()
