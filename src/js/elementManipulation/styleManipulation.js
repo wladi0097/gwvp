@@ -1,7 +1,14 @@
-/* global getComputedStyle */
-
 /** Manipulate CSS styles for elements or classes */
 const styleManipulation = {
+  $iframe: null,
+
+  /** Add Iframe to styleManipulation
+  * @param {HTMLElement} iframe
+  */
+  init (iframe) {
+    this.$iframe = iframe
+  },
+
   /** Get the computed style from an element.
   * @param {HTMLElement} elem
   * @param {String} style - style like 'width'
@@ -9,7 +16,7 @@ const styleManipulation = {
   */
   getStyle (elem, style) {
     if (!elem || !style) return false
-    let computed = getComputedStyle(elem)[style]
+    let computed = elem.style[style] || window.getComputedStyle(elem)[style]
     return (computed === '') ? 'default' : computed
   },
 
@@ -67,9 +74,9 @@ const styleManipulation = {
   /** Create a style element inside the dom head if not found.  */
   isCustomStyleTagPresent () {
     if (!this.headStyle) {
-      document.getElementsByTagName('head')[0].innerHTML +=
+      this.$iframe.getElementsByTagName('head')[0].innerHTML +=
         '<style id="customClassStyles"></style>'
-      this.headStyle = document.getElementById('customClassStyles')
+      this.headStyle = this.$iframe.getElementById('customClassStyles')
     }
   },
 
@@ -157,7 +164,7 @@ const styleManipulation = {
   createStyleHTML () {
     let html = ''
     this.cssClasses.forEach((item) => {
-      html += item.name + ' {\n'
+      html += '.' + item.name + ' {\n'
       item.styles.forEach((style) => {
         html += style.style + ': ' + style.value + ';\n'
       })

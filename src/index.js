@@ -2,6 +2,7 @@ require('./style/main.scss')
 
 const elementEvents = require('./js/elementManipulation/elementEvents') // all element events
 const elementItems = require('./js/newElements/elementItems') // all element events
+const elementEditor = require('./js/elementManipulation/elementEditor') // all element events
 const navigation = require('./js/navigation') // standalone navigation
 const menu = require('./js/menu/buildMenu')
 const contextMenu = require('./js/interaction/contextMenu')
@@ -10,8 +11,10 @@ const displayMessage = require('./js/interaction/displayMessage')
 const changeScreenSize = require('./js/elementManipulation/changeScreenSize')
 
 document.addEventListener('DOMContentLoaded', () => {
+  let $iframe = document.getElementById('simulated').contentDocument
   displayMessage.init(document.getElementById('displayMessage'))
   elementEvents.init()
+  elementEditor.init($iframe)
   menu.build()
   contextMenu.init(document, document.getElementsByClassName('header-contextmenu')[0])
   keydown.addArray(menu.getKeyCodes())

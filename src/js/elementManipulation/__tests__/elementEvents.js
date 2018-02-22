@@ -463,20 +463,6 @@ describe('redrawRect', () => {
     expect(elem.clicked).toBe(undefined)
     expect(elem.hovered).toBe(undefined)
   })
-
-  it('should click the element when a currentElement exists', () => {
-    elementEvents.currentElement = elem
-    elementEvents.hoveredElement = null
-    elementEvents.redrawRect()
-    expect(elem.clicked).toBe(true)
-  })
-
-  it('should click the element when a hoveredElement exists', () => {
-    elementEvents.currentElement = null
-    elementEvents.hoveredElement = elem
-    elementEvents.redrawRect()
-    expect(elem.hovered).toBe(true)
-  })
 })
 
 describe('showRectAroundElement', () => {

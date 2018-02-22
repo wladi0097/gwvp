@@ -1,32 +1,27 @@
 /** All simple Navigation options. */
 const navigation = {
   init () {
-    this.leftNavBarSelection()
+    this.navBarSelection()
   },
 
   /** switch between the three tabs */
-  leftNavBarSelection () {
-    let elements = document.getElementsByClassName('sidebar-navigator-left')
+  navBarSelection () {
+    let elements = document.getElementsByClassName('sidebar-navigator')
     Array.from(elements).forEach((element) => {
-      element.addEventListener('click', this.leftNavBarSelectionEvent.bind(this))
+      element.addEventListener('mousedown', this.navBarSelectionEvent.bind(this))
     })
   },
 
   /** Its the event for leftNavBarSelection */
-  leftNavBarSelectionEvent (e) {
-    Array.from(document.getElementsByClassName('sidebar-navigator-left'))
-      .forEach((element) => {
-        element.classList.remove('selected')
-      })
-    e.currentTarget.classList.add('selected')
-
-    Array.from(document.getElementsByClassName('sidebar-content'))
-      .forEach((element) => {
-        element.classList.add('hide')
-      })
-
-    let data = 'sidebar-' + e.currentTarget.getAttribute('data-open')
-    document.getElementsByClassName(data)[0].classList.remove('hide')
+  navBarSelectionEvent (e) {
+    let target = e.currentTarget
+    Array.from(target.parentNode.children).forEach(item => {
+      let open = item.getAttribute('open')
+      item.classList.remove('selected')
+      document.getElementsByClassName(open)[0].classList.remove('selected')
+    })
+    target.classList.add('selected')
+    document.getElementsByClassName(target.getAttribute('open'))[0].classList.add('selected')
   }
 
 }

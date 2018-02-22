@@ -1,7 +1,10 @@
 // global inputs
-input {
+input,
+select {
   background-color: $main;
-  border: 1px solid $main;
+  border: 0;
+  border-bottom: 1px solid $border;
+  box-sizing: border-box;
   color: $light;
   font-size: 14px;
   outline: 0;
@@ -10,5 +13,18 @@ input {
   &:focus {
     background-color: $main-background;
     border: 1px solid $border;
+  }
+}
+
+button {
+  border: 1px solid $border;
+  background-color: $main;
+  color: $light;
+  cursor: pointer;
+  transition: background-color .5s;
+  padding: 3px;
+
+  &:hover {
+    background-color: $main-background;
   }
 }
