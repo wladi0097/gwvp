@@ -2,6 +2,7 @@
 .element-editor {
   height: 95%;
   display: none;
+
   &.selected {
     display: block;
     animation: fadeIn .5s;
@@ -9,6 +10,7 @@
 
   &.element-editor-specific .element-properties {
     display: none;
+
     &.active {
       display: block;
     }
@@ -28,6 +30,7 @@
 
 .element-editor .sidebar-category {
   display: inline-block;
+
   &::after {
     content: '.';
     clear: both;
@@ -141,7 +144,7 @@
 
     &.active {
       display: block;
-      backface-visibility: visible !important;
+      backface-visibility: visible;
       animation: flipInX .5s;
     }
 
@@ -163,7 +166,7 @@
     }
   }
 
-  .allClasses {
+  .all-classes {
     width: 80%;
     margin-left: 10%;
     border: 1px solid $border;
@@ -171,11 +174,11 @@
     box-sizing: border-box;
 
     &::after {
-      content: ".";
+      content: '.';
       clear: both;
       display: block;
       visibility: hidden;
-      height: 0px;
+      height: 0;
     }
 
     .item {
@@ -409,6 +412,7 @@
 .element-editor .expandable-container {
   width: 100%;
   height: 100%;
+
   &::after {
     content: '.';
     clear: both;
@@ -421,6 +425,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+
     >i {
       margin-top: 15px;
       height: 25px;
@@ -429,7 +434,7 @@
       float: left;
       cursor: pointer;
       transition: color .5s;
-      transition: transform .3s;
+      transition: transform .3s; // sass-lint:disable-line no-duplicate-properties
 
       &:hover {
         color: $light-active;
@@ -448,8 +453,8 @@
         margin-left: 0;
       }
 
-      &.withText {
-        >p{
+      &.with-text {
+        >p {
           width: 50%;
         }
 
@@ -468,7 +473,7 @@
 
     &.active {
       display: block;
-      backface-visibility: visible !important;
+      backface-visibility: visible;
       animation: flipInX .5s;
     }
 

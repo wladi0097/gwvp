@@ -5,7 +5,7 @@ const styleManipulation = require('../styleManipulation')
 
 document.body.innerHTML = `<div class="selector">
   <div class="mini-window active" id="classListings">
-    <div class="allClasses" id="elementClasses"></div>
+    <div class="all-classes" id="elementClasses"></div>
     <button type="button" name="button" id="addClass">Add Class</button>
   </div>
   <div class="mini-window" id="classSettings">
