@@ -118,7 +118,7 @@ const buildMenu = {
       this.html += `
       <li class="option-item" id="${item.id}">
         <i class="fa ${item.icon}" aria-hidden="true"></i>
-        ${(item.href) ? `<a href="${item.href}">` : ''}
+        ${(item.href) ? `<a href="${item.href}" target="_blank">` : ''}
         <p>${item.text}</p>
         <p class="shortcut">${item.keycode}</p>
         ${(item.href) ? `</a>` : ''}

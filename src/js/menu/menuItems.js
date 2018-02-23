@@ -152,17 +152,17 @@ module.exports = function () {
       {
         icon: 'book',
         text: 'Read Docs',
-        href: '#'
+        href: 'https://gwvp.glvp.de/docs/'
       },
       {
         icon: 'github',
         text: 'Code on Github',
-        href: '#'
+        href: 'https://github.com/wladi0097/gwvp'
       },
       {
-        icon: 'file-text',
-        text: 'Whats New',
-        href: '#'
+        icon: 'exclamation-triangle',
+        text: 'Report a problem',
+        href: 'https://github.com/wladi0097/gwvp/issues'
       }
     ]
   },
