@@ -54,9 +54,9 @@ const history = {
   /** get next value  */
   redo () {
     if (this.redoPossible) {
+      this.pointer++
       let val = this.returnVal()
       if (val) val.done.apply(val._this, val.doneArgs)
-      this.pointer++
       this.checkPossibilities()
     }
   },
