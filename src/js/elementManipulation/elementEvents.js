@@ -5,6 +5,7 @@ const textEditor = require('./textEditor')
 const keydown = require('../interaction/keydown.js')
 const contextMenu = require('../interaction/contextMenu.js')
 const history = require('../interaction/history.js')
+const idGen = require('../interaction/idGen.js')
 
 /** Modify all Iframe Dom elements width elementEvents,
  * also highlight currently hovered and selected elements and save them for further use.
@@ -20,7 +21,7 @@ const elementEvents = {
   /** The virtual Clipboard saves copied elements as an String. */
   clipboard: null,
   /** The main iframe */
-  iframe: null,
+  $iframe: null,
 
   /** Initialize elementEvents.
   * @return this
@@ -84,7 +85,6 @@ const elementEvents = {
   * @return this
   */
   change () {
-    history.add(this.$iframe.body.outerHTML)
     return this
   },
 
@@ -96,7 +96,7 @@ const elementEvents = {
       alert('undo not possible')
       return this
     }
-    this.$iframe.body.outerHTML = history.undo()
+    history.undo()
   },
 
   /** Redo last dom change.
@@ -107,7 +107,7 @@ const elementEvents = {
       alert('redo not possible')
       return this
     }
-    this.$iframe.body.outerHTML = history.redo()
+    history.redo()
   },
 
   /** This is a event and a method.
@@ -239,18 +239,67 @@ const elementEvents = {
   * @param {Boolean} noChange - true if it should not count as dom change
   * @return this
   */
-  delete (noChange = false) {
+  delete (noChange = false, historyItem) {
+    if (historyItem) {
+      let historyElem = this.$iframe.querySelector(`[history="${historyItem}"]`)
+      if (!historyElem) return
+      this.currentElement = historyElem
+      this.allowInteraction = true
+    }
     if (!this.allowInteraction || !this.currentElement) {
       alert('nothing selected to delete')
       return this
     }
     let parent = this.currentElement.parentNode
+    if (!historyItem) this.deleteFHistory(parent)
     pageDomTree.removeNode(this.currentElement)
     parent.removeChild(this.currentElement)
     this.noClick()
     if (!noChange) this.change()
     pageDomTree.removeNodeFix(parent)
     return this
+  },
+
+  /** Add delete to History (to undo or redo it)  */
+  deleteFHistory () {
+    // undo
+    let idUndo = idGen.new()
+    let idUndoExist = null
+    let parent = this.currentElement.parentNode
+    let appendStyle = 'in'
+    if (parent.children.length > 1) {
+      let c = Array.from(parent.children).indexOf(this.currentElement)
+      if (c === 0) {
+        idUndoExist = this.currentElement.nextElementSibling.getAttribute('history')
+        if (!idUndoExist) this.currentElement.nextElementSibling.setAttribute('history', idUndo)
+        appendStyle = 'before'
+      } else {
+        idUndoExist = this.currentElement.previousElementSibling.getAttribute('history')
+        if (!idUndoExist) this.currentElement.previousElementSibling.setAttribute('history', idUndo)
+        appendStyle = 'after'
+      }
+    } else {
+      idUndoExist = parent.getAttribute('history')
+      if (!idUndoExist) parent.setAttribute('history', idUndo)
+    }
+    idUndo = idUndoExist || idUndo
+
+    // redo
+    let idRedo = idGen.new()
+    let idRedoExists = this.currentElement.getAttribute('history')
+    if (!idRedoExists) {
+      this.currentElement.setAttribute('history', idRedo)
+    } else {
+      idRedo = idRedoExists
+    }
+
+    history.add({
+      done: this.delete,
+      doneArgs: [false, idRedo],
+      undo: this.paste,
+      undoArgs: [appendStyle, this.currentElement.outerHTML, null, false, idUndo],
+      _this: this
+    })
   },
 
   /** copy a selected element and delete it afterwards.
@@ -263,7 +312,7 @@ const elementEvents = {
     }
     this.copy()
       .delete(true)
-      .change()
+    this.change()
     return this
   },
 
@@ -275,7 +324,12 @@ const elementEvents = {
     * @param {Boolean} noChange - true if it should not count as dom change
   *  @return this
   */
-  paste (appendStyle, data, whereDom, noChange = false) {
+  paste (appendStyle, data, whereDom, noChange = false, historyItem) {
+    if (historyItem) {
+      let historyElem = this.$iframe.querySelector(`[history="${historyItem}"]`)
+      if (!historyElem) return
+      this.currentElement = historyElem
+    }
     let insertHTML = data || this.clipboard
     let insertDom = whereDom || this.currentElement
     appendStyle = appendStyle || 'in'
@@ -283,22 +337,61 @@ const elementEvents = {
       alert('no selected element or nothing in clipboard')
       return this
     }
+    let newElement = null
     switch (appendStyle) {
       case 'after':
         insertDom.insertAdjacentHTML('afterend',
           insertHTML)
+        newElement = insertDom.nextSibling
         break
       case 'before':
         insertDom.insertAdjacentHTML('beforebegin',
           insertHTML)
+        newElement = insertDom.previousSibling
         break
       case 'in':
         insertDom.innerHTML += insertHTML
+        newElement = insertDom.children[insertDom.children.length - 1]
         break
     }
     pageDomTree.addNode(appendStyle, insertDom)
+    if (!historyItem) this.pasteFHistory(appendStyle, insertHTML, insertDom, newElement)
     if (!noChange) this.change()
     return this
+  },
+
+  /** Add paste to History (to undo or redo it)
+  *  @param {String} appendStyle - how to append the items
+  *  @param {String} insertHTML - what to append
+  *  @param {String} insertDom - current element
+    * @param {Boolean} newElement - new created element
+  */
+  pasteFHistory (appendStyle, insertHTML, insertDom, newElement) {
+    // undo
+    let idUndo = idGen.new()
+    let idUndoExists = newElement.getAttribute('history')
+    if (!idUndoExists) {
+      newElement.setAttribute('history', idUndo)
+    } else {
+      idUndo = idUndoExists
+    }
+
+    // redo
+    let idRedo = idGen.new()
+    let idRedoExists = insertDom.getAttribute('history')
+    if (!idRedoExists) {
+      insertDom.setAttribute('history', idRedo)
+    } else {
+      idRedo = idRedoExists
+    }
+
+    history.add({
+      done: this.paste,
+      doneArgs: [appendStyle, insertHTML, null, false, idRedo],
+      undo: this.delete,
+      undoArgs: [false, idUndo],
+      _this: this
+    })
   },
 
   /** Copies the selected element and appends it as a sibling below itslef.
