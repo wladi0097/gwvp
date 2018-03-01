@@ -62,17 +62,17 @@ module.exports = {
     ]
   },
   plugins: PROD ? [
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        ie8: false,
-        ecma: 8,
-        output: {
-          comments: false,
-          beautify: false
-        },
-        warnings: false
-      }
-    }),
+    // new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     ie8: false,
+    //     ecma: 6,
+    //     output: {
+    //       comments: false,
+    //       beautify: false
+    //     },
+    //     warnings: true
+    //   }
+    // }),
     new HtmlWebpackPlugin({
       template: 'src/html/entry.html',
       filename: 'index.html',

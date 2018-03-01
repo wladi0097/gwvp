@@ -10,16 +10,16 @@
 
 <body>
   <%= require('html-loader!./noScript.html') %>
+  <%= require('html-loader!./loadingScreen.html') %>
   <div class="main-application">
     <%= require('html-loader!./header.html') %>
-    <%= require('html-loader!./texteditor.html') %>
     <div class="left-sidebar sidebar">
     <%= require('html-loader!./left-sidebar.html') %>
     <%= require('html-loader!./newElements.html') %>
     <%= require('html-loader!./domTree.html') %>
     </div>
     <%= require('html-loader!./center.html') %>
-    <div class="right-sidebar sidebar">
+    <div class="right-sidebar sidebar" id="elementEditor">
     <%= require('html-loader!./right-sidebar.html') %>
     <%= require('html-loader!./elementEditor.html') %>
     </div>

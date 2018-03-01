@@ -1,4 +1,26 @@
 // delimiter
+.element-editor {
+  height: 95%;
+  display: none;
+
+  &.selected {
+    display: block;
+    animation: fadeIn .5s;
+  }
+
+  &.element-editor-specific .element-properties {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+.element-editor button {
+  width: 80%;
+}
+
 .element-editor .delimiter {
   border-bottom: 1px solid $main-background;
   width: 60%;
@@ -8,10 +30,22 @@
 
 .element-editor .sidebar-category {
   display: inline-block;
-  margin-top: 10px;
+
+  &::after {
+    content: '.';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
 }
 
 .text-with-input {
+  height: 25px;
+  float: left;
+  margin-top: 15px;
+  margin-left: 5%;
+
   &::after {
     content: '.';
     clear: both;
@@ -21,32 +55,123 @@
   }
 
   >p {
+    line-height: 25px;
+    height: 25px;
     text-align: left;
     width: 50%;
     float: left;
+
+    >img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
-  >input {
-    text-align: center;
-    background-color: $main-background;
-    border: 1px solid $border;
-    border-radius: 2px;
-    box-sizing: border-box;
+  >input,
+  >select {
+    height: 25px;
+    text-align: left;
     width: 50%;
     float: left;
+
+    &:active {
+      border: 0;
+      border-bottom: 1px solid $border;
+    }
+  }
+
+  &.fullwidth {
+    width: 90%;
+
+    >p {
+      width: 20px;
+    }
+
+    >input,
+    >select {
+      width: calc(100% - 20px);
+    }
+  }
+
+  &.halfwidth {
+    width: 40%;
+    float: left;
+
+    >p {
+      width: 20px;
+    }
+
+    >input,
+    >select {
+      margin-left: 5px;
+      width: calc(100% - 30px);
+    }
+  }
+
+  &.thirdwidth {
+    width: 30%;
+    float: left;
+
+    >p {
+      width: 20px;
+    }
+
+    >input,
+    >select {
+      width: calc(100% - 20px);
+    }
+  }
+
+  &.colorpicker {
+    >input {
+      border: 0;
+      float: left;
+    }
   }
 }
 
 // Selector
 .element-editor .selector {
   width: 100%;
+  position: relative;
 
-  .input {
+  .mini-window {
+    padding: 10px 0;
+    width: 90%;
+    margin-left: 5%;
+    background-color: $main;
+    display: none;
+
+    &.active {
+      display: block;
+      backface-visibility: visible;
+      animation: flipInX .5s;
+    }
+
+    >p {
+      color: $highlight;
+    }
+
+    >button {
+      width: 40%;
+      margin-left: 6%;
+      float: left;
+      box-sizing: border-box;
+      margin-top: 5px;
+
+      &:last-child {
+        width: 86%;
+        margin-left: 6%;
+      }
+    }
+  }
+
+  .all-classes {
     width: 80%;
     margin-left: 10%;
-    background-color: $main;
-    padding: 5px;
     border: 1px solid $border;
+    padding: 5px;
+    box-sizing: border-box;
 
     &::after {
       content: '.';
@@ -56,49 +181,19 @@
       height: 0;
     }
 
-    &:hover {
-      background-color: $main-background;
-    }
-
-    .item,
-    input {
-      background-color: transparent;
-      border: 0;
-      margin: 2px;
-      display: table-cell;
-    }
-
-    input {
-      width: auto;
-    }
-
     .item {
+      font-size: 15px;
       float: left;
-      position: relative;
-      background-color: $highlight;
+      padding: 3px;
+      margin: 3px;
       color: $light;
-      padding: 0 3px;
-      border-radius: 2px;
+      background-color: $highlight;
+      transition: background-color .5s;
+      cursor: pointer;
+      animation: fadeInRight .5s;
 
       &:hover {
-        &::after {
-          display: block;
-          background-color: $main;
-        }
-      }
-
-      &::after {
-        background-color: transparent;
-        transition: background-color 1s;
-        cursor: pointer;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-        content: 'x';
-        border-radius: 2px;
+        background-color: $highlight-hover;
       }
     }
   }
@@ -314,24 +409,62 @@
 }
 
 // Layout width-height
-.element-editor .width-height .expandable-container {
+.element-editor .expandable-container {
+  width: 100%;
+  height: 100%;
+
+  &::after {
+    content: '.';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
+
   .expandable-header {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
     >i {
+      margin-top: 15px;
+      height: 25px;
+      line-height: 25px;
       width: 10%;
       float: left;
+      cursor: pointer;
+      transition: color .5s;
+      transition: transform .3s; // sass-lint:disable-line no-duplicate-properties
+
+      &:hover {
+        color: $light-active;
+      }
+
+      &.active {
+        transform: rotate(180deg);
+      }
     }
 
     >.text-with-input {
       width: 40%;
       float: left;
 
-      &:first-child {
-        margin-left: 5%;
+      &:last-child {
+        margin-left: 0;
       }
 
-      >input {
-        padding: 3px 0;
+      &.with-text {
+        >p {
+          width: 50%;
+        }
+
+        >input {
+          padding: 3px 0;
+          margin-left: 0;
+          width: 50%;
+        }
       }
+
     }
   }
 
@@ -340,6 +473,8 @@
 
     &.active {
       display: block;
+      backface-visibility: visible;
+      animation: flipInX .5s;
     }
 
     >.text-with-input {
@@ -363,6 +498,131 @@
       display: block;
       visibility: hidden;
       height: 0;
+    }
+  }
+}
+
+.element-editor .radio-block {
+  width: 100%;
+  margin-top: 15px;
+
+  >h2 {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  >.radio {
+    border: 1px solid $border;
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+
+    .item {
+      border-right: 1px solid $border;
+      float: left;
+      flex: 1;
+      height: 25px;
+      cursor: pointer;
+      transition: background-color .5s;
+
+      &:hover {
+        background-color: $main-background;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      &.active {
+        background-color: $main-background;
+      }
+
+      >p {
+        font-size: 14px;
+      }
+
+      >img,
+      >i {
+        margin-top: 2.5px;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &.twothirdswidth {
+    width: 60%;
+    float: left;
+    margin-top: 15px;
+
+    >.radio {
+      margin-left: 10%;
+      width: 90%;
+    }
+  }
+}
+
+.border-styles {
+  margin: 10px 5%;
+  width: 120px;
+  height: 70px;
+  float: left;
+  position: relative;
+
+  >input {
+    width: 50px;
+    height: 20px;
+    background-color: $main-background;
+    position: absolute;
+    border: 3px solid $main-background;
+    border-style: dotted;
+    cursor: pointer;
+
+    &.border-top {
+      left: 35px;
+      top: 0;
+      border-top-color: $border;
+      text-align: center;
+
+      &:hover,
+      .active {
+        border-top-color: $highlight;
+      }
+    }
+
+    &.border-right {
+      right: 0;
+      top: 25px;
+      border-right-color: $border;
+      text-align: right;
+
+      &:hover,
+      .active {
+        border-right-color: $highlight;
+      }
+    }
+
+    &.border-bottom {
+      bottom: 0;
+      left: 35px;
+      border-bottom-color: $border;
+      text-align: center;
+
+      &:hover,
+      .active {
+        border-bottom-color: $highlight;
+      }
+    }
+
+    &.border-left {
+      top: 25px;
+      left: 0;
+      border-left-color: $border;
+
+      &:hover,
+      .active {
+        border-left-color: $highlight;
+      }
     }
   }
 }

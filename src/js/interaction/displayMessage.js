@@ -1,3 +1,4 @@
+/** Display a popup Message for the user and remove it after a given time or after close was clicked. */
 const displayMessage = {
   displayElem: null,
 

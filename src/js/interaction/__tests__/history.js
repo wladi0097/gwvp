@@ -7,6 +7,7 @@ describe('add', () => {
   copy.checkPossibilities = () => {}
 
   it('should add an item to the history array', () => {
+    copy.history = []
     copy.add('hi')
     expect(copy.history[0]).toBe('hi')
   })
@@ -54,6 +55,7 @@ describe('checkPossibilities', () => {
   })
 
   it('should allow redo if pointer is not on top of history', () => {
+    history.history = ['1', '2', '3', '4']
     history.redoPossible = false
     history.maxSaves = 10
     history.pointer = 2
@@ -115,11 +117,6 @@ describe('redo', () => {
 describe('returnVal', () => {
   let copy = {...history}
   copy.checkPossibilities = jest.fn()
-
-  it('should run checkPossibilities', () => {
-    copy.returnVal()
-    expect(copy.checkPossibilities.mock.calls.length).toBe(1)
-  })
 
   it('should return the current history item', () => {
     copy.history = ['1', '2', '3', '4']

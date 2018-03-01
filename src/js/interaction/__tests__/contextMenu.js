@@ -37,7 +37,7 @@ describe('Initialize', () => {
   let ownContextMenu = {...contextMenu}
   it('should not initialize if inputs are undefined', () => {
     ownContextMenu.init(document, null)
-    expect(ownContextMenu.$domItem).toBe(undefined)
+    expect(ownContextMenu.$domItem).toBe(null)
   })
 
   it('should initialize with working inputs', () => {
@@ -66,7 +66,7 @@ describe('event bindings', () => {
   })
 
   it('should fire close context menu', () => {
-    let event = new MouseEvent('mousedown')
+    let event = new MouseEvent('click')
     event.force = true
     document.dispatchEvent(event)
     expect($contextMenu.attr('style')).toBe('display: none;')
@@ -80,7 +80,7 @@ describe('getBestPoition', () => {
   let cube = 100
   window.innerWidth = cube
   window.innerHeight = cube
-  let tolerance = 25 // tolerance
+  let tolerance = 0 // tolerance
 
   it('should return top left ', () => {
     let pos = ownContextMenu.getBestPosition(0, 0)

@@ -1,6 +1,7 @@
 const elementEvents = require('../elementManipulation/elementEvents.js')
 const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
+const history = require('../interaction/history.js')
 
 /** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
@@ -48,12 +49,16 @@ module.exports = function () {
     items: [{
       icon: 'undo',
       text: 'Undo',
-      keycode: 'STRG + Z'
+      keycode: 'STRG + Z',
+      clickable () { return history.undoPossible },
+      run () { elementEvents.undo() }
     },
     {
       icon: 'repeat',
       text: 'Redo',
-      keycode: 'SHIFT + STRG + Z'
+      keycode: 'STRG + Y',
+      clickable () { return history.redoPossible },
+      run () { elementEvents.redo() }
     },
     {
       delimiter: true
@@ -92,15 +97,22 @@ module.exports = function () {
       keycode: 'DEL',
       clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.delete() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'check',
+      text: 'Textedit Mode',
+      keycode: 'ALT + T',
+      active () { return elementEvents.textEditorActive },
+      run () { elementEvents.dblclick() }
     }
     ]
   },
   {
     name: 'View',
     items: [{
-      delimiter: true
-    },
-    {
       icon: 'resize',
       text: 'Screen Size',
       underItems: [{
@@ -152,17 +164,17 @@ module.exports = function () {
       {
         icon: 'book',
         text: 'Read Docs',
-        href: '#'
+        href: 'https://gwvp.glvp.de/docs/'
       },
       {
         icon: 'github',
         text: 'Code on Github',
-        href: '#'
+        href: 'https://github.com/wladi0097/gwvp'
       },
       {
-        icon: 'file-text',
-        text: 'Whats New',
-        href: '#'
+        icon: 'exclamation-triangle',
+        text: 'Report a problem',
+        href: 'https://github.com/wladi0097/gwvp/issues'
       }
     ]
   },
@@ -171,8 +183,43 @@ module.exports = function () {
     id: 'contextmenu',
     name: 'contextmenu',
     items: [{
-      icon: '',
-      text: 'New Project'
+      icon: 'check',
+      text: 'Textedit Mode',
+      active () { return elementEvents.textEditorActive },
+      run () { elementEvents.dblclick() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'scissors',
+      text: 'Cut',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.cut() }
+    },
+    {
+      icon: 'clone',
+      text: 'Copy',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.copy() }
+    },
+    {
+      icon: 'clone',
+      text: 'Duplicate',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.duplicate() }
+    },
+    {
+      icon: 'clipboard',
+      text: 'Paste',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.paste() }
+    },
+    {
+      icon: 'trash',
+      text: 'Delete',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.delete() }
     }]
   }]
 }

@@ -328,6 +328,7 @@ describe('cut', () => {
     let mockCopy = jest.fn().mockReturnValue(copy)
     copy.copy = mockCopy
     copy.delete = jest.fn()
+    copy.change = jest.fn()
     copy.cut()
     expect(copy.copy.mock.calls.length).toBe(1)
     expect(copy.delete.mock.calls.length).toBe(1)
@@ -386,6 +387,7 @@ describe('paste', () => {
     elementEvents.currentElement = null
     elem.innerHTML = ''
     elementEvents.paste('in', '<p></p>', elem)
+    elem.children[0].removeAttribute('history')
     expect(elem.innerHTML).toBe('<p></p>')
   })
 
@@ -395,6 +397,7 @@ describe('paste', () => {
     elementEvents.currentElement = null
     elem.innerHTML = ''
     elementEvents.paste(null, '<p></p>', elem)
+    elem.children[0].removeAttribute('history')
     expect(elem.innerHTML).toBe('<p></p>')
   })
 
@@ -405,6 +408,8 @@ describe('paste', () => {
     elementEvents.currentElement = null
     let before = document.getElementById('before')
     elementEvents.paste('before', '<p></p>', before)
+    elem.children[0].removeAttribute('history')
+    elem.children[1].removeAttribute('history')
     expect(elem.innerHTML).toBe('<p></p><p id="before"></p>')
   })
 
@@ -415,6 +420,8 @@ describe('paste', () => {
     elementEvents.currentElement = null
     let after = document.getElementById('after')
     elementEvents.paste('after', '<p></p>', after)
+    elem.children[0].removeAttribute('history')
+    elem.children[1].removeAttribute('history')
     expect(elem.innerHTML).toBe('<p id="after"></p><p></p>')
   })
 })
@@ -462,20 +469,6 @@ describe('redrawRect', () => {
     elementEvents.redrawRect()
     expect(elem.clicked).toBe(undefined)
     expect(elem.hovered).toBe(undefined)
-  })
-
-  it('should click the element when a currentElement exists', () => {
-    elementEvents.currentElement = elem
-    elementEvents.hoveredElement = null
-    elementEvents.redrawRect()
-    expect(elem.clicked).toBe(true)
-  })
-
-  it('should click the element when a hoveredElement exists', () => {
-    elementEvents.currentElement = null
-    elementEvents.hoveredElement = elem
-    elementEvents.redrawRect()
-    expect(elem.hovered).toBe(true)
   })
 })
 

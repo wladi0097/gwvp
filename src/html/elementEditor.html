@@ -1,94 +1,397 @@
-<div class="sidebar-content element-editor overflow">
+<div class="sidebar-content element-editor element-editor-general overflow selected">
   <div class="sidebar-category">
     <p>Selector</p>
     <div class="selector">
-      <div class="input">
-        <p class="item">Div</p>
-        <input type="text" name="" value="" placeholder="+class">
+      <div class="mini-window active" id="classListings">
+        <div class="all-classes" id="elementClasses"></div>
+        <button type="button" name="button" id="addClass">Add Class</button>
+      </div>
+      <div class="mini-window" id="classSettings">
+        <p id="selectedClassName">Classname</p>
+        <button type="button" name="button" id="selectClass">Select</button>
+        <button type="button" name="button" id="removeClass">Remove</button>
+        <button type="button" name="button" id="returnFromClass">Go Back</button>
+      </div>
+      <div class="mini-window front" id="addClassWindow">
+        <p>Add Class by name</p>
+        <br>
+        <input placeholder="Classname" id="addClassInput">
+      </div>
+      <div class="mini-window front" id="usingClass">
+        <p>Editing</p>
+        <br>
+        <p id="usingClassName">Classname</p>
       </div>
     </div>
   </div>
   <div class="sidebar-category">
     <p>Layout</p>
     <div class="layout">
+<!------------------------------>
       <div class="padding-margin">
         <div class="margin">
           <div class="top editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-top" type="text" placeholder="top" title="Margin top">
           </div>
           <div class="right editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-right" type="text" placeholder="right" title="Margin right">
           </div>
           <div class="bottom editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-bottom" type="text" placeholder="bottom" title="Margin bottom">
           </div>
           <div class="left editor-direction">
-            <input type="text" value="2000">
+            <input editCSS="margin-left" type="text" placeholder="left" title="Margin left">
           </div>
           <div class="padding">
             <div class="top editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-top" type="text" placeholder="top" title="Padding top">
             </div>
             <div class="right editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-right" type="text" placeholder="right" title="Padding right">
             </div>
             <div class="bottom editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-bottom" type="text" placeholder="bottom" title="Padding bottom">
             </div>
             <div class="left editor-direction">
-              <input type="text" value="2000">
+              <input editCSS="padding-left" type="text" placeholder="left" title="Padding left">
             </div>
           </div>
         </div>
       </div>
+<!------------------------------>
       <div class="width-height">
         <div class="expandable-container">
           <div class="expandable-header">
-            <div class="text-with-input">
+            <div class="text-with-input with-text halfwidth">
               <p>Width:</p>
-              <input value="100 %">
+              <input editCSS="width" placeholder="Width" title="Width">
             </div>
-            <i class="fa fa-caret-up" aria-hidden="true"></i>
-            <div class="text-with-input">
+            <i class="fa fa-caret-up openContent" aria-hidden="true"></i>
+            <div class="text-with-input with-text halfwidth">
               <p>Height:</p>
-              <input value="100 %">
+              <input editCSS="height" placeholder="Height" title="Height">
             </div>
           </div>
           <div class="expandable-content">
             <div class="text-with-input">
               <p>min:</p>
-              <input value="100 %">
+              <input editCSS="min-width" placeholder="min" title="Min width">
             </div>
             <div class="text-with-input">
               <p>min:</p>
-              <input value="100 %">
+              <input editCSS="min-height" placeholder="min" title="Min height">
             </div>
             <div class="text-with-input">
               <p>max:</p>
-              <input value="100 %">
+              <input editCSS="max-width" placeholder="max" title="Max width">
             </div>
             <div class="text-with-input">
               <p>max:</p>
-              <input value="100 %">
+              <input editCSS="max-height" placeholder="max" title="Max height">
             </div>
           </div>
         </div>
       </div>
+<!------------------------------>
+      <div class="radio-block">
+        <h2>Display</h2>
+        <div radio editCSS="display" class="radio">
+          <div val="block" class="item active">
+            <img src="../img/domEditor/display_block.svg" alt="Display Block" title="Block">
+          </div>
+          <div val="inline-block" class="item">
+            <img src="../img/domEditor/display_inlineblock.svg" alt="Display Inline-Block" title="Inline-Block">
+          </div>
+          <div val="inline" class="item">
+            <img src="../img/domEditor/display_inline.svg" alt="Display Inline" title="Inline">
+          </div>
+          <div val="flex" class="item">
+            <img src="../img/domEditor/display_flex.svg" alt="Display Flex" title="Flex">
+          </div>
+          <div val="none" class="item">
+            <img src="../img/domEditor/invisible.svg" alt="Display None" title="None">
+          </div>
+        </div>
+        <div class="radio-choices">
+          <div class="flex">
+          </div>
+        </div>
+      </div>
+
+      <div class="radio-block">
+        <h2>Position</h2>
+        <div radio editCSS="position" class="radio">
+          <div val="static" class="item">
+            <img src="../img/domEditor/position_static.svg" alt="" alt="Position Static" title="Static">
+          </div>
+          <div val="relative" class="item">
+            <img src="../img/domEditor/position_relative.svg" alt="" alt="Position Relative" title="Relative">
+          </div>
+          <div val="absolute" class="item active">
+            <img src="../img/domEditor/position_absolute.svg" alt="" alt="Position Absolute" title="Absolute">
+          </div>
+          <div val="fixed" class="item">
+            <img src="../img/domEditor/position_fixed.svg" alt="" alt="Position Fixed" title="Fixed">
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="sidebar-category">
     <p>Background</p>
-    <div class="colorpicker">
-      <div class="color">
+    <div class="text-with-input halfwidth colorpicker">
+      <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+      <input editCSS="background-color" type="color" name="" value="#ffffff" title="Background color">
+    </div>
 
-      </div>
-      <input type="text" name="" value="">
+    <div class="text-with-input halfwidth">
+      <p><i class="fa fa-image" aria-hidden="true"></i></p>
+      <input editCSS="background-image" placeholder="Image URL" title="Background image">
     </div>
   </div>
   <div class="sidebar-category">
     <p>Border</p>
+    <div class="border-styles">
+      <input class="border-top toggleCss" editCSS="border-top-width" title="Border top">
+      <input class="border-right toggleCss" editCSS="border-right-width" title="Border right">
+      <input class="border-bottom toggleCss" editCSS="border-bottom-width" title="Border bottom">
+      <input class="border-left toggleCss" editCSS="border-left-width" title="Border left">
+    </div>
+    <div class="text-with-input halfwidth colorpicker">
+      <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+      <input editCSS="border-color" type="color" name="" value="#ffffff" title="Border color">
+    </div>
+    <div class="text-with-input halfwidth">
+      <p> <img src="../img/domEditor/border_style.svg" alt=""> </p>
+      <input editCSS="border-style" placeholder="Border style" title="Border style">
+    </div>
   </div>
   <div class="sidebar-category">
-    <p>Effects</p>
+    <p>Typography</p>
+    <div class="expandable-container">
+      <div class="expandable-header">
+        <div class="text-with-input halfwidth colorpicker">
+          <p> <img src="../img/domEditor/colorPicker.svg" alt=""> </p>
+          <input editCSS="color" type="color" name="" value="#ffffff" title="Font Color">
+        </div>
+        <i class="fa fa-caret-up openContent" aria-hidden="true"></i>
+        <div class="text-with-input halfwidth">
+          <p><i class="fa fa-font" aria-hidden="true"></i></p>
+          <input editCSS="font-family" placeholder="Font family" title="Font family">
+        </div>
+      </div>
+      <div class="expandable-content">
+        <div class="text-with-input halfwidth">
+          <p><i class="fa fa-text-height" aria-hidden="true"></i></p>
+          <input editCSS="line-height" placeholder="Line height" title="Line height">
+        </div>
+        <div class="text-with-input halfwidth">
+          <p><i class="fa fa-text-width" aria-hidden="true"></i></p>
+          <input editCSS="letter-spacing" placeholder="Letter spacing" title="Letter spacing">
+        </div>
+        <div class="text-with-input halfwidth">
+          <p><i class="fa fa-bold" aria-hidden="true"></i></p>
+          <input editCSS="font-weight" placeholder="Font weight" title="Font weight">
+        </div>
+      </div>
+    </div>
+    <div class="text-with-input thirdwidth">
+      <p><i class="fa fa-expand" aria-hidden="true"></i></p>
+      <input editCSS="font-size" placeholder="Font size" title="Font size">
+    </div>
+    <div class="radio-block twothirdswidth">
+      <div radio editCSS="text-align" class="radio">
+        <div val="left" class="item" title="Align left">
+          <i class="fa fa-align-left" aria-hidden="true"></i>
+        </div>
+        <div val="center" class="item" title="Align center">
+          <i class="fa fa-align-center" aria-hidden="true"></i>
+        </div>
+        <div val="right" class="item active" title="Align right">
+          <i class="fa fa-align-right" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="sidebar-content element-editor element-editor-specific overflow">
+  <!-- Uncategorized -->
+  <div class="sidebar-category">
+    <p>Uncategorized</p>
+    <div class="text-with-input fullwidth">
+      <p>ID</p>
+      <input editProp="id" placeholder="ID" title="ID">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p><i class="fa fa-text-width" aria-hidden="true"></i></p>
+      <input editProp="title" placeholder="Title" title="Title">
+    </div>
+  </div>
+  <!-- Anchor -->
+  <div class="sidebar-category element-properties" inputFor="A">
+    <p>Anchor</p>
+    <div class="text-with-input fullwidth">
+      <p>H</p>
+      <input editProp="href" placeholder="URL" title="URL">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>T</p>
+      <input editProp="target" placeholder="Target" title="Target">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="download" placeholder="Download" title="Download">
+    </div>
+  </div>
+  <!-- Image -->
+  <div class="sidebar-category element-properties" inputFor="IMG">
+    <p>Image</p>
+    <div class="text-with-input fullwidth">
+      <p>src</p>
+      <input editProp="scr" placeholder="scr" title="src">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>alt</p>
+      <input editProp="alt" placeholder="alt" title="alt">
+    </div>
+  </div>
+  <!-- Input -->
+  <div class="sidebar-category element-properties" inputFor="INPUT">
+    <p>Input</p>
+    <div class="text-with-input fullwidth">
+      <p>P</p>
+      <input editProp="placeholder" placeholder="Placeholder" title="Placeholder">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>T</p>
+      <input editProp="type" placeholder="Type" title="Type">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>N</p>
+      <input editProp="name" placeholder="Name" title="Name">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>V</p>
+      <input editProp="value" placeholder="Value" title="Value">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>R</p>
+      <input editProp="readonly" placeholder="Readonly" title="Readonly">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="disabled" placeholder="Disabled" title="Disabled">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>M</p>
+      <input editProp="maxlength" placeholder="Maxlength" title="Maxlength">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>A</p>
+      <input editProp="autocomplete" placeholder="Autocomplete" title="Autocomplete">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>R</p>
+      <input editProp="required" placeholder="Required" title="Required">
+    </div>
+  </div>
+  <!-- Form -->
+  <div class="sidebar-category element-properties" inputFor="FORM">
+    <p>Form</p>
+    <div class="text-with-input fullwidth">
+      <p>A</p>
+      <input editProp="action" placeholder="Action" title="Action">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>M</p>
+      <input editProp="method" placeholder="Method" title="Method">
+    </div>
+  </div>
+  <!-- Button -->
+  <div class="sidebar-category element-properties" inputFor="BUTTON">
+    <p>Button</p>
+    <div class="text-with-input fullwidth">
+      <p>N</p>
+      <input editProp="name" placeholder="Name" title="Name">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="disabled" placeholder="Disabled" title="Disabled">
+    </div>
+  </div>
+  <!-- Label -->
+  <div class="sidebar-category element-properties" inputFor="LABEL">
+    <p>Label</p>
+    <div class="text-with-input fullwidth">
+      <p>F</p>
+      <input editProp="for" placeholder="For" title="For">
+    </div>
+  </div>
+  <!-- Textarea -->
+  <div class="sidebar-category element-properties" inputFor="TEXTAREA">
+    <p>Textarea</p>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="disabled" placeholder="Disabled" title="Disabled">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>N</p>
+      <input editProp="name" placeholder="Name" title="Name">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>P</p>
+      <input editProp="placeholder" placeholder="Placeholder" title="Placeholder">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>R</p>
+      <input editProp="readonly" placeholder="Readonly" title="Readonly">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>R</p>
+      <input editProp="required" placeholder="Required" title="Required">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>M</p>
+      <input editProp="maxlength" placeholder="Maxlength" title="Maxlength">
+    </div>
+  </div>
+  <!-- Select -->
+  <div class="sidebar-category element-properties" inputFor="SELECT">
+    <p>Label</p>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="disabled" placeholder="Disabled" title="Disabled">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="name" placeholder="Name" title="Name">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>R</p>
+      <input editProp="required" placeholder="Required" title="Required">
+    </div>
+  </div>
+  <!-- Option -->
+  <div class="sidebar-category element-properties" inputFor="OPTION">
+    <p>Option</p>
+    <div class="text-with-input fullwidth">
+      <p>D</p>
+      <input editProp="disabled" placeholder="Disabled" title="Disabled">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>L</p>
+      <input editProp="label" placeholder="Label" title="Label">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>S</p>
+      <input editProp="selected" placeholder="Selected" title="Selected">
+    </div>
+    <div class="text-with-input fullwidth">
+      <p>V</p>
+      <input editProp="value" placeholder="Value" title="Value">
+    </div>
   </div>
 </div>
