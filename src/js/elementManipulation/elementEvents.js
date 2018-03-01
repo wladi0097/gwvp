@@ -74,7 +74,7 @@ const elementEvents = {
       this.$iframe.addEventListener('dblclick', this.dblclick.bind(this), false)
       this.$iframe.addEventListener('scroll', this.onScroll.bind(this), true)
       document.body.addEventListener('mouseover', this.noHover.bind(this), false)
-      contextMenu.init(this.$iframe)
+      contextMenu.init(this.$iframe, document.getElementsByClassName('header-contextmenu')[0], document)
       keydown.init(this.$iframe)
       this.$iframe.hasEvents = true
     }

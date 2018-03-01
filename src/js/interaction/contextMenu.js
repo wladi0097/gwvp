@@ -3,16 +3,24 @@
  * The domItem hides after clicking something else.
  */
 const contextMenu = {
+  $domItem: null,
+  $docPosition: null,
+  $location: null,
+
   /** Initialize the contextMenu to a domItem with a domItem
    * @param {HTMLElement} [location=document] - where the right click should trigger
    * @param {HTMLElement} domItem - which element should be shown. If already initialized it will take the existing one.
+   * @param {HTMLElement} docPosition - if the given location is an iframe the you have to pass the original document too.
   */
-  init (location = document, domItem) {
+  init (location, domItem, docPosition) {
     this.$domItem = domItem || this.$domItem
+    this.$docPosition = docPosition || null
+    this.$location = location || document
     if (location && this.$domItem) {
       this.prepareElement(this.$domItem)
       this.bindContextMenu(location)
       this.bindCloseContextMenu(location)
+      this.bindCloseContextMenu(docPosition)
     }
   },
 
@@ -40,10 +48,8 @@ const contextMenu = {
    * * @param {HTMLElement} location - dom element where left click should hide contextMenu
   */
   bindCloseContextMenu (location) {
-    location.addEventListener('mousedown', (e) => {
-      if (e.force || !e.target.closest('#contextMenu')) {
-        this.$domItem.setAttribute('style', 'display: none;')
-      }
+    location.addEventListener('click', (e) => {
+      this.$domItem.setAttribute('style', 'display: none;')
     })
   },
 
@@ -58,11 +64,20 @@ const contextMenu = {
     // block has to be visible to get width and height
     this.$domItem.setAttribute('style', `display: block;`)
     let position = {x: x, y: y}
-    let tolerance = 25
+    let tolerance = 0
     let width = this.$domItem.offsetWidth + tolerance
     let height = this.$domItem.offsetHeight + tolerance
     let fullwidth = window.innerWidth
     let fullheight = window.innerHeight
+
+    if (this.$docPosition) {
+      let widthfix = 35
+      let heightfix = 60
+      x = ((fullwidth - this.$location.body.clientWidth) / 2) + x - widthfix
+      position.x = x
+      y = y + heightfix
+      position.y = y
+    }
 
     if ((x + width) > fullwidth) {
       position.x = x - width

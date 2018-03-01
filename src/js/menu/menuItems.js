@@ -183,8 +183,43 @@ module.exports = function () {
     id: 'contextmenu',
     name: 'contextmenu',
     items: [{
-      icon: '',
-      text: 'New Project'
+      icon: 'check',
+      text: 'Textedit Mode',
+      active () { return elementEvents.textEditorActive },
+      run () { elementEvents.dblclick() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'scissors',
+      text: 'Cut',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.cut() }
+    },
+    {
+      icon: 'clone',
+      text: 'Copy',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.copy() }
+    },
+    {
+      icon: 'clone',
+      text: 'Duplicate',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.duplicate() }
+    },
+    {
+      icon: 'clipboard',
+      text: 'Paste',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.paste() }
+    },
+    {
+      icon: 'trash',
+      text: 'Delete',
+      clickable () { return elementEvents.allowInteraction },
+      run () { elementEvents.delete() }
     }]
   }]
 }
