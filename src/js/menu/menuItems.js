@@ -97,15 +97,22 @@ module.exports = function () {
       keycode: 'DEL',
       clickable () { return elementEvents.allowInteraction },
       run () { elementEvents.delete() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'check',
+      text: 'Textedit Mode',
+      keycode: 'ALT + T',
+      active () { return elementEvents.textEditorActive },
+      run () { elementEvents.dblclick() }
     }
     ]
   },
   {
     name: 'View',
     items: [{
-      delimiter: true
-    },
-    {
       icon: 'resize',
       text: 'Screen Size',
       underItems: [{

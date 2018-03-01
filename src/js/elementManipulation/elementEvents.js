@@ -150,16 +150,19 @@ const elementEvents = {
     return this
   },
 
+  textEditorActive: false,
   /** This is a Event.
   * Dblclick gets triggered after anything gets double clicked in the iframe.
   * @param {Event} e
   * @return this
   */
   dblclick (e) {
-    e.stopImmediatePropagation()
+    if (e) e.stopImmediatePropagation()
     if (textEditor.active) {
+      this.textEditorActive = false
       this.leaveTexteditorMode()
     } else {
+      this.textEditorActive = true
       this.enterTexteditorMode()
     }
   },
