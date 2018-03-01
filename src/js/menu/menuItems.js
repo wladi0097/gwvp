@@ -1,6 +1,7 @@
 const elementEvents = require('../elementManipulation/elementEvents.js')
 const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
+const history = require('../interaction/history.js')
 
 /** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
@@ -48,12 +49,16 @@ module.exports = function () {
     items: [{
       icon: 'undo',
       text: 'Undo',
-      keycode: 'STRG + Z'
+      keycode: 'STRG + Z',
+      clickable () { return history.undoPossible },
+      run () { elementEvents.undo() }
     },
     {
       icon: 'repeat',
       text: 'Redo',
-      keycode: 'SHIFT + STRG + Z'
+      keycode: 'STRG + Y',
+      clickable () { return history.redoPossible },
+      run () { elementEvents.redo() }
     },
     {
       delimiter: true

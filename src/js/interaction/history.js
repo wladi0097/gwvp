@@ -2,7 +2,13 @@
 
 /** Save states of any element and allow to revert them to previous states */
 const history = {
-  history: [],
+  history: [{
+    done () {},
+    doneArgs: [],
+    undo () {},
+    undoArgs: [],
+    this: this
+  }],
   maxSaves: 20,
   pointer: 0,
 
@@ -13,6 +19,7 @@ const history = {
   add (item) {
     this.history.push(item)
     this.pointer = this.history.length - 1
+
     this.checkOverflow()
     this.checkPossibilities()
   },
@@ -28,16 +35,18 @@ const history = {
 
   /** check if redo or undo are possible  */
   checkPossibilities () {
-    this.redoPossible = (this.pointer < this.maxSaves)
     this.undoPossible = (this.pointer > 0)
+    this.redoPossible = (this.pointer < this.history.length - 1)
   },
 
   undoPossible: false,
   /** get previous value  */
   undo () {
     if (this.undoPossible) {
+      let val = this.returnVal()
+      if (val) val.undo.apply(val._this, val.undoArgs)
       this.pointer--
-      return this.returnVal()
+      this.checkPossibilities()
     }
   },
 
@@ -45,14 +54,15 @@ const history = {
   /** get next value  */
   redo () {
     if (this.redoPossible) {
+      let val = this.returnVal()
+      if (val) val.done.apply(val._this, val.doneArgs)
       this.pointer++
-      return this.returnVal()
+      this.checkPossibilities()
     }
   },
 
   /** get the value of the curent pointer */
   returnVal () {
-    this.checkPossibilities()
     return this.history[this.pointer]
   }
 }
