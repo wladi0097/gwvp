@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   elementEvents.init()
   elementEditor.init($iframe)
   menu.build()
-  contextMenu.init(document, document.getElementsByClassName('header-contextmenu')[0])
   keydown.addArray(menu.getKeyCodes())
   keydown.init(document)
   elementItems.init(elementEvents)
