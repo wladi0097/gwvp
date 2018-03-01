@@ -93,7 +93,7 @@ const elementEvents = {
   */
   undo () {
     if (!history.undoPossible) {
-      alert('undo not possible')
+      displayMessage.show('Undo not possible', 2000, 'warning', false)
       return this
     }
     history.undo()
@@ -104,7 +104,7 @@ const elementEvents = {
   */
   redo () {
     if (!history.redoPossible) {
-      alert('redo not possible')
+      displayMessage.show('Redo not possible', 2000, 'warning', false)
       return this
     }
     history.redo()
