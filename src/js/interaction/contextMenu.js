@@ -20,7 +20,7 @@ const contextMenu = {
       this.prepareElement(this.$domItem)
       this.bindContextMenu(location)
       this.bindCloseContextMenu(location)
-      this.bindCloseContextMenu(docPosition)
+      if (docPosition) this.bindCloseContextMenu(docPosition)
     }
   },
 
