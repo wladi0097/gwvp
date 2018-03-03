@@ -3,7 +3,7 @@ input,
 select {
   background-color: $main;
   border: 0;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid $grey;
   box-sizing: border-box;
   color: $light;
   font-size: 14px;
@@ -11,13 +11,13 @@ select {
   padding: 0 3px;
 
   &:focus {
-    background-color: $main-background;
-    border: 1px solid $border;
+    background-color: $main2;
+    border: 1px solid $grey;
   }
 }
 
 button {
-  border: 1px solid $border;
+  border: 1px solid $grey;
   background-color: $main;
   color: $light;
   cursor: pointer;
@@ -25,6 +25,6 @@ button {
   padding: 3px;
 
   &:hover {
-    background-color: $main-background;
+    background-color: $main2;
   }
 }
