@@ -29,17 +29,17 @@
   border-bottom-right-radius: 5px;
   background-color: $main;
   width: calc(10% - 8px);
-  border-left: 1px solid $border;
+  border-left: 1px solid $grey;
   height: 100%;
   float: right;
   cursor: pointer;
   transition: background-color .3s, color .3s;
 
   &:hover {
-    background-color: $main-background;
+    background-color: $main2;
 
     > i {
-      color: $light-active;
+      color: $light2;
     }
   }
 
@@ -49,7 +49,7 @@
     text-align: center;
     line-height: 50px;
     font-size: 40px;
-    color: $border;
+    color: $grey;
     transition: color .3s;
   }
 }

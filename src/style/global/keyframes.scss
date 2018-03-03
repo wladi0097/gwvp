@@ -24,6 +24,20 @@
 }
 
 // from https://daneden.github.io/animate.css/
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// from https://daneden.github.io/animate.css/
+// use with backface-visibility: visible;
 @keyframes flipInX {
   from {
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
