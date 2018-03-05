@@ -16,9 +16,11 @@ const navigation = {
   navBarSelectionEvent (e) {
     let target = e.currentTarget
     Array.from(target.parentNode.children).forEach(item => {
-      let open = item.getAttribute('open')
-      item.classList.remove('selected')
-      document.getElementsByClassName(open)[0].classList.remove('selected')
+      if (item.classList.contains('sidebar-navigator')) {
+        let open = item.getAttribute('open')
+        item.classList.remove('selected')
+        document.getElementsByClassName(open)[0].classList.remove('selected')
+      }
     })
     target.classList.add('selected')
     document.getElementsByClassName(target.getAttribute('open'))[0].classList.add('selected')

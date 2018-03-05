@@ -11,8 +11,7 @@ select {
   padding: 0 3px;
 
   &:focus {
-    background-color: $main2;
-    border: 1px solid $grey;
+    border-color: $highlight;
   }
 }
 

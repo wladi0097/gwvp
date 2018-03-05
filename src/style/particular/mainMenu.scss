@@ -1,0 +1,268 @@
+.main-menu {
+
+  .window-content {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin-left: calc(50% - 400px);
+    margin-top: 15vh;
+    box-shadow: 10px 10px 5px 0 $grey2;
+    border: 2px solid $grey;
+  }
+}
+
+.main-menu .sidebar-navigation {
+  width: 269px;
+  height: 100%;
+  border: 0;
+  border-right: 1px solid $highlight;
+  float: left;
+  position: relative;
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    padding: 0 22%;
+    width: 269px;
+    box-sizing: border-box;
+
+    >a,
+    >p {
+      margin: 0;
+      font-weight: bold;
+      color: $grey;
+      margin-left: 12%;
+      float: left;
+      font-size: 15px;
+    }
+
+    >a {
+      font-size: 18px;
+      transition: color .5s;
+
+      &:hover {
+        color: $light;
+      }
+    }
+  }
+
+  .logo {
+    height: 150px;
+    padding: 10px 0 5px;
+
+    >h2 {
+      margin: 0;
+      color: $highlight;
+      text-align: center;
+      height: 20%;
+    }
+
+    >img {
+      width: 100%;
+      height: 80%;
+    }
+  }
+
+  .sidebar-navigator {
+    width: calc(100% - 18px);
+    padding: 5px 0;
+    padding-left: 15px;
+    text-align: left;
+    height: 50px;
+    border-bottom: 1px solid $grey;
+    color: $grey4;
+
+    &:nth-child(2) {
+      border-top: 1px solid $grey;
+    }
+
+    &:hover {
+      border-left: 1px solid $highlight;
+      color: $light;
+      background-color: $dark;
+    }
+
+    &.selected {
+      border-left: 3px solid $highlight;
+      color: $light;
+      background-color: $dark;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin: 5px 0 2px;
+      line-height: initial;
+    }
+
+    p {
+      font-size: 13px;
+      margin: 0;
+      line-height: initial;
+    }
+  }
+}
+
+.main-menu .sidebar-contents {
+  width: 530px;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+
+  .sidebar-content {
+    height: 100%;
+    width: 100%;
+    display: none;
+    box-sizing: border-box;
+
+    &.selected {
+      display: block;
+    }
+
+    .main-menu-header {
+      height: 50px;
+      line-height: 50px;
+      background-color: $dark;
+      border-bottom: 1px solid $grey;
+
+      >h2 {
+        margin: 0;
+        color: $grey4;
+        text-align: center;
+      }
+    }
+
+    .empty {
+      height: 449px;
+      line-height: 400px;
+      color: $grey4;
+      text-align: center;
+      font-size: 15px;
+
+      >h2 {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.main-menu .sidebar-content .center-line {
+  height: 20px;
+
+  >hr {
+    width: 40%;
+    float: left;
+    border-color: $grey;
+
+    &:first-child {
+      margin-left: 5%;
+    }
+  }
+
+  >p {
+    text-align: center;
+    float: left;
+    width: 10%;
+    margin: 0;
+    color: $grey;
+  }
+}
+
+
+.main-menu .sidebar-content .half {
+  height: 180px;
+  box-sizing: border-box;
+
+  &:first-child {
+    border-bottom: 1px solid $highlight;
+  }
+
+  >h2 {
+    margin: 0;
+    padding-top: 50px;
+    text-align: center;
+    color: $grey4;
+  }
+
+  >input,
+  >label {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    padding-bottom: 3px;
+
+    &[type='file'] {
+      display: none;
+    }
+  }
+
+  >label {
+    border: 1px solid $grey;
+    background-color: $main2;
+    color: $grey4;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color .5s,
+    color .5s,
+    border .5s;
+
+    &:hover {
+      border: 1px solid $light;
+      color: $light;
+      background-color: $main;
+    }
+  }
+}
+
+.main-menu .main-menu-items {
+  width: 100%;
+  height: auto;
+
+  .item {
+    width: 25%;
+    height: 150px;
+    margin-left: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    float: left;
+
+    &:hover {
+      .img {
+        animation: pulse 2.5s infinite;
+      }
+
+      >h2,
+      >p {
+        color: $light;
+      }
+    }
+
+    .img {
+      height: 50%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    >h2,
+    >p {
+      margin: 0;
+      text-align: center;
+      color: $grey4;
+      margin-top: 5px;
+      transition: color 1s;
+    }
+
+    >h2 {
+      font-size: 17px;
+    }
+
+    >p {
+      font-size: 14px;
+    }
+  }
+}

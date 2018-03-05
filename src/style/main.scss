@@ -7,6 +7,7 @@
 @import 'global/font';
 @import 'global/input';
 @import 'global/scrollbar';
+@import 'global/window';
 
 // Html specific styling
 @import 'particular/sidebar';
@@ -16,7 +17,7 @@
 @import 'particular/newElement';
 @import 'particular/elementEditor';
 @import 'particular/displayMessage';
+@import 'particular/mainMenu';
 
-@import 'particular/window';
 @import 'particular/window-onlineElementPackages';
 @import 'particular/window-addToUsingElementPackages';
