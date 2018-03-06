@@ -1,4 +1,7 @@
 .main-menu {
+  &.hidden {
+    display: none;
+  }
 
   .window-content {
     position: relative;
@@ -8,6 +11,7 @@
     margin-top: 15vh;
     box-shadow: 10px 10px 5px 0 $grey2;
     border: 2px solid $grey;
+    border-left: 1px;
   }
 }
 
@@ -63,7 +67,10 @@
     }
   }
 
-  .sidebar-navigator {
+  .sidebar-navigator,
+  .sidebar-navigator-noref {
+    float: left;
+    cursor: pointer;
     width: calc(100% - 18px);
     padding: 5px 0;
     padding-left: 15px;
@@ -71,6 +78,19 @@
     height: 50px;
     border-bottom: 1px solid $grey;
     color: $grey4;
+    transition: background-color .3s, color .3s;
+
+    &.hidden {
+      display: none;
+    }
+
+    &.continue {
+      color: $green;
+
+      &:hover {
+        border-left: 3px solid $green;
+      }
+    }
 
     &:nth-child(2) {
       border-top: 1px solid $grey;

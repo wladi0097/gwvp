@@ -1,4 +1,4 @@
-<div class="window main-menu">
+<div class="window main-menu" id="mainMenu">
   <div class="window-content">
     <div class="sidebar-navigation">
       <div class="logo">
@@ -17,6 +17,10 @@
         <h3>Open Project</h3>
         <p>Open a existing project</p>
       </div>
+      <div open="new-project" class="sidebar-navigator-noref continue hidden" id="continueProject">
+        <h3>Continue Project</h3>
+        <p>Continue current project</p>
+      </div>
       <div class="footer">
         <p>v0.1.3</p>
         <a href="https://github.com/wladi0097/gwvp" target="_blank" title="Open in Github"> <i class="fa fa-github" aria-hidden="true"></i> </a>
@@ -28,15 +32,7 @@
         <div class="main-menu-header">
           <h2>New Project</h2>
         </div>
-        <div class="main-menu-items">
-          <div class="item">
-            <div class="img">
-              <img src="../img/basicElements/Container.svg" alt="">
-            </div>
-            <h2>Empty Page</h2>
-            <p>default Webpage</p>
-          </div>
-        </div>
+        <div class="main-menu-items" id="newProject"></div>
       </div>
       <div class="overflow sidebar-content new-project-template">
         <div class="main-menu-header">

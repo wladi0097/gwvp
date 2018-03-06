@@ -24,6 +24,12 @@ const navigation = {
     })
     target.classList.add('selected')
     document.getElementsByClassName(target.getAttribute('open'))[0].classList.add('selected')
+  },
+
+  simulateNavBarSelection (open) {
+    let elem = document.querySelector(`[open="${open}"]`)
+    let e = {currentTarget: elem}
+    this.navBarSelectionEvent(e)
   }
 
 }

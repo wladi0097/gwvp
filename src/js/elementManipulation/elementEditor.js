@@ -5,15 +5,17 @@ const styleManipulation = require('./styleManipulation')
   */
 const elementEditor = {
   selectedItem: null,
-  $iframe: null,
 
   /** Initialize elementEditor. */
-  init (iframe) {
-    this.$iframe = iframe
-    styleManipulation.init(iframe)
+  init () {
     this.cacheDom()
     this.bindGlobalEvent()
     classEditor.init()
+  },
+
+  initAfterFrame (iframe) {
+    this.$iframe = iframe.contentDocument
+    styleManipulation.init(this.$iframe)
   },
 
   /** Cache dom elements. */

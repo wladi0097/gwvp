@@ -28,7 +28,7 @@ const elementEvents = {
   */
   init (externals = true) {
     this.cacheDom()
-      .bindEvents()
+    this.bindEvents()
     textEditor.init()
     return this
   },
@@ -36,12 +36,14 @@ const elementEvents = {
   /** Initialize everything that requires the iframe to be loaded.
   * @return this
   */
-  initAfterFrame (externals = true) {
-    this.$iframe = document.getElementById('simulated').contentDocument
+  initAfterFrame (iframe) {
+    this.$iframe = iframe.contentDocument
     this.bindFrameEvents()
-    pageDomTree.build()
+    pageDomTree.build(this.$iframe)
     textEditor.initWithFrame(this.$iframe)
     this.change()
+    this.noClick()
+    this.noHover()
     return this
   },
 

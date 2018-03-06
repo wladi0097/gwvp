@@ -24,6 +24,7 @@
     cursor: pointer;
 
     &.header-contextmenu {
+      display: none;
       position: fixed;
 
       > p {

@@ -2,6 +2,7 @@ const elementEvents = require('../elementManipulation/elementEvents.js')
 const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
 const history = require('../interaction/history.js')
+const iframeContents = require('../iframeContents.js')
 
 /** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
@@ -33,14 +34,21 @@ module.exports = function () {
     items: [{
       icon: '',
       text: 'New Project',
-      keycode: 'ALT + N'
-    },
-    {
-      delimiter: true
+      keycode: 'ALT + N',
+      run () { iframeContents.showMainMenu('new-project') }
     },
     {
       icon: '',
-      text: 'Open Project'
+      text: 'From Template',
+      run () { iframeContents.showMainMenu('new-project-template') }
+    },
+    {
+      icon: '',
+      text: 'Open Project',
+      run () { iframeContents.showMainMenu('open-project') }
+    },
+    {
+      delimiter: true
     }
     ]
   },

@@ -13,12 +13,18 @@ const changeScreenSize = {
     this.bindEvents()
   },
 
+  /** Initialize elements after the iframe is ready. */
+  initAfterFrame (iframe) {
+    this.$simulated = iframe
+    this.changeResolution('Tv')
+    this.applyStyle()
+  },
+
   /** Cache dom elements. */
   cacheDom () {
     // dom to resize
     this.$hover = document.getElementsByClassName('hover-wrapper')[0]
     this.$click = document.getElementsByClassName('click-wrapper')[0]
-    this.$simulated = document.getElementById('simulated')
     this.$buttons = document.getElementsByClassName('header-icons')[0]
 
     // custom buttons
