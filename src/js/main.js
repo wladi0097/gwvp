@@ -29,6 +29,10 @@ const main = {
   pageLoaded () {
     this.cacheDom()
     this.removeLoadingScreen()
+    this.loadDependencies()
+  },
+
+  loadDependencies () {
     displayMessage.init(this.$displayMessage)
     elementEvents.init()
     elementEditor.init()

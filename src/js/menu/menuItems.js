@@ -49,6 +49,33 @@ module.exports = function () {
     },
     {
       delimiter: true
+    },
+    {
+      icon: 'download',
+      text: 'Export Page',
+      underItems: [
+        {
+          icon: '',
+          text: 'Full Page',
+          run () { iframeContents.exportIframe('full') }
+        },
+        {
+          icon: '',
+          text: 'Body',
+          run () { iframeContents.exportIframe('body') }
+        },
+        {
+          icon: '',
+          text: 'Head',
+          run () { iframeContents.exportIframe('head') }
+        },
+        {
+          icon: '',
+          text: 'Current Selection',
+          clickable () { return elementEvents.allowInteraction },
+          run () { iframeContents.exportIframe('selection', elementEvents.currentElement.outerHTML) }
+        }
+      ]
     }
     ]
   },
