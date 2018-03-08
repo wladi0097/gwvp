@@ -2,6 +2,7 @@
 const $ = require('jquery')
 window.$ = $
 const buildMenu = require('../buildMenu.js')
+
 const m = {
   simple: {
     id: '1',

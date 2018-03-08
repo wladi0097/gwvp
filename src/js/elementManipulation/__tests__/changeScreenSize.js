@@ -13,6 +13,8 @@ const html = `<div class="header-icons">
 `
 document.body.innerHTML = html
 
+changeScreenSize.$simulated = document.getElementById('simulated')
+
 describe('cacheDom', () => {
   it('should cache all dom items', () => {
     changeScreenSize.cacheDom()

@@ -29,7 +29,7 @@ describe('triggerEvent', () => {
     document.body.innerHTML = '<a id="test"></a>'
     let elem = document.getElementById('test')
     let mock = jest.fn()
-    elem.addEventListener('mousedown', mock)
+    elem.addEventListener('click', mock)
     downloadString.triggerEvent(elem)
     expect(mock.mock.calls.length).toBe(1)
   })

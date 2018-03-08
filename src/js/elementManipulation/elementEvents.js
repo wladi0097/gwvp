@@ -37,6 +37,7 @@ const elementEvents = {
   * @return this
   */
   initAfterFrame (iframe) {
+    if (!iframe) return
     this.$iframe = iframe.contentDocument
     this.bindFrameEvents()
     pageDomTree.build(this.$iframe)

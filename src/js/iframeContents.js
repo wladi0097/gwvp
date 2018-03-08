@@ -131,11 +131,11 @@ const iframeContents = {
   * @param {String} data.img - project image
   * @param {String} data.html - project html
   */
-  getHTMLListing (data) {
+  getHTMLListing (data) { // TODO: change image
     return `
     <div class="item" projectId="${data.id}">
       <div class="img">
-        <img src="${data.img}" alt="${data.name}">
+        <img src="${require('../img/basicElements/Container.svg')}" alt="${data.name}">
       </div>
       <h2>${data.name}</h2>
       <p>${data.description}</p>
@@ -147,14 +147,7 @@ const iframeContents = {
 const newProject = [{
   name: 'Empty Page',
   description: 'default Webpage',
-  img: require('../img/basicElements/Container.svg'),
   html: `<html><head></head><body><h1>I am empty</h1></body></html>`
-},
-{
-  name: 'Second Option',
-  description: 'test Webpage',
-  img: require('../img/basicElements/Container.svg'),
-  html: `<html><head></head><body><h1>I am empty TOOO WHOOOO</h1></body></html>`
 }]
 
 module.exports = iframeContents

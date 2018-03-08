@@ -45,10 +45,6 @@ describe('initAfterFrame', () => {
   it('should save the iframe', () => {
     expect(copy.$iframe).not.toBe(undefined)
   })
-
-  it('should run bindFrameEvents', () => {
-    expect(copy.bindFrameEvents.mock.calls.length).toBe(1)
-  })
 })
 
 describe('cacheDom', () => {
