@@ -129,7 +129,7 @@
       }
 
       > p {
-        width: 100px;
+        width: 140px;
         height: 100%;
         float: left;
       }
@@ -137,7 +137,7 @@
       > .shortcut {
         float: right;
         text-align: right;
-        width: 100px;
+        width: 60px;
         font-size: 12px;
         font-weight: 500;
         color: $grey;
@@ -154,6 +154,7 @@
         display: none;
         position: absolute;
         right: -242px;
+        margin-top: -7px;
         background-color: $dark;
       }
     }
