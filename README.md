@@ -40,7 +40,6 @@ execute with ``npm run {{command}}``
 ``testw`` 	- run Javascript tests in watch mode    
 ``testc`` 	- get Javascript test coverage report    
 ``build`` 	- build whole project (see webpack.config.js)   
-``watch``	- build program in watch mode    
 ``start`` 	- build program in watch mode with a dev-server   
 ``docs`` 	- create inline documentation HTML-page    
 ``license``	- get all production relevant licensenses    
