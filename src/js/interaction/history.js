@@ -8,13 +8,13 @@ const history = {
 
   /** reset the history to default  */
   reset () {
-    this.history = [{
-      done () {},
-      doneArgs: [],
-      undo () {},
-      undoArgs: [],
-      this: this
-    }]
+    let empty = {}
+    empty.done = () => {}
+    empty.undo = () => {}
+    empty.this = this
+    empty.doneArgs = []
+    empty.undoArgs = []
+    this.history = [empty]
     this.pointer = 0
     this.checkPossibilities()
   },
