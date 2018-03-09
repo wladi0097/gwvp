@@ -163,6 +163,30 @@
       }
     }
   }
+
+  .error-message {
+    margin-top: 15px;
+    text-align: center;
+    color: $red;
+    width: 80%;
+    margin-left: 10%;
+
+    a {
+      color: $red;
+    }
+  }
+
+  .progressbar-holder {
+    position: relative;
+    width: 50%;
+    margin-left: 25%;
+
+    .progressbar {
+      width: 0;
+      height: 2px;
+      background-color: $green;
+    }
+  }
 }
 
 .main-menu .sidebar-content .center-line {

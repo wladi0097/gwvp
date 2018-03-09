@@ -1,8 +1,10 @@
+/* global FileReader */
 const elementEvents = require('./elementManipulation/elementEvents')
 const changeScreenSize = require('./elementManipulation/changeScreenSize')
 const elementEditor = require('./elementManipulation/elementEditor')
 const idGen = require('./interaction/idGen')
 const history = require('./interaction/history')
+const ajax = require('./interaction/ajax')
 const downloadString = require('./interaction/downloadString')
 const navigation = require('./navigation')
 
@@ -22,6 +24,12 @@ const iframeContents = {
     this.$fromTemplate = document.getElementById('fromTemplate')
     this.$mainMenu = document.getElementById('mainMenu')
     this.$continueProject = document.getElementById('continueProject')
+
+    this.$openFromUrl = document.getElementById('openFromUrl')
+    this.$openFromUrlError = document.getElementById('openFromUrlError')
+    this.$openFromUrlProgressbar = document.getElementById('openFromUrlProgressbar')
+
+    this.$chooseFileFromComputer = document.getElementById('chooseFileFromComputer')
   },
 
   /** Apply events to static content. */
@@ -33,6 +41,9 @@ const iframeContents = {
       }
     })
     this.$continueProject.addEventListener('mousedown', this.hideMainMenu.bind(this))
+    this.$openFromUrl.addEventListener('keydown', this.overwriteDefault.bind(this))
+    this.$openFromUrl.addEventListener('change', this.openFromUrl.bind(this))
+    this.$chooseFileFromComputer.addEventListener('change', this.chooseFileFromComputer.bind(this))
   },
 
   /** Hide the main menu from Window. */
@@ -51,13 +62,77 @@ const iframeContents = {
     this.$mainMenu.classList.remove('hidden')
   },
 
+  /** Overwrite default Event.
+  * @param {Event} e
+  */
+  overwriteDefault (e) {
+    e.stopImmediatePropagation()
+  },
+
+  /** Upload and insert html.
+  * @param {Event} e
+  */
+  chooseFileFromComputer (e) {
+    let file = e.target.files[0]
+    if (file) {
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        this.insertIntoIframe(this.resetIframe(), e.target.result)
+      }
+      reader.readAsText(file)
+    }
+  },
+
+  /** Open HTML from Url and display it in the iframe.
+  * @param {Event} e
+  */
+  openFromUrl (e) {
+    this.$openFromUrlError.innerHTML = ''
+    this.$openFromUrlProgressbar.style.width = '0'
+    let target = e.currentTarget
+    let val = target.value
+    ajax.get(val, (data, err) => {
+      if (!data) {
+        this.$openFromUrlError.innerHTML = err
+      } else {
+        data = this.replaceDataUrls(data, val)
+        this.insertIntoIframe(this.resetIframe(), data)
+        this.$openFromUrlError.innerHTML = ''
+        this.$openFromUrlProgressbar.style.width = '0'
+      }
+    }, this.$openFromUrlProgressbar, 'text/html')
+  },
+
+  /** Replace the urls inside html data to the given url.
+   * @param {String} data - html
+   * @param {String} url - url to replace in html
+   */
+  replaceDataUrls (data, url) {
+    url = url.replace(new RegExp(/\/index\..*/, 'g'), '/')
+    // replace script
+    data = data.replace(new RegExp(/src="(\/|\.\/|)/, 'g'), 'src="' + url + '/')
+    // replace link
+    data = data.replace(new RegExp(/href="(\/|\.\/|)/, 'g'), 'href="' + url + '/')
+    return data
+  },
+
   /** Insert raw html into the iframe. The html should include <html>
    * @param {HTMLElement} iframe - the iframe to fill
    * @param {String} html - the page as html
    */
   insertIntoIframe (iframe, html) {
-    iframe.contentDocument.documentElement.innerHTML = html
-    this.iframeLoaded(iframe)
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      // why is firefox such a special child ?
+      // my guess is that the iframe creator from firefox needs some more seconds
+      // to complete the process.
+      setTimeout(() => {
+        iframe.contentDocument.documentElement.innerHTML = html
+        this.iframeLoaded(iframe)
+      }, 300)
+    } else {
+      iframe.contentDocument.documentElement.innerHTML = html
+      this.iframeLoaded(iframe)
+    }
   },
 
   /** Delete current iframe and return a new one. */
@@ -151,3 +226,4 @@ const newProject = [{
 }]
 
 module.exports = iframeContents
+window.a = ajax

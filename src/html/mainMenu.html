@@ -48,7 +48,11 @@
         </div>
         <div class="half">
           <h2>From URL</h2>
-          <input type="text" placeholder="http://url-to.page">
+          <input type="text" id="openFromUrl" placeholder="http://url-to.page">
+          <div class="progressbar-holder">
+            <div id="openFromUrlProgressbar" class="progressbar"></div>
+          </div>
+          <p id="openFromUrlError" class="error-message"></p>
         </div>
         <div class="center-line">
           <hr>
@@ -58,7 +62,7 @@
         <div class="half">
           <h2>From Computer</h2>
           <label for="chooseFileFromComputer">Upload</label>
-          <input type="file" id="chooseFileFromComputer">
+          <input type="file" id="chooseFileFromComputer" accept=".html">
         </div>
       </div>
     </div>
