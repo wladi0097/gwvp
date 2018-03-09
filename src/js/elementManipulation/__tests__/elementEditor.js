@@ -9,16 +9,6 @@ let testHTML = `
 `
 
 describe('init', () => {
-  it('should save iframe', () => {
-    classEditor.init = jest.fn()
-    let copy = {...elementEditor}
-    let iframe = document
-    copy.cacheDom = jest.fn()
-    copy.bindGlobalEvent = jest.fn()
-    copy.init(iframe)
-    expect(copy.$iframe).toBe(iframe)
-  })
-
   it('should run cacheDom and bindEvents', () => {
     classEditor.init = jest.fn()
     let copy = {...elementEditor}

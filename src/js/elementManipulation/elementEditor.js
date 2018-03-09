@@ -5,15 +5,17 @@ const styleManipulation = require('./styleManipulation')
   */
 const elementEditor = {
   selectedItem: null,
-  $iframe: null,
 
   /** Initialize elementEditor. */
-  init (iframe) {
-    this.$iframe = iframe
-    styleManipulation.init(iframe)
+  init () {
     this.cacheDom()
     this.bindGlobalEvent()
     classEditor.init()
+  },
+
+  initAfterFrame (iframe) {
+    this.$iframe = iframe.contentDocument
+    styleManipulation.init(this.$iframe)
   },
 
   /** Cache dom elements. */
@@ -32,6 +34,7 @@ const elementEditor = {
   bindGlobalEvent () {
     // is input changed
     this.inputs.forEach((item) => {
+      item.addEventListener('keydown', this.overwriteDefault.bind(this))
       item.addEventListener('change', this.inputChanged.bind(this))
     })
 
@@ -48,8 +51,13 @@ const elementEditor = {
     })
 
     this.inputProp.forEach((item) => {
+      item.addEventListener('keydown', this.overwriteDefault.bind(this))
       item.addEventListener('change', this.propChanged.bind(this))
     })
+  },
+
+  overwriteDefault (e) {
+    e.stopImmediatePropagation()
   },
 
   /** from https://stackoverflow.com/a/19765382/8270857 simple rgb to hex converter

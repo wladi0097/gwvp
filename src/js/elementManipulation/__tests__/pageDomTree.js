@@ -12,13 +12,6 @@ describe('build', () => {
     expect(pageDomTree.build(document.getElementById('frame'), null)).toBe(false)
   })
 
-  it('should use default iframe name if not given', () => {
-    document.body.innerHTML = '<iframe id="simulated"></iframe>'
-    document.getElementById('simulated').contentDocument.innerHTML = '<p></p>'
-    expect(pageDomTree.build(null, null)).toBe(false)
-    expect(pageDomTree.$iframe).toBe(document.getElementById('simulated').contentDocument)
-  })
-
   it('should use default domTree name if not given', () => {
     document.body.innerHTML = '<div id="simulatedDomTree"></div>'
     expect(pageDomTree.build(null, null)).toBe(false)
@@ -34,7 +27,7 @@ describe('build', () => {
     let mock = jest.fn().mockReturnValue(copy)
     copy.reset = mock
     copy.createTree = mock
-    copy.build()
+    copy.build(document.getElementById('simulated'))
     expect(mock.mock.calls.length).toBe(2)
   })
 })
@@ -51,7 +44,7 @@ describe('bindEvents', () => {
     copy.addOpenCloseEvents = mock
     copy.addRelationEvents = mock
     copy.addReloadEvent = mock
-    copy.build()
+    copy.build(document.getElementById('simulated'))
     expect(mock.mock.calls.length).toBe(3)
     expect(copy.hasEvents).toBe(true)
   })
