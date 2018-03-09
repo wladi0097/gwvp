@@ -104,6 +104,24 @@
   }
 }
 
+// firefox fix
+@-moz-document url-prefix() {
+  .overflow {
+    > div {
+      width: 100%;
+    }
+  }
+}
+
+// edge fix
+@supports (-ms-ime-align: auto) {
+  .overflow {
+    > div {
+      width: 100%;
+    }
+  }
+}
+
 .sidebar-content {
   width: 100%;
   height: 60%;

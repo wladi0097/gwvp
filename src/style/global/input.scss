@@ -9,9 +9,18 @@ select {
   font-size: 14px;
   outline: 0;
   padding: 0 3px;
+  transition: border-color .5s;
 
   &:focus {
     border-color: $highlight;
+
+    &:hover {
+      border-color: $highlight;
+    }
+  }
+
+  &:hover {
+    border-color: $light2;
   }
 }
 
