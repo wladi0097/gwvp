@@ -6,7 +6,7 @@
   <a title="Build Status" href="https://travis-ci.org/wladi0097/gwvp"><img src="https://travis-ci.org/wladi0097/gwvp.svg?branch=master">  </a>
   <a title="codecov" href="https://codecov.io/gh/wladi0097/gwvp"><img src="https://codecov.io/gh/wladi0097/gwvp/branch/master/graph/badge.svg"></a>
   <a title="js-standard-style" href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat">  </a>
-  <a title="License: GPL v3" href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">  </a>
+  <a title="License: MIT" href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg">  </a>
 </p>
 
 #### This project is still in early development !!
@@ -72,4 +72,4 @@ execute with ``npm run {{command}}``
  * *[jquery](https://jquery.com/)*  is a slow, big, and feature-rich JavaScript library and is only used to write tests faster.
 
 ### License
-* [GNU General Public License v3.0](https://github.com/wladi0097/gwvp/blob/master/LICENSE)
+* [License: MIT](https://github.com/wladi0097/gwvp/blob/master/LICENSE)
