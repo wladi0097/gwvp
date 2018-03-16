@@ -88,6 +88,7 @@ const elementEvents = {
   * @return this
   */
   change () {
+    this.redrawRect()
     return this
   },
 

@@ -149,7 +149,7 @@ const iframeContents = {
    * @param {HTMLElement} iframe - the newly created iframe.
    */
   iframeLoaded (iframe) {
-    changeScreenSize.initAfterFrame(iframe)
+    changeScreenSize.initAfterFrame(iframe, elementEvents.change.bind(elementEvents))
     elementEvents.initAfterFrame(iframe)
     elementEditor.initAfterFrame(iframe)
     history.reset()
