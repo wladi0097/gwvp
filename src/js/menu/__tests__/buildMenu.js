@@ -1,6 +1,4 @@
 /* global describe it expect jest */
-const $ = require('jquery')
-window.$ = $
 const buildMenu = require('../buildMenu.js')
 
 const m = {
@@ -53,9 +51,9 @@ const m = {
   }
 }
 
-$('body').html(`<div class="header">
+document.body.innerHTML = `<div class="header">
   <div class="header-items"></div>
-</div>`)
+</div>`
 
 const bm = buildMenu.buildMenu
 // ------------------------------

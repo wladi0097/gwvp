@@ -69,7 +69,6 @@ execute with ``npm run {{command}}``
  * *[jest](https://facebook.github.io/jest/)* for JavaScript Testing.
  * *[node-sass](https://github.com/sass/node-sass)* allows you to natively compile .scss files.
  * *[license-checker](https://github.com/davglass/license-checker)* to list all licenses from all dependencies.
- * *[jquery](https://jquery.com/)*  is a slow, big, and feature-rich JavaScript library and is only used to write tests faster.
 
 ### License
 * [License: MIT](https://github.com/wladi0097/gwvp/blob/master/LICENSE)

@@ -1,20 +1,17 @@
 /* global describe expect it MouseEvent */
-const $ = require('jquery')
-window.$ = $
 const contextMenu = require('../contextMenu.js')
 
 // create a contextMenu to test all
 function resetDom () {
-  $('body').html('<p id="test"></p>')
-  $('body').append(`<div class="contextMenu">
+  document.body.innerHTML = '<p id="test"></p>'
+  document.body.innerHTML += `<div class="contextMenu">
     <ul>
       <li>hi</li>
       <li>hi</li>
     </ul>
-  </div>`)
-  return $('.contextMenu')
+  </div>`
+  return document.getElementsByClassName('contextMenu')
 }
-// jquery dom element reference
 
 // prepare element appends styling and id to a dom element
 
@@ -24,11 +21,10 @@ describe('prepare Element', () => {
   ownContextMenu.prepareElement($contextMenu[0])
 
   it('should add a display none styling', () => {
-    expect($contextMenu.attr('style')).toBe('display: none;')
+    expect($contextMenu[0].getAttribute('style')).toBe('display: none;')
   })
-
   it('should add a id(contextMenu)', () => {
-    expect($contextMenu.attr('id')).toBe('contextMenu')
+    expect($contextMenu[0].getAttribute('id')).toBe('contextMenu')
   })
 })
 
@@ -62,14 +58,14 @@ describe('event bindings', () => {
     let event = new MouseEvent('contextmenu')
     event.target = document.getElementById('test')
     document.dispatchEvent(event)
-    expect($contextMenu.attr('style')).not.toBe('display: none;')
+    expect($contextMenu[0].getAttribute('style')).not.toBe('display: none;')
   })
 
   it('should fire close context menu', () => {
     let event = new MouseEvent('click')
     event.force = true
     document.dispatchEvent(event)
-    expect($contextMenu.attr('style')).toBe('display: none;')
+    expect($contextMenu[0].getAttribute('style')).toBe('display: none;')
   })
 })
 
