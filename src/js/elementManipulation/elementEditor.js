@@ -6,6 +6,9 @@ const styleManipulation = require('./styleManipulation')
 const elementEditor = {
   selectedItem: null,
 
+  // run change after dom changed
+  change: null,
+
   /** Initialize elementEditor. */
   init () {
     this.cacheDom()
@@ -13,8 +16,13 @@ const elementEditor = {
     classEditor.init()
   },
 
-  initAfterFrame (iframe) {
+  /** Initialize elements after the iframe is ready.
+  * @param {HTMLElement} iframe - main iframe window
+  * @param {Function} change - function to run after dom changed
+  */
+  initAfterFrame (iframe, change) {
     this.$iframe = iframe.contentDocument
+    this.change = change
     styleManipulation.init(this.$iframe)
   },
 
@@ -219,6 +227,7 @@ const elementEditor = {
       styleManipulation.addStyleToClass(classEditor.cssClass, style, value)
       styleManipulation.createStyleHTML()
     }
+    if (this.change) this.change()
   }
 
 }
@@ -344,6 +353,7 @@ const classEditor = {
     elementEditor.selectedItem.classList.remove(this.clickedClass)
     this.displayAviableClasses(elementEditor.selectedItem)
     this.hideAllandShow(this.$classListings)
+    if (elementEditor.change) elementEditor.change()
   },
 
   /** Edit now the css class instead the inline.  */
@@ -368,6 +378,7 @@ const classEditor = {
     this.displayAviableClasses(elementEditor.selectedItem)
     e.currentTarget.value = ''
     this.hideAllandShow(this.$classListings)
+    if (elementEditor.change) elementEditor.change()
   }
 }
 
