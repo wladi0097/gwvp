@@ -208,6 +208,20 @@ module.exports = function () {
       text: 'Tree Autoscroll',
       active () { return pageDomTree.allowScrollToElement },
       run () { pageDomTree.toggleAllowScrollToElement() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'check',
+      text: 'Fullscreen',
+      active () { return navigation.isFullscreen() },
+      run () { navigation.toggleFullscreen(document.body) },
+      keycode: 'F11'
+    },
+    {
+      text: 'Page Fullscreen',
+      run () { navigation.toggleFullscreen(document.getElementById('simulated')) }
     }
     ]
   },

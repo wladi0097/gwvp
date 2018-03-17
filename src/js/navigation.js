@@ -52,6 +52,25 @@ const navigation = {
     }
     let minus = this.$leftSide.offsetWidth + this.$rightSide.offsetWidth
     this.$center.setAttribute('style', 'width: calc(100% - ' + minus + 'px )')
+  },
+
+  isFullscreen () {
+    if (document.fullScreen !== undefined) return document.fullScreen
+    if (document.webkitIsFullScreen !== undefined) return document.webkitIsFullScreen
+    if (document.mozFullScreen !== undefined) return document.mozFullScreen
+  },
+
+  toggleFullscreen (doc) {
+    if (!doc) return
+    if (this.isFullscreen()) {
+      if (document.cancelFullScreen) document.cancelFullScreen()
+      if (document.webkitCancelFullScreen) document.webkitCancelFullScreen()
+      if (document.mozCancelFullScreen) document.mozCancelFullScreen()
+    } else {
+      if (doc.requestFullScreen) doc.requestFullScreen()
+      if (doc.webkitRequestFullScreen) doc.webkitRequestFullScreen()
+      if (doc.mozRequestFullScreen) doc.mozRequestFullScreen()
+    }
   }
 }
 
