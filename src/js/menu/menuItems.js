@@ -53,7 +53,7 @@ module.exports = function () {
     },
     {
       icon: 'download',
-      text: 'Export Page',
+      text: 'Export as HTML',
       underItems: [
         {
           icon: '',
@@ -77,6 +77,11 @@ module.exports = function () {
           run () { iframeContents.exportIframe('selection', elementEvents.currentElement.outerHTML) }
         }
       ]
+    },
+    {
+      icon: 'caret-right',
+      text: 'Export in Window',
+      run () { iframeContents.openIframeInPopUp(document.getElementById('simulated')) }
     }
     ]
   },
