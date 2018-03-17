@@ -58,6 +58,9 @@ const newElementsHTML = {
     return html
   },
 
+  /** Create HTML for a single item
+   * @param {packageItems} item
+   */
   templateItem (item) {
     return `
     <div class="item html-element" item-id=${item.id}>

@@ -2,13 +2,18 @@ const packageManager = require('./packageManager')
 const elementEvents = require('../elementManipulation/elementEvents.js')
 const newElementsHTML = require('./newElementsHTML')
 
+/** Drag and drop elements into to the iframe.
+  * The elements can be single files or packed into Packages
+  */
 const elementItems = {
+  /** Initialize elementItems. */
   init () {
     this.cacheDom()
     this.bindEvents()
     packageManager.init()
   },
 
+  /** Cache static dom elements.  */
   cacheDom () {
     this.$newElements = document.getElementById('newElements')
     this.$description = document.getElementById('newElementsDescription')
@@ -18,6 +23,7 @@ const elementItems = {
     this.$search = document.getElementById('elementSearch')
   },
 
+  /** Apply events to static content  */
   bindEvents () {
     this.$newElements.addEventListener('mousedown', (e) => {
       let describe = e.target.closest('.help-icon')
@@ -37,6 +43,9 @@ const elementItems = {
     this.$search.addEventListener('keyup', this.search.bind(this))
   },
 
+  /** Search and find elements by name / html and display them.
+   * @param {Event} e
+   */
   search (e) {
     let val = e.currentTarget.value
     if (val === '') {
@@ -47,7 +56,9 @@ const elementItems = {
     }
   },
 
-  /** run the drag function from elementEvents with the HTML of the clicked element  */
+  /** run the drag function from elementEvents with the HTML of the clicked element
+   * @param {HtmlElement} target
+   */
   dragStart (target) {
     let item = packageManager.getElementById(target.getAttribute('item-id'))
     let html = item.html
@@ -56,7 +67,9 @@ const elementItems = {
     }
   },
 
-  /** display description of the clicked item */
+  /** display description of the clicked item
+   * @param {HtmlElement} element
+   */
   showDescription (element) {
     let id = element.parentNode.getAttribute('item-id')
     let item = packageManager.getElementById(id)

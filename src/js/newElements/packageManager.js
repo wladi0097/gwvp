@@ -64,11 +64,13 @@ const packageManager = {
   packages: [],
   currentItems: [],
 
+  /** Initialize packageManager. */
   init () {
     this.bindEvents()
     this.addAll()
   },
 
+  /** Add all Packages which dont have any dependencies */
   addAll () {
     this.add(require('./packages/basicItems'))
   },
