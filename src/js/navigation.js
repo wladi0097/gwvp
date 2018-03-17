@@ -2,6 +2,13 @@
 const navigation = {
   init () {
     this.navBarSelection()
+    this.cacheDom()
+  },
+
+  cacheDom () {
+    this.$leftSide = document.getElementsByClassName('left-sidebar')[0]
+    this.$rightSide = document.getElementsByClassName('right-sidebar')[0]
+    this.$center = document.getElementsByClassName('center')[0]
   },
 
   /** switch between the three tabs */
@@ -30,8 +37,22 @@ const navigation = {
     let elem = document.querySelector(`[open="${open}"]`)
     let e = {currentTarget: elem}
     this.navBarSelectionEvent(e)
-  }
+  },
 
+  leftSideVisible: true,
+  rightSideVisible: true,
+
+  toggleSidebarVisibility (side) {
+    if (side === 'left') {
+      this.leftSideVisible = !this.leftSideVisible
+      this.$leftSide.classList.toggle('hide')
+    } else if (side === 'right') {
+      this.rightSideVisible = !this.rightSideVisible
+      this.$rightSide.classList.toggle('hide')
+    }
+    let minus = this.$leftSide.offsetWidth + this.$rightSide.offsetWidth
+    this.$center.setAttribute('style', 'width: calc(100% - ' + minus + 'px )')
+  }
 }
 
 module.exports = navigation

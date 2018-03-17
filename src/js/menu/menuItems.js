@@ -3,6 +3,7 @@ const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
 const history = require('../interaction/history.js')
 const iframeContents = require('../iframeContents.js')
+const navigation = require('../navigation.js')
 
 /** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
@@ -175,6 +176,18 @@ module.exports = function () {
         run () { changeScreenSize.changeResolution('Mobile') }
       }
       ]
+    },
+    {
+      icon: 'check',
+      text: 'Left Sidebar',
+      active () { return navigation.leftSideVisible },
+      run () { navigation.toggleSidebarVisibility('left') }
+    },
+    {
+      icon: 'check',
+      text: 'Right Sidebar',
+      active () { return navigation.rightSideVisible },
+      run () { navigation.toggleSidebarVisibility('right') }
     },
     {
       delimiter: true
