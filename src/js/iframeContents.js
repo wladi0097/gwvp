@@ -179,6 +179,13 @@ const iframeContents = {
     }
   },
 
+  openIframeInPopUp (frame) {
+    if (frame) {
+      let win = window.open('', 'Your Page')
+      win.document.documentElement.innerHTML = frame.contentDocument.documentElement.innerHTML
+    }
+  },
+
   /** Display the content of clicked project listing.
    * @param {Integer} id - project id
    */
