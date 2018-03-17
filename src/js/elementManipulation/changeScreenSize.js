@@ -35,6 +35,7 @@ const changeScreenSize = {
     this.$buttons = document.getElementsByClassName('header-icons')[0]
 
     // custom buttons
+    this.$full = document.getElementById('screen-Full')
     this.$tv = document.getElementById('screen-Tv')
     this.$computer = document.getElementById('screen-Computer')
     this.$tablet = document.getElementById('screen-Tablet')
@@ -43,6 +44,7 @@ const changeScreenSize = {
 
   /** Apply events to static content. */
   bindEvents () {
+    this.$full.addEventListener('mousedown', () => { this.changeResolution('Full') })
     this.$tv.addEventListener('mousedown', () => { this.changeResolution('Tv') })
     this.$computer.addEventListener('mousedown', () => { this.changeResolution('Computer') })
     this.$tablet.addEventListener('mousedown', () => { this.changeResolution('Tablet') })
@@ -53,9 +55,9 @@ const changeScreenSize = {
    * the used values are stored in this object and edited by changeResolution and changeZoom.
    */
   applyStyle () {
-    this.$hover.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
-    this.$click.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
-    this.$simulated.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
+    this.$hover.setAttribute('style', `width: ${this.width}; min-width:${this.width}; transform: scale(${this.scale})`)
+    this.$click.setAttribute('style', `width: ${this.width}; min-width:${this.width}; transform: scale(${this.scale})`)
+    this.$simulated.setAttribute('style', `width: ${this.width}; min-width:${this.width}; transform: scale(${this.scale})`)
     if (this.change) this.change()
   },
 
@@ -69,20 +71,24 @@ const changeScreenSize = {
     }
     let width = 1200
     switch (type) {
+      case 'Full':
+        width = '100%'
+        this.$full.classList.add('selected')
+        break
       case 'Tv':
-        width = 1200
+        width = '1200px'
         this.$tv.classList.add('selected')
         break
       case 'Computer':
-        width = 979
+        width = '979px'
         this.$computer.classList.add('selected')
         break
       case 'Tablet':
-        width = 767
+        width = '767px'
         this.$tablet.classList.add('selected')
         break
       case 'Mobile':
-        width = 480
+        width = '480px'
         this.$mobile.classList.add('selected')
         break
     }

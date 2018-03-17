@@ -152,6 +152,12 @@ module.exports = function () {
       icon: 'resize',
       text: 'Screen Size',
       underItems: [{
+        icon: 'square-o',
+        text: 'Full Center',
+        keycode: 'ALT + 0',
+        run () { changeScreenSize.changeResolution('Full') }
+      },
+      {
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
