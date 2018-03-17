@@ -252,9 +252,8 @@ const elementEvents = {
       let historyElem = this.$iframe.querySelector(`[history="${historyItem}"]`)
       if (!historyElem) return
       this.currentElement = historyElem
-      this.allowInteraction = true
     }
-    if (!this.allowInteraction || !this.currentElement) {
+    if ((!this.allowInteraction || !this.currentElement) && !historyItem) {
       displayMessage.show('No element selected to delete', 2000, 'warning', false)
       return this
     }
@@ -396,7 +395,7 @@ const elementEvents = {
 
     history.add({
       done: this.paste,
-      doneArgs: [appendStyle, insertHTML, null, false, idRedo],
+      doneArgs: [appendStyle, newElement.outerHTML, null, false, idRedo],
       undo: this.delete,
       undoArgs: [false, idUndo],
       _this: this
