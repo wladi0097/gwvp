@@ -60,6 +60,11 @@
     content: '';
     display: block;
   }
+
+  &.searched-items {
+    width: 90%;
+    margin-left: 5%;
+  }
 }
 
 .sidebar-elements .new-elements-items .new-elements-item {
@@ -223,69 +228,69 @@
   position: relative;
   display: none;
   width: 100%;
+}
 
-  // sass-lint:disable no-duplicate-properties
-  .item {
-    position: relative;
-    height: 90px;
-    width: calc(100% / 3);
-    box-sizing: border-box;
-    float: left;
-    border: 1px solid $grey;
-    transition: background-color .5s;
-    cursor: move;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: grab;
+// sass-lint:disable no-duplicate-properties
+.html-element {
+  position: relative;
+  height: 90px;
+  width: calc(100% / 3);
+  box-sizing: border-box;
+  float: left;
+  border: 1px solid $grey;
+  transition: background-color .5s;
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+
+  &:hover {
+    background-color: $main2;
+
+    .help-icon {
+      display: block;
+    }
+  }
+
+  > .img {
+    width: 100%;
+    height: 80px;
+
+    > img {
+      padding: 0 5%;
+      width: 90%;
+      height: 100%;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  > .name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+  }
+
+  > .help-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 2px 5px;
+    display: block;
+    transition: background-color .5s, color .5s;
+    cursor: pointer;
 
     &:hover {
-      background-color: $main2;
-
-      .help-icon {
-        display: block;
-      }
+      background-color: $main;
+      color: $light;
     }
+  }
 
-    > .img {
-      width: 100%;
-      height: 80px;
-
-      > img {
-        padding: 0 5%;
-        width: 90%;
-        height: 100%;
-        user-select: none;
-        pointer-events: none;
-      }
-    }
-
-    > .name {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 20px;
-      font-size: 13px;
-      width: 100%;
-      text-align: center;
-    }
-
-    > .help-icon {
-      position: absolute;
-      right: 0;
-      top: 0;
-      padding: 2px 5px;
-      display: block;
-      transition: background-color .5s, color .5s;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $main;
-        color: $light;
-      }
-    }
-
-    > .help-text {
-      display: none;
-    }
+  > .help-text {
+    display: none;
   }
 }
