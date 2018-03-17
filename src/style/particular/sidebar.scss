@@ -125,6 +125,11 @@
 .sidebar-content {
   width: 100%;
   height: 60%;
+  display: none;
+
+  &.selected {
+    display: block;
+  }
 }
 
 
@@ -149,5 +154,12 @@
         color: $light2;
       }
     }
+  }
+
+  .element-search {
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 90%;
+    text-align: center;
   }
 }
