@@ -1,7 +1,7 @@
 .display-message {
   position: fixed;
   top: 0;
-  right: -15px;
+  right: -18px;
   width: 515px;
   height: 50%;
   overflow-y: scroll;
@@ -16,7 +16,7 @@
     float: left;
     pointer-events: painted;
     border-radius: 3px;
-    box-shadow: 10px 10px 5px 0 $shadow;
+    box-shadow: 10px 10px 5px 0 $grey2;
     transform-origin: 50% 0;
     animation: bounceInDown 1s;
 
@@ -40,7 +40,7 @@
       height: 15px;
       line-height: 15px;
       padding: 5px 10px;
-      color: $light-active;
+      color: $light2;
 
       >i {
         float: right;
@@ -50,7 +50,7 @@
     }
 
     .text {
-      color: $light-active;
+      color: $light2;
       padding: 20px;
       padding-top: 0;
 

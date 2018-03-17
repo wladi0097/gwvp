@@ -5,11 +5,13 @@
   position: absolute;
   left: 250px;
   top: 0;
-  border: 1px solid $border;
+  border: 1px solid $grey;
   display: none;
+  z-index: 101;
 
   &.active {
     display: block;
+    animation: fadeInDown .4s;
   }
 
   .header {
@@ -20,7 +22,7 @@
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
-    border-bottom: 2px solid $border;
+    border-bottom: 2px solid $grey;
 
     p {
       float: left;
@@ -33,7 +35,7 @@
       cursor: pointer;
 
       &:hover {
-        color: $light-active;
+        color: $light2;
       }
     }
   }
@@ -57,6 +59,11 @@
     clear: both;
     content: '';
     display: block;
+  }
+
+  &.searched-items {
+    width: 90%;
+    margin-left: 5%;
   }
 }
 
@@ -85,13 +92,14 @@
 
     // sass-lint:disable no-important
     & > .new-elements-content {
+      animation: fadeIn .6s;
       display: block !important;
     }
   }
 
   &:hover {
     > .img {
-      background-color: $main-background;
+      background-color: $main2;
     }
 
     > p {
@@ -117,7 +125,7 @@
 
   > p {
     transition: letter-spacing .5s;
-    color: $light-active;
+    color: $light2;
   }
 }
 
@@ -164,7 +172,7 @@
   margin-top: 10px;
   width: calc(250px - 22px);
   display: none;
-  border: 1px solid $border;
+  border: 1px solid $grey;
 
   &.active {
     display: block;
@@ -195,10 +203,10 @@
     }
 
     &:hover {
-      color: $light-active;
+      color: $light2;
 
       > i {
-        color: $light-active;
+        color: $light2;
       }
     }
 
@@ -220,69 +228,69 @@
   position: relative;
   display: none;
   width: 100%;
+}
 
-  // sass-lint:disable no-duplicate-properties
-  .item {
-    position: relative;
-    height: 90px;
-    width: calc(100% / 3);
-    box-sizing: border-box;
-    float: left;
-    border: 1px solid $border;
-    transition: background-color .5s;
-    cursor: move;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: grab;
+// sass-lint:disable no-duplicate-properties
+.html-element {
+  position: relative;
+  height: 90px;
+  width: calc(100% / 3);
+  box-sizing: border-box;
+  float: left;
+  border: 1px solid $grey;
+  transition: background-color .5s;
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+
+  &:hover {
+    background-color: $main2;
+
+    .help-icon {
+      display: block;
+    }
+  }
+
+  > .img {
+    width: 100%;
+    height: 80px;
+
+    > img {
+      padding: 0 5%;
+      width: 90%;
+      height: 100%;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  > .name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+  }
+
+  > .help-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 2px 5px;
+    display: block;
+    transition: background-color .5s, color .5s;
+    cursor: pointer;
 
     &:hover {
-      background-color: $main-background;
-
-      .help-icon {
-        display: block;
-      }
+      background-color: $main;
+      color: $light;
     }
+  }
 
-    > .img {
-      width: 100%;
-      height: 80px;
-
-      > img {
-        padding: 0 5%;
-        width: 90%;
-        height: 100%;
-        user-select: none;
-        pointer-events: none;
-      }
-    }
-
-    > .name {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 20px;
-      font-size: 13px;
-      width: 100%;
-      text-align: center;
-    }
-
-    > .help-icon {
-      position: absolute;
-      right: 0;
-      top: 0;
-      padding: 2px 5px;
-      display: block;
-      transition: background-color .5s, color .5s;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $main;
-        color: $light;
-      }
-    }
-
-    > .help-text {
-      display: none;
-    }
+  > .help-text {
+    display: none;
   }
 }

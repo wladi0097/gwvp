@@ -24,6 +24,7 @@
     cursor: pointer;
 
     &.header-contextmenu {
+      display: none;
       position: fixed;
 
       > p {
@@ -48,7 +49,7 @@
       color: $light;
 
       &:hover {
-        color: $light-active;
+        color: $light2;
       }
 
       &:hover.header-item-options {
@@ -65,14 +66,14 @@
   height: auto;
   background-color: $dark;
   top: 40px;
-  border: 1px solid $border;
+  border: 1px solid $grey;
 
   > ul {
     width: 100%;
     padding: 5px 0;
 
     .option-delimiter {
-      border-bottom: 1px solid $border;
+      border-bottom: 1px solid $grey;
       list-style: none;
       margin: 3px 0;
     }
@@ -86,11 +87,11 @@
       color: $light;
 
       &.disabled {
-        color: $border;
+        color: $grey;
         cursor: initial;
 
         &:hover {
-          color: $border;
+          color: $grey;
           background-color: $dark;
         }
       }
@@ -102,7 +103,7 @@
       }
 
       &:hover {
-        color: $light-active;
+        color: $light2;
         background-color: $main;
 
         > .option-underitem {
@@ -128,7 +129,7 @@
       }
 
       > p {
-        width: 100px;
+        width: 140px;
         height: 100%;
         float: left;
       }
@@ -136,10 +137,10 @@
       > .shortcut {
         float: right;
         text-align: right;
-        width: 100px;
+        width: 60px;
         font-size: 12px;
         font-weight: 500;
-        color: $border;
+        color: $grey;
 
         > i {
           line-height: 20px;
@@ -148,11 +149,12 @@
       }
 
       .option-underitem {
-        border: 1px solid $border;
+        border: 1px solid $grey;
         padding: 2px 0;
         display: none;
         position: absolute;
         right: -242px;
+        margin-top: -7px;
         background-color: $dark;
       }
     }
@@ -176,7 +178,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $light-active;
+      color: $light2;
     }
 
     &.selected {

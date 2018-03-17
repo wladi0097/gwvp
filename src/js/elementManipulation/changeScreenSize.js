@@ -7,10 +7,24 @@ const changeScreenSize = {
   width: 1200,
   /** Screen scale. */
   scale: 1,
+
+  // run change after dom changed
+  change: null,
   /** Initialize changeScreenSize. */
   init () {
     this.cacheDom()
     this.bindEvents()
+  },
+
+  /** Initialize elements after the iframe is ready.
+  * @param {HTMLElement} iframe - main iframe window
+  * @param {Function} change - function to run after dom changed
+  */
+  initAfterFrame (iframe, change) {
+    this.$simulated = iframe
+    this.change = change
+    this.changeResolution('Tv')
+    this.applyStyle()
   },
 
   /** Cache dom elements. */
@@ -18,7 +32,6 @@ const changeScreenSize = {
     // dom to resize
     this.$hover = document.getElementsByClassName('hover-wrapper')[0]
     this.$click = document.getElementsByClassName('click-wrapper')[0]
-    this.$simulated = document.getElementById('simulated')
     this.$buttons = document.getElementsByClassName('header-icons')[0]
 
     // custom buttons
@@ -43,6 +56,7 @@ const changeScreenSize = {
     this.$hover.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
     this.$click.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
     this.$simulated.setAttribute('style', `width: ${this.width}px; min-width:${this.width}px; transform: scale(${this.scale})`)
+    if (this.change) this.change()
   },
 
   /** Change the resolution to a device width and highlight the selected icon.

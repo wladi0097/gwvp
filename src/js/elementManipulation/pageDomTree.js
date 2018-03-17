@@ -22,7 +22,7 @@ const pageDomTree = {
   * @param {HTMLElement} domTree - Element to display the domTree
   */
   build (iframe, domTree) {
-    this.$iframe = iframe || ((document.getElementById('simulated')) ? document.getElementById('simulated').contentDocument : null)
+    this.$iframe = iframe
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
     if (!this.$iframe || !this.$domTree) return false
 

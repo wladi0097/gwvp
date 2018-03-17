@@ -40,7 +40,6 @@ execute with ``npm run {{command}}``
 ``testw`` 	- run Javascript tests in watch mode    
 ``testc`` 	- get Javascript test coverage report    
 ``build`` 	- build whole project (see webpack.config.js)   
-``watch``	- build program in watch mode    
 ``start`` 	- build program in watch mode with a dev-server   
 ``docs`` 	- create inline documentation HTML-page    
 ``license``	- get all production relevant licensenses    
@@ -70,7 +69,6 @@ execute with ``npm run {{command}}``
  * *[jest](https://facebook.github.io/jest/)* for JavaScript Testing.
  * *[node-sass](https://github.com/sass/node-sass)* allows you to natively compile .scss files.
  * *[license-checker](https://github.com/davglass/license-checker)* to list all licenses from all dependencies.
- * *[jquery](https://jquery.com/)*  is a slow, big, and feature-rich JavaScript library and is only used to write tests faster.
 
 ### License
 * [License: MIT](https://github.com/wladi0097/gwvp/blob/master/LICENSE)

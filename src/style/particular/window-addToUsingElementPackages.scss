@@ -17,12 +17,12 @@
       color: $light;
       margin: 5px 0;
       padding-bottom: 20px;
-      border-bottom: 1px dashed $border;
+      border-bottom: 1px dashed $grey;
     }
 
     h3 {
       font-size: 20px;
-      color: $border;
+      color: $grey;
       margin: 15px 0 10px;
       cursor: pointer;
       transition: color .4s;
@@ -119,7 +119,7 @@
       padding: 0 20px;
 
       > p {
-        color: $light-active;
+        color: $light2;
       }
     }
   }
@@ -134,7 +134,7 @@
   table,
   td,
   th {
-    border: 1px solid $border;
+    border: 1px solid $grey;
   }
 
   // sass-lint:disable force-pseudo-nesting
@@ -178,7 +178,7 @@
 
     > code {
       color: $light;
-      background-color: $main-background;
+      background-color: $main2;
       padding: 5px;
       border-radius: 5px;
     }
@@ -186,7 +186,7 @@
 }
 
 .window-addToUsingElementPackages .items-info .new-elements-content {
-  color: $border;
+  color: $grey;
   width: 100%;
   margin: 0;
 

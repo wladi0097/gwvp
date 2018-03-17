@@ -22,7 +22,7 @@
 }
 
 .element-editor .delimiter {
-  border-bottom: 1px solid $main-background;
+  border-bottom: 1px solid $main2;
   width: 60%;
   margin: 5px 0;
   margin-left: 20%;
@@ -76,7 +76,7 @@
 
     &:active {
       border: 0;
-      border-bottom: 1px solid $border;
+      border-bottom: 1px solid $grey;
     }
   }
 
@@ -169,7 +169,7 @@
   .all-classes {
     width: 80%;
     margin-left: 10%;
-    border: 1px solid $border;
+    border: 1px solid $grey;
     padding: 5px;
     box-sizing: border-box;
 
@@ -193,7 +193,7 @@
       animation: fadeInRight .5s;
 
       &:hover {
-        background-color: $highlight-hover;
+        background-color: $highlight-active;
       }
     }
   }
@@ -296,7 +296,7 @@
 
 .editor-direction {
   position: absolute;
-  background-color: $main-background;
+  background-color: $main2;
 
   &::after,
   &::before {
@@ -329,7 +329,7 @@
       border-left: 15px solid transparent;
       border-right: 15px solid transparent;
       top: 0;
-      border-top: 15px solid $main-background;
+      border-top: 15px solid $main2;
     }
 
     &::before {
@@ -351,7 +351,7 @@
       border-top: 15px solid transparent;
       border-bottom: 15px solid transparent;
       left: 0;
-      border-right: 15px solid $main-background;
+      border-right: 15px solid $main2;
     }
 
     &::before {
@@ -373,7 +373,7 @@
       border-left: 15px solid transparent;
       border-right: 15px solid transparent;
       top: 0;
-      border-bottom: 15px solid $main-background;
+      border-bottom: 15px solid $main2;
     }
 
     &::before {
@@ -395,7 +395,7 @@
       border-top: 15px solid transparent;
       border-bottom: 15px solid transparent;
       left: 0;
-      border-left: 15px solid $main-background;
+      border-left: 15px solid $main2;
     }
 
     &::before {
@@ -437,7 +437,7 @@
       transition: transform .3s; // sass-lint:disable-line no-duplicate-properties
 
       &:hover {
-        color: $light-active;
+        color: $light2;
       }
 
       &.active {
@@ -512,13 +512,13 @@
   }
 
   >.radio {
-    border: 1px solid $border;
+    border: 1px solid $grey;
     display: flex;
     width: 80%;
     margin-left: 10%;
 
     .item {
-      border-right: 1px solid $border;
+      border-right: 1px solid $grey;
       float: left;
       flex: 1;
       height: 25px;
@@ -526,7 +526,7 @@
       transition: background-color .5s;
 
       &:hover {
-        background-color: $main-background;
+        background-color: $main2;
       }
 
       &:last-child {
@@ -534,7 +534,7 @@
       }
 
       &.active {
-        background-color: $main-background;
+        background-color: $main2;
       }
 
       >p {
@@ -572,16 +572,16 @@
   >input {
     width: 50px;
     height: 20px;
-    background-color: $main-background;
+    background-color: $main2;
     position: absolute;
-    border: 3px solid $main-background;
+    border: 3px solid $main2;
     border-style: dotted;
     cursor: pointer;
 
     &.border-top {
       left: 35px;
       top: 0;
-      border-top-color: $border;
+      border-top-color: $grey;
       text-align: center;
 
       &:hover,
@@ -593,7 +593,7 @@
     &.border-right {
       right: 0;
       top: 25px;
-      border-right-color: $border;
+      border-right-color: $grey;
       text-align: right;
 
       &:hover,
@@ -605,7 +605,7 @@
     &.border-bottom {
       bottom: 0;
       left: 35px;
-      border-bottom-color: $border;
+      border-bottom-color: $grey;
       text-align: center;
 
       &:hover,
@@ -617,7 +617,7 @@
     &.border-left {
       top: 25px;
       left: 0;
-      border-left-color: $border;
+      border-left-color: $grey;
 
       &:hover,
       .active {

@@ -6,11 +6,11 @@
   height: 100vh;
   left: 0;
   top: 0;
-  background-color: $shadow;
-  z-index: 100;
+  background-color: $grey3;
+  z-index: 160;
 
   .window-info {
-    color: $light-active;
+    color: $light2;
     text-align: center;
     margin: 50px 0 0;
   }
@@ -20,7 +20,7 @@
     background-color: $main;
     border-radius: 5px;
     margin: 5px auto 0;
-    border: 1px solid $border;
+    border: 1px solid $grey;
   }
 
   .accept {
@@ -28,16 +28,16 @@
     margin-left: 5%;
     margin-bottom: 20px;
     width: 90%;
-    border: 1px solid $border;
+    border: 1px solid $grey;
     padding: 5px;
-    background-color: $main-background;
+    background-color: $main2;
     cursor: pointer;
     transition: background-color .6s, color .6s;
     color: $light;
 
     &:hover {
       background-color: $green;
-      color: $light-active;
+      color: $light2;
     }
 
     > .accept-button {

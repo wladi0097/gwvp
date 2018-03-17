@@ -1,23 +1,23 @@
 // entry point
 
-// Global styling 
+// Global styling
 @import 'global/colors';
 @import 'global/keyframes';
 @import 'global/global';
 @import 'global/font';
 @import 'global/input';
 @import 'global/scrollbar';
+@import 'global/window';
 
 // Html specific styling
 @import 'particular/sidebar';
 @import 'particular/header';
 @import 'particular/center';
 @import 'particular/domtree';
-@import 'particular/texteditor';
 @import 'particular/newElement';
 @import 'particular/elementEditor';
 @import 'particular/displayMessage';
+@import 'particular/mainMenu';
 
-@import 'particular/window';
 @import 'particular/window-onlineElementPackages';
 @import 'particular/window-addToUsingElementPackages';

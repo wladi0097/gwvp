@@ -5,15 +5,25 @@ const styleManipulation = require('./styleManipulation')
   */
 const elementEditor = {
   selectedItem: null,
-  $iframe: null,
+
+  // run change after dom changed
+  change: null,
 
   /** Initialize elementEditor. */
-  init (iframe) {
-    this.$iframe = iframe
-    styleManipulation.init(iframe)
+  init () {
     this.cacheDom()
     this.bindGlobalEvent()
     classEditor.init()
+  },
+
+  /** Initialize elements after the iframe is ready.
+  * @param {HTMLElement} iframe - main iframe window
+  * @param {Function} change - function to run after dom changed
+  */
+  initAfterFrame (iframe, change) {
+    this.$iframe = iframe.contentDocument
+    this.change = change
+    styleManipulation.init(this.$iframe)
   },
 
   /** Cache dom elements. */
@@ -32,6 +42,7 @@ const elementEditor = {
   bindGlobalEvent () {
     // is input changed
     this.inputs.forEach((item) => {
+      item.addEventListener('keydown', this.overwriteDefault.bind(this))
       item.addEventListener('change', this.inputChanged.bind(this))
     })
 
@@ -48,8 +59,13 @@ const elementEditor = {
     })
 
     this.inputProp.forEach((item) => {
+      item.addEventListener('keydown', this.overwriteDefault.bind(this))
       item.addEventListener('change', this.propChanged.bind(this))
     })
+  },
+
+  overwriteDefault (e) {
+    e.stopImmediatePropagation()
   },
 
   /** from https://stackoverflow.com/a/19765382/8270857 simple rgb to hex converter
@@ -211,6 +227,7 @@ const elementEditor = {
       styleManipulation.addStyleToClass(classEditor.cssClass, style, value)
       styleManipulation.createStyleHTML()
     }
+    if (this.change) this.change()
   }
 
 }
@@ -336,6 +353,7 @@ const classEditor = {
     elementEditor.selectedItem.classList.remove(this.clickedClass)
     this.displayAviableClasses(elementEditor.selectedItem)
     this.hideAllandShow(this.$classListings)
+    if (elementEditor.change) elementEditor.change()
   },
 
   /** Edit now the css class instead the inline.  */
@@ -360,6 +378,7 @@ const classEditor = {
     this.displayAviableClasses(elementEditor.selectedItem)
     e.currentTarget.value = ''
     this.hideAllandShow(this.$classListings)
+    if (elementEditor.change) elementEditor.change()
   }
 }
 

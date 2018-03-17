@@ -2,15 +2,22 @@
 
 /** Save states of any element and allow to revert them to previous states */
 const history = {
-  history: [{
-    done () {},
-    doneArgs: [],
-    undo () {},
-    undoArgs: [],
-    this: this
-  }],
+  history: [],
   maxSaves: 20,
   pointer: 0,
+
+  /** reset the history to default  */
+  reset () {
+    let empty = {}
+    empty.done = () => {}
+    empty.undo = () => {}
+    empty.this = this
+    empty.doneArgs = []
+    empty.undoArgs = []
+    this.history = [empty]
+    this.pointer = 0
+    this.checkPossibilities()
+  },
 
   /**
   * Add an item to the history

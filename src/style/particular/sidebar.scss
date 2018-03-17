@@ -41,13 +41,13 @@
     }
 
     &:hover {
-      background-color: $highlight-hover;
-      color: $light-active;
+      background-color: $highlight-active;
+      color: $light2;
     }
 
     &.selected {
       background-color: $highlight;
-      color: $light-active;
+      color: $light2;
     }
   }
 }
@@ -56,7 +56,7 @@
   width: 100%;
   height: 30px;
   background-color: $dark;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid $grey;
 
   // sass-lint:disable force-pseudo-nesting
   > div:first-child {
@@ -73,11 +73,11 @@
       float: right;
       line-height: 30px;
       margin-right: 10px;
-      color: $border;
+      color: $grey;
       cursor: pointer;
 
       &:hover {
-        color: $light-active;
+        color: $light2;
       }
     }
   }
@@ -104,20 +104,43 @@
   }
 }
 
+// firefox fix
+@-moz-document url-prefix() {
+  .overflow {
+    > div {
+      width: calc(100% - 15px);
+    }
+  }
+}
+
+// edge fix
+@supports (-ms-ime-align: auto) {
+  .overflow {
+    > div {
+      width: calc(100% - 15px);
+    }
+  }
+}
+
 .sidebar-content {
   width: 100%;
   height: 60%;
+  display: none;
+
+  &.selected {
+    display: block;
+  }
 }
 
 
 .sidebar-category {
   margin-top: 5px;
-  color: $border;
+  color: $grey;
   text-align: center;
 
   > p {
     padding: 2px;
-    border-bottom: 1px solid $main-background;
+    border-bottom: 1px solid $main2;
     width: 80%;
     margin-left: 10%;
     margin-bottom: 10px;
@@ -128,8 +151,15 @@
       cursor: pointer;
 
       &:hover {
-        color: $light-active;
+        color: $light2;
       }
     }
+  }
+
+  .element-search {
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 90%;
+    text-align: center;
   }
 }
