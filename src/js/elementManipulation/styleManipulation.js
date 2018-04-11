@@ -75,7 +75,7 @@ const styleManipulation = {
   isCustomStyleTagPresent () {
     if (!this.headStyle) {
       this.$iframe.getElementsByTagName('head')[0].innerHTML +=
-        '<style id="customClassStyles"></style>'
+        '<style id="customClassStyles" gwvp-name="User Style"></style>'
       this.headStyle = this.$iframe.getElementById('customClassStyles')
     }
   },
