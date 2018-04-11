@@ -2,6 +2,7 @@
 const elementEvents = require('./elementManipulation/elementEvents')
 const changeScreenSize = require('./elementManipulation/changeScreenSize')
 const elementEditor = require('./elementManipulation/elementEditor')
+const elementItems = require('./newElements/elementItems')
 const idGen = require('./interaction/idGen')
 const history = require('./interaction/history')
 const ajax = require('./interaction/ajax')
@@ -152,6 +153,7 @@ const iframeContents = {
     changeScreenSize.initAfterFrame(iframe, elementEvents.change.bind(elementEvents))
     elementEvents.initAfterFrame(iframe)
     elementEditor.initAfterFrame(iframe, elementEvents.change.bind(elementEvents))
+    elementItems.initAfterFrame(iframe)
     history.reset()
     this.hideMainMenu()
   },

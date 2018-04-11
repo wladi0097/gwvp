@@ -1,6 +1,7 @@
 const packageManager = require('./packageManager')
 const elementEvents = require('../elementManipulation/elementEvents.js')
 const newElementsHTML = require('./newElementsHTML')
+const contentExplorer = require('./contentExplorer')
 
 /** Drag and drop elements into to the iframe.
   * The elements can be single files or packed into Packages
@@ -11,6 +12,11 @@ const elementItems = {
     this.cacheDom()
     this.bindEvents()
     packageManager.init()
+    contentExplorer.init()
+  },
+
+  initAfterFrame (iframe) {
+    contentExplorer.initAfterFrame(iframe)
   },
 
   /** Cache static dom elements.  */
