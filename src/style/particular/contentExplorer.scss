@@ -1,0 +1,67 @@
+.content-explorer {
+
+  .sidebar-category {
+    >div {
+      margin: 15px 0;
+
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+    }
+  }
+
+  .content-element {
+    margin: 5px 0;
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 15px;
+
+    &:hover {
+      >.orange {
+        color: $orange;
+      }
+
+      >.yellow {
+        color: $yellow;
+      }
+
+      >.blue {
+        color: $blue;
+      }
+    }
+
+    >p {
+      text-align: left;
+      width: 50%;
+      float: left;
+      color: $light;
+    }
+
+    >i {
+      float: right;
+      cursor: pointer;
+      transition: color .5s;
+      margin-right: 10px;
+
+      &:hover {
+        color: $light;
+
+        &.red {
+          color: $red;
+        }
+      }
+
+      &:first-child {
+        float: left;
+        cursor: initial;
+
+        &:hover {
+          color: $grey;
+        }
+      }
+    }
+  }
+}
