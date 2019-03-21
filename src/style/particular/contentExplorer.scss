@@ -1,67 +1,65 @@
-.content-explorer {
+.content-explorer .content-element {
+  margin: 5px 0;
+  width: 100%;
+  float: left;
+  box-sizing: border-box;
+  padding: 0 15px;
 
-  .sidebar-category {
-    >div {
-      margin: 15px 0;
+  &:hover {
+    >.orange {
+      color: $orange;
+    }
 
-      &::after {
-        content: '';
-        display: table;
-        clear: both;
-      }
+    >.yellow {
+      color: $yellow;
+    }
+
+    >.blue {
+      color: $blue;
     }
   }
 
-  .content-element {
-    margin: 5px 0;
-    width: 100%;
+  >p {
+    text-align: left;
+    width: 50%;
     float: left;
-    box-sizing: border-box;
-    padding: 0 15px;
+    color: $light;
+  }
+
+  >i {
+    float: right;
+    cursor: pointer;
+    transition: color .5s;
+    margin-right: 10px;
 
     &:hover {
-      >.orange {
-        color: $orange;
-      }
-
-      >.yellow {
-        color: $yellow;
-      }
-
-      >.blue {
-        color: $blue;
-      }
-    }
-
-    >p {
-      text-align: left;
-      width: 50%;
-      float: left;
       color: $light;
+
+      &.red {
+        color: $red;
+      }
     }
 
-    >i {
-      float: right;
-      cursor: pointer;
-      transition: color .5s;
-      margin-right: 10px;
+    &:first-child {
+      float: left;
+      cursor: initial;
 
       &:hover {
-        color: $light;
-
-        &.red {
-          color: $red;
-        }
+        color: $grey;
       }
+    }
+  }
+}
 
-      &:first-child {
-        float: left;
-        cursor: initial;
+.content-explorer .sidebar-category {
+  position: relative;
+  >div {
+    margin: 15px 0;
 
-        &:hover {
-          color: $grey;
-        }
-      }
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
     }
   }
 }
