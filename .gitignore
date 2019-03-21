@@ -1,8 +1,6 @@
 # Created by https://www.gitignore.io/api/node
 /dist
 /docs
-.DS_Store
-.idea
 
 ### Node ###
 # Logs
