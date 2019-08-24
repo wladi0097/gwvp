@@ -3,6 +3,7 @@ const pageDomTree = require('../elementManipulation/pageDomTree.js')
 const changeScreenSize = require('../elementManipulation/changeScreenSize.js')
 const history = require('../interaction/history.js')
 const iframeContents = require('../iframeContents.js')
+const navigation = require('../navigation.js')
 
 /** The menu and keycodes are created by this object.
  * Every keycode must have a menu item. (user friendly)
@@ -52,7 +53,7 @@ module.exports = function () {
     },
     {
       icon: 'download',
-      text: 'Export Page',
+      text: 'Export as HTML',
       underItems: [
         {
           icon: '',
@@ -76,6 +77,11 @@ module.exports = function () {
           run () { iframeContents.exportIframe('selection', elementEvents.currentElement.outerHTML) }
         }
       ]
+    },
+    {
+      icon: 'caret-right',
+      text: 'Export in Window',
+      run () { iframeContents.openIframeInPopUp(document.getElementById('simulated')) }
     }
     ]
   },
@@ -151,6 +157,12 @@ module.exports = function () {
       icon: 'resize',
       text: 'Screen Size',
       underItems: [{
+        icon: 'square-o',
+        text: 'Full Center',
+        keycode: 'ALT + 0',
+        run () { changeScreenSize.changeResolution('Full') }
+      },
+      {
         icon: 'television',
         text: 'Monitor / TV',
         keycode: 'ALT + 1',
@@ -177,6 +189,18 @@ module.exports = function () {
       ]
     },
     {
+      icon: 'check',
+      text: 'Left Sidebar',
+      active () { return navigation.leftSideVisible },
+      run () { navigation.toggleSidebarVisibility('left') }
+    },
+    {
+      icon: 'check',
+      text: 'Right Sidebar',
+      active () { return navigation.rightSideVisible },
+      run () { navigation.toggleSidebarVisibility('right') }
+    },
+    {
       delimiter: true
     },
     {
@@ -189,6 +213,20 @@ module.exports = function () {
       text: 'Tree Autoscroll',
       active () { return pageDomTree.allowScrollToElement },
       run () { pageDomTree.toggleAllowScrollToElement() }
+    },
+    {
+      delimiter: true
+    },
+    {
+      icon: 'check',
+      text: 'Fullscreen',
+      active () { return navigation.isFullscreen() },
+      run () { navigation.toggleFullscreen(document.body) },
+      keycode: 'F11'
+    },
+    {
+      text: 'Page Fullscreen',
+      run () { navigation.toggleFullscreen(document.getElementById('simulated')) }
     }
     ]
   },

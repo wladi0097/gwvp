@@ -30,6 +30,7 @@ const elementEditor = {
   cacheDom () {
     this.$allEvents = document.getElementById('elementEditor')
     this.$elementProperties = document.getElementsByClassName('element-properties')
+    this.$hideContent = document.getElementsByClassName('hide-content')
 
     // create dynamically
     this.inputs = Array.from(this.$allEvents.querySelectorAll('input')).filter(item => item.hasAttribute('editCSS'))
@@ -100,11 +101,27 @@ const elementEditor = {
     classEditor.select(item)
     this.showProperties(item.nodeName)
     this.showPropertiesValue(item.nodeName)
+    this.showContent()
+  },
+
+  showContent () {
+    Array.from(this.$hideContent).forEach(item => {
+      if (!item.classList.contains('hide')) {
+        item.classList.add('hide')
+      }
+    })
+  },
+
+  hideContent () {
+    Array.from(this.$hideContent).forEach(item => {
+      item.classList.remove('hide')
+    })
   },
 
   /** Remove the selected properties and reset style displays.   */
   unselect () {
     this.selectedItem = null
+    this.hideContent()
   },
 
   /** Display compatible properties.

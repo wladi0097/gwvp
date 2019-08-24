@@ -131,6 +131,8 @@ const keydown = {
         return 16
       case 'DEL':
         return 46
+      case 'F11':
+        return 122
       default:
         return item.charCodeAt(0)
     }

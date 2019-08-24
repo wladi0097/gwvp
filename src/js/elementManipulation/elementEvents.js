@@ -252,9 +252,8 @@ const elementEvents = {
       let historyElem = this.$iframe.querySelector(`[history="${historyItem}"]`)
       if (!historyElem) return
       this.currentElement = historyElem
-      this.allowInteraction = true
     }
-    if (!this.allowInteraction || !this.currentElement) {
+    if ((!this.allowInteraction || !this.currentElement) && !historyItem) {
       displayMessage.show('No element selected to delete', 2000, 'warning', false)
       return this
     }
@@ -333,7 +332,7 @@ const elementEvents = {
     * @param {Boolean} noChange - true if it should not count as dom change
   *  @return this
   */
-  paste (appendStyle, data, whereDom, noChange = false, historyItem) {
+  paste (appendStyle, data = null, whereDom = null, noChange = false, historyItem) {
     if (historyItem) {
       let historyElem = this.$iframe.querySelector(`[history="${historyItem}"]`)
       if (!historyElem) return
@@ -342,10 +341,20 @@ const elementEvents = {
     let insertHTML = data || this.clipboard
     let insertDom = whereDom || this.currentElement
     appendStyle = appendStyle || 'in'
+
     if (!insertHTML || !insertDom) {
       displayMessage.show('No element selected to paste or your clipboard is empty', 2500, 'warning', false)
       return this
     }
+
+    if (insertDom.nodeName === 'HTML') {
+      displayMessage.show('An element cannot be place outside the body', 2500, 'warning', false)
+      history.undo()
+      return this
+    }
+
+    if (insertDom.nodeName === 'BODY') appendStyle = 'in'
+
     let newElement = null
     switch (appendStyle) {
       case 'after':
@@ -396,7 +405,7 @@ const elementEvents = {
 
     history.add({
       done: this.paste,
-      doneArgs: [appendStyle, insertHTML, null, false, idRedo],
+      doneArgs: [appendStyle, newElement.outerHTML, null, false, idRedo],
       undo: this.delete,
       undoArgs: [false, idUndo],
       _this: this
@@ -479,6 +488,11 @@ const elementEvents = {
   dragStart (html) {
     if (!this.currentElement && !html) {
       displayMessage.show('No element selected to drag', 2000, 'warning', false)
+      return this
+    }
+
+    if (this.currentElement !== null && this.currentElement.nodeName === 'BODY') {
+      displayMessage.show('Body cannot be dragged', 2000, 'warning', false)
       return this
     }
 

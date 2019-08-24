@@ -28,6 +28,20 @@
   margin-left: 20%;
 }
 
+.element-editor .hide-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: $grey2;
+  z-index: 20;
+
+  >p {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+  }
+}
+
 .element-editor .sidebar-category {
   display: inline-block;
 
