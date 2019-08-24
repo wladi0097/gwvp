@@ -1,3 +1,9 @@
+
+
+**Unfortunately this project is way too big for one person and will not be maintained anymore. It was fun working on it! :)**
+
+
+
 <p align="center">
   <img alt="GWvP" src="https://raw.githubusercontent.com/wladi0097/gwvp/master/src/img/GithubLogo.png" width="400"/>
 </p>
