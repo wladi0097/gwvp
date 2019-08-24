@@ -17,12 +17,14 @@ const pageDomTree = {
   /** Are the domTree Events initialized?  */
   hasEvents: false,
 
+  $iframe: null,
+
   /** Reset the current domTree and build a new.
   * @param {HTMLElement} iframe - Build domTree out of this Element
   * @param {HTMLElement} domTree - Element to display the domTree
   */
   build (iframe, domTree) {
-    this.$iframe = iframe
+    this.$iframe = this.$iframe || iframe
     this.$domTree = domTree || document.getElementById('simulatedDomTree')
     if (!this.$iframe || !this.$domTree) return false
 
@@ -84,9 +86,15 @@ const pageDomTree = {
    * @param {HTMLElement} element - an iframe element
    */
   addNode (appendStyle, element) {
-    if (!element.domTree) {
-      this.build()
+    if (!element.domTree) this.build()
+
+    if (element.nodeName === 'BODY') {
+      this.reset()
+        .createTree(this.$iframe.body)
+        .$domTree.innerHTML = this.treeData.html
+      return
     }
+
     this.treeData.html = ''
     let id = 'tree-' + element.domTree
     let elem = document.getElementById(id)
@@ -177,6 +185,10 @@ const pageDomTree = {
   * @return this
   */
   addRelationEvents () {
+    this.$domTree.removeEventListener('mousedown', this.addRelationClickEvents.bind(this), false)
+    this.$domTree.removeEventListener('mouseover', this.addRelationHoverEvents.bind(this), false)
+    this.$iframe.body.removeEventListener('mousedown', this.domTreeScrollToElement.bind(this), false)
+
     this.$domTree.addEventListener('mousedown', this.addRelationClickEvents.bind(this), false)
     this.$domTree.addEventListener('mouseover', this.addRelationHoverEvents.bind(this), false)
     this.$iframe.body.addEventListener('mousedown', this.domTreeScrollToElement.bind(this), false)
@@ -243,6 +255,8 @@ const pageDomTree = {
   domTreeScrollToElement (e) {
     if (e.isTrusted && this.allowScrollToElement) {
       let elem = document.getElementById('tree-' + e.target.domTree)
+      if (!elem) return
+
       let parent = elem
       while (parent.nodeName !== 'DIV') {
         if (parent.nodeName === 'UL' && !parent.classList.contains('active')) {
