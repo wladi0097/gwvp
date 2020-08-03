@@ -1,6 +1,6 @@
 
 
-**Unfortunately this project is way too big for one person and will not be maintained anymore. It was fun working on it! :)**
+## **Unfortunately this project is way too big for one person and will not be maintained anymore. It was fun working on it! :)**
 
 
 
@@ -14,8 +14,6 @@
   <a title="js-standard-style" href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat">  </a>
   <a title="License: MIT" href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg">  </a>
 </p>
-
-#### This project is still in early development !!
 
 A one page web application to build **responsive** web pages **quickly** and still have **full control** over the created HTML, JS and CSS.    
 It comes with own little components to build a whole page. But you can always create your own or use already created ones.    
